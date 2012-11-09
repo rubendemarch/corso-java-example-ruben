@@ -71,10 +71,10 @@ public class Connessione {
 	 }
 	 
 	public void finalize(){
-		final String metodo="finalize";
-		logger.start(metodo);
+//		final String metodo="finalize";//questa stringa non verrà letta
+//		logger.start(metodo);//questa stringa non verrà letta
 		closeConnection();//nel finalize non viene letta quest'istruzione
-		logger.end(metodo);
+//		logger.end(metodo);//questa stringa non verrà letta
 		
 	}
 
