@@ -16,7 +16,9 @@ public class PropertiesTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		MyProperties mP=new MyProperties("C:/prop/DbConf.xml");
+//		MyProperties mP=new MyProperties("C:/prop/DbConf.xml");
+		MyProperties mP=new MyProperties("DbConf.xml");//Lo crea nella cartella workspace/test1
+//		MyProperties mP=new MyProperties("../../DbConf.xml");
 		mP.setProperty("url", "jdbc:oracle:thin:@localhost:1521");
 		mP.setProperty("dbName", ":xe");
 		mP.setProperty("driver", "oracle.jdbc.driver.OracleDriver");
