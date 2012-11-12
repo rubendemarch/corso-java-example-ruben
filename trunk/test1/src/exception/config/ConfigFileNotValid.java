@@ -1,13 +1,13 @@
 /**
  * 
  */
-package exception;
+package exception.config;
 
 /**
  * @author ALFA403
  *
  */
-public class ConfigFileNotValid extends ConfigFileNotFound {
+public class ConfigFileNotValid extends Config {
 
 	/**
 	 * 
