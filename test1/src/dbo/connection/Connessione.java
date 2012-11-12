@@ -4,16 +4,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import configuration.MyProperties;
+import exception.config.Config;
+
 import util.MyLogger;
 
 public class Connessione {
 	private MyLogger logger;
 	private Connection connection=null;//così lo inizializziamo
-	private  String url = "jdbc:oracle:thin:@localhost:1521";
-	private  String dbName = ":xe";
-	private  String driver = "oracle.jdbc.driver.OracleDriver";
-	private  String userName = "APPLICAZIONIJAVA"; 
-	private  String password = "JAVA";
+	private  String url = null;
+	private  String dbName = null;
+	private  String driver = null;
+	private  String userName = null; 
+	private  String password = null;
 	
 	
 	/**
@@ -23,11 +26,21 @@ public class Connessione {
 	 * e ritorna il tipo intrinseco, cioè la classe stessa
 	 * 
 	 */
-	 public Connessione() throws ReflectiveOperationException, SQLException {
+	 public Connessione(MyProperties mP) throws ReflectiveOperationException, SQLException {
 		logger=new MyLogger(this.getClass());
 		final String metodo="costruttore";
 		logger.start(metodo);
 		
+		try {
+			this.url = mP.getPropertyValue("url");
+			this.dbName = mP.getPropertyValue("dbName");
+			this.driver = mP.getPropertyValue("driver");
+			this.userName =mP.getPropertyValue("userName");
+			this.password =mP.getPropertyValue("password");
+		} catch (Config e) {
+			logger.fatal(metodo, "non leggo i dati", e);
+			e.printStackTrace();
+		}
 		try {
 			Class.forName(driver).newInstance();
 		} catch (InstantiationException 
