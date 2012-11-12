@@ -5,6 +5,8 @@ package example;
 
 import java.sql.SQLException;
 
+import configuration.MyProperties;
+
 import bussinessObject.Alunno;
 import dbo.connection.Connessione;
 import dbo.impl.DboAlunni;
@@ -24,7 +26,7 @@ public class TestDb {
 		test1();
 		System.out.println("aspetta");
 		int cnt=0;
-		while (cnt<60) {
+		while (cnt<7) {
 			cnt++;
 			try {
 			Thread.currentThread().sleep(1000);
@@ -42,7 +44,7 @@ public class TestDb {
 	private static void test1() {
 		Connessione c=null;
 			try {
-				c = new Connessione();
+				c = new Connessione(new MyProperties("C:/prop/DbConf.xml"));
 			} catch (ReflectiveOperationException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

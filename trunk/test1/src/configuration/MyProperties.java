@@ -42,7 +42,7 @@ public class MyProperties {
 	public String getPropertyValue(String key) throws Config{
 		final String metodo="getPropertyValue";
 		logger.start(metodo);
-		if(inputStream==null){
+		if(properties==null && inputStream==null){//se il properties non è valorizzato devo creare il canale, altrimenti il canale non serve
 			try {
 				inputStream=new FileInputStream(pathFile);
 			} catch (FileNotFoundException e) {//non c'è il file xml con username e password, quindi non possiamo fare un cavolo
@@ -110,5 +110,12 @@ public class MyProperties {
 					throw new ConfigFileCreateEx("fallita costruzione file di properties.properties");
 			}
 		}
+	}
+	
+	public void setProperty(String key, String value ){
+		if(properties==null){
+			properties= new Properties();
+		}
+		properties.setProperty(key, value);
 	}
 }
