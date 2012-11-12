@@ -1,14 +1,14 @@
 /**
  * 
  */
-package exception;
+package exception.config;
 
 /**
  * @author ALFA403
  * 
  * Abbiamo creato un'eccezione!! La lasciamo come creata di default, è solo x dare un nome
  */
-public class ConfigFileNotFound extends Exception {
+public class ConfigFileNotFound extends Config {
 
 	/**
 	 * 
