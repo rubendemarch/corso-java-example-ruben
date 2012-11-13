@@ -18,6 +18,9 @@ public class TestCript {
 	 * stampa la codifica hash md5 della parola scelta
 	 */
 	
+	/**
+	 * 
+	 */
 	public TestCript() {
 		logger=new MyLogger(this.getClass());
 		final String metodo="costruttore";
@@ -37,11 +40,14 @@ public class TestCript {
 		logger.end(metodo);
 	}
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args){
 		
 	//	new TestCript();//il test in md5
 		
-
+		
 		String password = "mypassword";
 		String passwordEnc = MyCript.encrypt(password);
 		String passwordDec = MyCript.decrypt(passwordEnc);
