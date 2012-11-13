@@ -32,7 +32,7 @@ public class MyCript {
 	}
 
 
-	private byte[]md5Encrypt(byte[]in) {//si può far ritornare un array di byte: byte[] o una stringa
+	public byte[]md5Encrypt(byte[]in) {//si può far ritornare un array di byte: byte[] o una stringa
 //		logger=new MyLogger(this.getClass());
 //		final String metodo="md5crypt";
 //		logger.start(metodo);
