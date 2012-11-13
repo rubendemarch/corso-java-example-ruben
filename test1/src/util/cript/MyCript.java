@@ -65,10 +65,10 @@ public class MyCript {
 //		int end=4;
 		int cntCicli=input.length()/3;
 		StringBuilder ret=new StringBuilder();
-		for (int i=0 ; i<cntCicli-1;i++){
+		for (int i=0 ; i<cntCicli;i++){
 			if (i!=cntCicli-1) {
-				ret.append((char) Integer.parseInt(input.substring(i, i + 3)));//mette le stringhe a blocchi di 3
-			}else {	ret.append((char)Integer.parseInt(input.substring(i)));}
+				ret.append((char) Integer.parseInt(input.substring(3*i, 3*i + 3)));//mette le stringhe a blocchi di 3
+			}else {	ret.append((char)Integer.parseInt(input.substring(3*i)));}
 		}
 		
 		return ret.toString();
