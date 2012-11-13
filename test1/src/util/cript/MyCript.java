@@ -6,6 +6,8 @@ package util.cript;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.apache.commons.lang3.StringUtils;
+
 import util.MyLogger;
 
 /**
@@ -15,6 +17,7 @@ import util.MyLogger;
 public class MyCript {
 	private MyLogger logger;
 	private MessageDigest md5=null;
+
 	/**
 	 * 
 	 */
@@ -49,7 +52,31 @@ public class MyCript {
 ////		md5.update(password.getBytes()); si può passare direttamente al digest
 	}
 	
-	private byte[]md5Decrypt(byte[]in){
-		return (md5.digest(in));
+	public static String encrypt(String input){
+		StringBuilder ret=new StringBuilder();
+		for (char c:input.toCharArray()){
+			ret.append(StringUtils.leftPad(((int)c)+"", 3, "0"));// il +"" fa capire a java che (int)c è una stringa
+		}
+		return ret.toString();
 	}
+
+	public static String decrypt(String input){
+//		int start=0;
+//		int end=4;
+		int cntCicli=input.length()/3;
+		StringBuilder ret=new StringBuilder();
+		for (int i=0 ; i<cntCicli-1;i++){
+			if (i!=cntCicli-1) {
+				ret.append((char) Integer.parseInt(input.substring(i, i + 3)));//mette le stringhe a blocchi di 3
+			}else {	ret.append((char)Integer.parseInt(input.substring(i)));}
+		}
+		
+		return ret.toString();
+	}
+
+
+
+
+	
+	
 }
