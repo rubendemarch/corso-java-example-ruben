@@ -44,7 +44,7 @@ public class TestDb {
 	private static void test1() {
 		Connessione c=null;
 			try {
-				c = new Connessione(new MyProperties("C:/prop/DbConf.xml"));
+				c = new Connessione(new MyProperties("DbConf.xml"));
 			} catch (ReflectiveOperationException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>DbConf.xml</comment>
+<entry key="url">jdbc:oracle:thin:@localhost:1521</entry>
+<entry key="password">JAVA</entry>
+<entry key="dbName">:xe</entry>
+<entry key="driver">oracle.jdbc.driver.OracleDriver</entry>
+<entry key="userName">APPLICAZIONIJAVA</entry>
+</properties>
