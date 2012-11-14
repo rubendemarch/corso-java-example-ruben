@@ -8,8 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import javax.jws.soap.InitParam;
-
 import util.MyLogger;
 
 /**
@@ -19,8 +17,8 @@ import util.MyLogger;
  */
 public class RootFile {
 private MyLogger logger;
-private File f;
-private PrintStream printStream;
+private File f=null;
+private PrintStream printStream=null;
 	/**
 	 * 
 	 */
@@ -66,5 +64,7 @@ private PrintStream printStream;
 		
 	}
 	
-	
+	public void closePrintStream(){
+		printStream.close();
+	}
 }

@@ -3,6 +3,8 @@
  */
 package enums;
 
+import java.util.Calendar;
+
 /**
  * @author ALFA403
  * 
@@ -12,10 +14,10 @@ package enums;
  */
 
 public enum Alunno {
-	USER_ID(			"USER_ID", 				35, 50, true, ' ', ";",String.class),
+	USER_ID(			"USER_ID", 				36, 50, true, ' ', ";",String.class),
 	NOME(				"nome", 				35, 50, true, ' ', ";",String.class),
 	COGNOME(			"cognome", 				35, 50, true, ' ', ";",String.class),
-	DATA_NASCITA(		"DATA_NASCITA", 		0, 50, true, ' ', ";",String.class),//0 perché non è una stringa ma calendar
+	DATA_NASCITA(		"DATA_NASCITA", 		0, 50, true, ' ', ";",Calendar.class),//0 perché non è una stringa ma calendar
 	SESSO(				"SESSO", 				1, 1, true, ' ', ";",String.class),
 	CF(					"CF", 					16, 16, true, ' ', ";",String.class),
 	STATO_NASCITA(		"STATO_NASCITA", 		35, 50, true, ' ', ";",String.class),
@@ -45,7 +47,7 @@ public enum Alunno {
 	 * @param separetor
 	 */
 	private Alunno(String columnName, int dbSize, int fileSize,
-			boolean isLeftAlign, char padChar, String separetor) {
+			boolean isLeftAlign, char padChar, String separetor, Class clazz) {
 		this.columnName = columnName;
 		this.dbSize = dbSize;
 		this.fileSize = fileSize;
