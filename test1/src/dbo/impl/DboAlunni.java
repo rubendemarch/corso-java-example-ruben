@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import util.MyLogger;
@@ -102,4 +103,71 @@ FROM ALUNNI order by cognome asc*/
 	}
 
 
+
+	public List<HashMap<String, Object>> dynamicReadAlunni(){
+		final String metodo="readAlunni";
+		logger.start(metodo);
+		StringBuilder sql=new StringBuilder("select ");
+		for(enums.Alunno a : enums.Alunno.values()){
+			sql.append(a.getColumnName()).append(",");
+		}
+//		sql=sql.deleteCharAt(sql.lastIndexOf(","));
+		sql=sql.deleteCharAt(sql.length()-1);
+		sql.append(" from alunni ").append("").append("order by cognome asc");
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		ArrayList<HashMap<String, Object>> alunnoList=null;
+		try {
+			/**
+			 * questi sono metodi del padre, così nn li deve richiamare qui ogni volta
+			 * in questo modo possiamo generalizzarli, centralizzandoli al padre
+			 * ciò è più comodo x debug, mantenimento,...
+			 */
+			ps = getPreparedStatement(sql.toString());
+			rs = executeQuery(ps);
+			alunnoList = new ArrayList<HashMap<String, Object>>();
+			if(rs!=null){
+				try {
+					while (rs.next()){
+						HashMap<String, Object> alunno=new HashMap<String, Object>();
+						for (enums.Alunno a:enums.Alunno.values()){
+							alunno.put(a.getColumnName(), Convert.convert(a, rs));
+						}
+						alunnoList.add(
+								alunno
+//							new Alunno(rs.getString("user_id"),
+//									rs.getString("nome"), 
+//									rs.getString("cognome"),
+//									Convert.convert(rs.getDate("data_Nascita")),
+//									Convert.convert(rs.getString("sesso")),
+//									rs.getString("cf"),
+//									rs.getString("stato_Nascita"),
+//									rs.getString("cod_Stato_Nascita"),
+//									rs.getString("comune_Nascita"),
+//									rs.getString("cod_Comune_Nascita"),
+//									rs.getString("e_mail"),
+//									Convert.convert(rs.getDate("data_Iscrizione")),
+//									new TitoloDiStudio(rs.getString("titolo_Di_Studio")))
+							);
+					}
+				} catch (SQLException e) {
+					logger.error(metodo, "scorro risultato", e);
+					throw e;
+				} catch (Exception e) {
+					logger.error(metodo, "COSTRUZIONE ALUNNO", e);
+					throw e;
+				}
+			}
+		} catch (SQLException e) {
+			logger.error(metodo, "", e);//il primo try e questo catch servono solo x far eseguire sempre il seguente finally
+		} finally{
+			close(ps, rs);
+		}
+		
+		logger.end(metodo);
+		return alunnoList;
+	}
+
+
 }
+
