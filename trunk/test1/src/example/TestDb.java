@@ -5,6 +5,8 @@ package example;
 
 import java.sql.SQLException;
 
+import util.file.RootFile;
+
 import configuration.MyProperties;
 
 import bussinessObject.Alunno;
@@ -51,6 +53,13 @@ public class TestDb {
 			}
 		if (c!=null) {
 			DboAlunni dboAlunni = new DboAlunni(c);
+			
+			RootFile rf = new RootFile();
+			rf.creaFile("test1.txt");
+			RootFile rf2 = new RootFile();
+			rf2.creaFile("test2.txt");
+			
+			
 
 //tutti metodi equivalenti, sceglieremo chi funziona meglio			
 			

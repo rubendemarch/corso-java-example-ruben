@@ -4,7 +4,11 @@
 package util.file;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
+
+import javax.jws.soap.InitParam;
 
 import util.MyLogger;
 
@@ -16,6 +20,7 @@ import util.MyLogger;
 public class RootFile {
 private MyLogger logger;
 private File f;
+private PrintStream printStream;
 	/**
 	 * 
 	 */
@@ -38,4 +43,28 @@ private File f;
 		}
 		return false;
 	}
+	
+	public void println(String line){
+		final String metodo="println";
+		logger.start(metodo);
+		initPrintStream();
+		printStream.println(line);
+		logger.end(metodo);
+	}
+
+	private void initPrintStream() {
+		final String metodo="initPrintStream";
+		logger.start(metodo);
+		if(f!=null&&printStream==null){
+			try {
+				printStream = new PrintStream(f);
+			} catch (FileNotFoundException e) {
+			logger.error(metodo, "initPrintStream", e);
+			}
+		}
+		logger.end(metodo);
+		
+	}
+	
+	
 }
