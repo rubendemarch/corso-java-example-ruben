@@ -4,7 +4,9 @@
 package example;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
+import util.StringFormat;
 import util.file.RootFile;
 
 import configuration.MyProperties;
@@ -33,7 +35,6 @@ public class TestDb {
 			try {
 			Thread.currentThread().sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -48,7 +49,6 @@ public class TestDb {
 			try {
 				c = new Connessione(new MyProperties("DbConf.xml"));
 			} catch (ReflectiveOperationException | SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		if (c!=null) {
@@ -59,6 +59,12 @@ public class TestDb {
 			RootFile rf2 = new RootFile();
 			rf2.creaFile("test2.txt");
 			
+			for (HashMap<String, Object> alunno: dboAlunni.dynamicReadAlunni()) {
+				rf.println(StringFormat.formatAlunno(alunno, true));
+				rf2.println(StringFormat.formatAlunno(alunno, false));
+			}
+			rf.closePrintStream();
+			rf2.closePrintStream();
 			
 
 //tutti metodi equivalenti, sceglieremo chi funziona meglio			

@@ -111,18 +111,13 @@ FROM ALUNNI order by cognome asc*/
 		for(enums.Alunno a : enums.Alunno.values()){
 			sql.append(a.getColumnName()).append(",");
 		}
-//		sql=sql.deleteCharAt(sql.lastIndexOf(","));
+//		sql=sql.deleteCharAt(sql.lastIndexOf(","));//oppure:
 		sql=sql.deleteCharAt(sql.length()-1);
 		sql.append(" from alunni ").append("").append("order by cognome asc");
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		ArrayList<HashMap<String, Object>> alunnoList=null;
 		try {
-			/**
-			 * questi sono metodi del padre, così nn li deve richiamare qui ogni volta
-			 * in questo modo possiamo generalizzarli, centralizzandoli al padre
-			 * ciò è più comodo x debug, mantenimento,...
-			 */
 			ps = getPreparedStatement(sql.toString());
 			rs = executeQuery(ps);
 			alunnoList = new ArrayList<HashMap<String, Object>>();
