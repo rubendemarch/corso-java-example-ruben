@@ -12,6 +12,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import util.MyLogger;
+import util.cript.MyCript;
 import exception.config.Config;
 import exception.config.ConfigFileCreateEx;
 import exception.config.ConfigFileNotFound;
@@ -39,9 +40,23 @@ public class MyProperties {
 		logger.end(metodo);
 			}
 
-	public String getPropertyValue(String key) throws Config{
-		final String metodo="getPropertyValue";
+	public String getProperty(String key) throws Config{
+		final String metodo="getProperty";
 		logger.start(metodo);
+		// inizializzazione
+		init();
+		//fine inizializzazione
+		String value=properties.getProperty(key);//ritorna null se il file non è nè xml nè properties,
+		if(value==null){// o se non trova la chiave(perché il file è criptato ;) )
+			value=properties.getProperty(MyCript.encrypt(key));
+			value= MyCript.decrypt(value);
+		}
+		logger.end(metodo);
+		return value;
+	}
+	
+	private void init() throws ConfigFileNotFound, ConfigFileNotValid{
+		final String metodo="init()getProperty";
 		if(properties==null && inputStream==null){//se il properties non è valorizzato devo creare il canale, altrimenti il canale non serve
 			try {
 				inputStream=new FileInputStream(pathFile);
@@ -76,8 +91,6 @@ public class MyProperties {
 				logger.warn(metodo, "fallito tentativo chiusura configInputStream", e);
 			}
 		}
-		logger.end(metodo);
-		return properties.getProperty(key);//ritorna null se il file non è nè xml nè properties
 	}
 	
 	/**
@@ -112,10 +125,19 @@ public class MyProperties {
 		}
 	}
 	
-	public void setProperty(String key, String value ){
+	public void setProperty(String key, String value , Boolean writeEncripted){
 		if(properties==null){
 			properties= new Properties();
 		}
-		properties.setProperty(key, value);
+		if(writeEncripted) {
+			properties.setProperty(MyCript.encrypt(key), MyCript.encrypt(value));
+		}
+		else {//cioè è vero (!isCript), non li voglio criptati
+			properties.setProperty(key, value);
+		}
+		/*metodo spiccio per scrivere con meno righe(=>probabilità minore di mettere bachi)
+		 * properties.setProperty(writeEncripted?MyCript.encrypt(key):key,
+		 * 							writeEncripted?MyCript.encrypt(value):value)
+		 */
 	}
 }

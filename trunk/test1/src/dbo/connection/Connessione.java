@@ -32,11 +32,11 @@ public class Connessione {
 		logger.start(metodo);
 		
 		try {
-			this.url = mP.getPropertyValue("url");
-			this.dbName = mP.getPropertyValue("dbName");
-			this.driver = mP.getPropertyValue("driver");
-			this.userName =mP.getPropertyValue("userName");
-			this.password =mP.getPropertyValue("password");
+			this.url = mP.getProperty("url");
+			this.dbName = mP.getProperty("dbName");
+			this.driver = mP.getProperty("driver");
+			this.userName =mP.getProperty("userName");
+			this.password =mP.getProperty("password");
 		} catch (Config e) {
 			logger.fatal(metodo, "non leggo i dati", e);
 			e.printStackTrace();

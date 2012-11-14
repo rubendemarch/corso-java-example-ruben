@@ -20,11 +20,12 @@ public class PropertiesTest {
 		MyProperties mP=new MyProperties("DbConf.properties");//Lo crea nella cartella workspace/test1
 //		MyProperties mP=new MyProperties("../../DbConf.xml");
 		
-		mP.setProperty("url", "jdbc:oracle:thin:@localhost:1521");
-		mP.setProperty("dbName", ":xe");
-		mP.setProperty("driver", "oracle.jdbc.driver.OracleDriver");
-		mP.setProperty("userName", "APPLICAZIONIJAVA");
-		mP.setProperty("password", "JAVA");
+		//Boolean cript=Boolean.TRUE;
+		mP.setProperty("url", "jdbc:oracle:thin:@localhost:1521", false);
+		mP.setProperty("dbName", ":xe", false);
+		mP.setProperty("driver", "oracle.jdbc.driver.OracleDriver", false);
+		mP.setProperty("userName", "APPLICAZIONIJAVA", true);
+		mP.setProperty("password", "JAVA", true);
 		try {
 			mP.writeConfigFile();
 		} catch (Config e) {

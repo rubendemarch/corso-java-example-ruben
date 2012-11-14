@@ -48,7 +48,7 @@ public class TestCript {
 	//	new TestCript();//il test in md5
 		
 		
-		String password = "mypassword";
+		String password = "º";
 		String passwordEnc = MyCript.encrypt(password);
 		String passwordDec = MyCript.decrypt(passwordEnc);
 		
