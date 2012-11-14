@@ -21,7 +21,7 @@ public class MyCript {
 	/**
 	 * 
 	 */
-	public MyCript() {
+	public MyCript() {//se non mi servirà chiamarlo in altri metodi conviene mettere private o toglierlo
 		logger=new MyLogger(this.getClass());
 		final String metodo="costruttore";
 		logger.start(metodo);
@@ -62,7 +62,7 @@ public class MyCript {
 
 	public static String decrypt(String input){
 //		int start=0;
-//		int end=4;
+//		int end=3;
 		int cntCicli=input.length()/3;
 		StringBuilder ret=new StringBuilder();
 		for (int i=0 ; i<cntCicli;i++){
