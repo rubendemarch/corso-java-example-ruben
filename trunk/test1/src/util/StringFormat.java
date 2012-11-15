@@ -29,7 +29,7 @@ public class StringFormat {
 	public static String formatAlunno(HashMap<String, Object>alunno, boolean isCsvFormat){
 		StringBuilder ret= new StringBuilder();
 		if(isCsvFormat){
-			for (enums.Alunno a:enums.Alunno.values()){
+			for (enums.Alunno a : enums.Alunno.values()){
 				ret.append(format(alunno.get(a.getColumnName()),a)).append(a.getSeparetor());
 			}
 		}else {//formato righe fisse
@@ -39,12 +39,12 @@ public class StringFormat {
 						(a.isLeftAlign())?
 						StringUtils.rightPad(
 								format(alunno.get(a.getColumnName()),a),
-								a.getFileSize(),
-								a.getPadChar()):
-						StringUtils.rightPad(
+									a.getFileSize(),
+									a.getPadChar()):
+						StringUtils.leftPad(
 								format(alunno.get(a.getColumnName()),a),
-								a.getFileSize(),
-								a.getPadChar())
+									a.getFileSize(),
+									a.getPadChar())
 						);
 						
 						
@@ -58,7 +58,7 @@ public class StringFormat {
 			return (String)val;
 		}
 		if(a.getClazz()==Calendar.class){
-			return new SimpleDateFormat("YYYYMMDD").format(((Calendar)val).getTime());
+			return new SimpleDateFormat("YYYYMMdd").format(((Calendar)val).getTime());
 		}
 		return"";
 	}
