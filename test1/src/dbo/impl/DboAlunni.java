@@ -111,8 +111,10 @@ FROM ALUNNI order by cognome asc*/
 		for(enums.Alunno a : enums.Alunno.values()){
 			sql.append(a.getColumnName()).append(",");
 		}
+		//devo cancellare l'ultima virgola
 //		sql=sql.deleteCharAt(sql.lastIndexOf(","));//oppure:
 		sql=sql.deleteCharAt(sql.length()-1);
+		
 		sql.append(" from alunni ").append("").append("order by cognome asc");
 		PreparedStatement ps=null;
 		ResultSet rs=null;

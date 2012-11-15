@@ -13,7 +13,7 @@ import java.util.Calendar;
  *
  */
 
-public enum Alunno {
+public enum Alunno {//è indifferente maiusc o minusc quando leggiamo le colonne dal db
 	USER_ID(			"USER_ID", 				36, 50, true, ' ', ";",String.class),
 	NOME(				"nome", 				35, 50, true, ' ', ";",String.class),
 	COGNOME(			"cognome", 				35, 50, true, ' ', ";",String.class),
@@ -28,10 +28,12 @@ public enum Alunno {
 	
 	private final String columnName;
 	private final int dbSize;
+	
 	//per fare righe di lunghezza fissa:
 	private final int fileSize;
 	private final boolean isLeftAlign;
 	private final char padChar; //<---il carattere da inserire per riempire la riga
+	
 	//per CVS, i(l) caratter(e)i di separazione:
 	private final String separetor;
 	
@@ -39,13 +41,16 @@ public enum Alunno {
 	
 	
 	/**
+	 * 
 	 * @param columnName
 	 * @param dbSize
 	 * @param fileSize
 	 * @param isLeftAlign
 	 * @param padChar
 	 * @param separetor
+	 * @param clazz
 	 */
+	 
 	private Alunno(String columnName, int dbSize, int fileSize,
 			boolean isLeftAlign, char padChar, String separetor, Class clazz) {
 		this.columnName = columnName;
