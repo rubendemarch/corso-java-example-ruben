@@ -105,7 +105,7 @@ FROM ALUNNI order by cognome asc*/
 
 
 	public List<HashMap<String, Object>> dynamicReadAlunni(){
-		final String metodo="readAlunni";
+		final String metodo="dynamicReadAlunni";
 		logger.start(metodo);
 		StringBuilder sql=new StringBuilder("select ");
 		for(enums.Alunno a : enums.Alunno.values()){
@@ -165,7 +165,6 @@ FROM ALUNNI order by cognome asc*/
 		logger.end(metodo);
 		return alunnoList;
 	}
-
 
 }
 

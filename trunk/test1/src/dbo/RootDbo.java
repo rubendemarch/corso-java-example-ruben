@@ -6,6 +6,12 @@ package dbo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import bussinessObject.interfaces.ColumnDescriptorInterface;
+import bussinessObject.interfaces.DescriptorsInterface;
 
 import util.MyLogger;
 import dbo.connection.Connessione;
@@ -86,5 +92,58 @@ public class RootDbo {
 				throw e;
 		}
 	}
+	
+	public List<HashMap<String, Object>> dynamicRead(
+			DescriptorsInterface di,
+			String tables,
+			String whereCond,
+			String orderByCond,
+			String groupByCond){
+		final String metodo="dynamicRead";
+		logger.start(metodo);
+		StringBuilder sql=new StringBuilder("select ");
+		for(ColumnDescriptorInterface cdi : di.getDescriptors()){
+			sql.append(cdi.getColumnName()).append(",");
+		}
+		sql=sql.deleteCharAt(sql.length()-1);
+		sql.append(" from ").append(tables)
+			.append(whereCond)
+			//TODO mancano gli spazi
+			.append(orderByCond)
+			.append(groupByCond);
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		ArrayList<HashMap<String, Object>> res=null;
+		try {
+			ps = getPreparedStatement(sql.toString());
+			rs = executeQuery(ps);
+			res = new ArrayList<HashMap<String, Object>>();
+			if(rs!=null){
+				try {
+					while (rs.next()){
+						HashMap<String, Object> row=new HashMap<String, Object>();
+						for (ColumnDescriptorInterface cdi  : di.getDescriptors()){
+							row.put(cdi.getColumnName(), rs.getObject(cdi.getColumnName()));
+						}
+						res.add(row);
+					}
+				} catch (SQLException e) {
+					logger.error(metodo, "scorro risultato", e);
+					throw e;
+				} catch (Exception e) {
+					logger.error(metodo, "COSTRUZIONE ALUNNO", e);
+					throw e;
+				}
+			}
+		} catch (SQLException e) {
+			logger.error(metodo, "", e);//il primo try e questo catch servono solo x far eseguire sempre il seguente finally
+		} finally{
+			close(ps, rs);
+		}
+		
+		logger.end(metodo);
+		return res;
+	}
+
 
 }

@@ -12,7 +12,7 @@ package enums;
  *
  *è indifferente maiusc o minusc quando leggiamo le colonne dal db
  *
- *l'ordine dei values dell'enum sarà l'ordine di scrittura delel colonne
+ *l'ordine dei values dell'enum sarà l'ordine di scrittura delle colonne
  */
 
 public enum Alunno {

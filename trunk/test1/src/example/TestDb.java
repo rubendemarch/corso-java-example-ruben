@@ -12,6 +12,9 @@ import util.file.RootFile;
 import configuration.MyProperties;
 
 import bussinessObject.Alunno;
+import bussinessObject.ColumnDescriptor;
+import bussinessObject.Descriptors;
+import dbo.RootDbo;
 import dbo.connection.Connessione;
 import dbo.impl.DboAlunni;
 
@@ -28,6 +31,7 @@ public class TestDb {
 	public static void main(String[] args) {
 		System.out.println("GOOOOOOOOOOOOOOOOOOO");
 		test1();
+		test2();
 		System.out.println("aspetta");
 		int cnt=0;
 		while (cnt<7) {
@@ -84,4 +88,45 @@ public class TestDb {
 		}
 		c.closeConnection();//chiude la connessione proprio quando abbiamo finito di usarla
 	}
+	
+	private static void test2() {
+		Connessione c=null;
+			try {
+				c = new Connessione(new MyProperties("DbConf.xml"));
+			} catch (ReflectiveOperationException | SQLException e) {
+				e.printStackTrace();
+			}
+		if (c!=null) {
+			RootDbo dbo = new RootDbo(c);
+			
+			RootFile rf = new RootFile();
+			rf.creaFile("test1_1.txt");
+			RootFile rf2 = new RootFile();
+			rf2.creaFile("test2_1.txt");
+/* Se lo vogliamo fare a mano:
+ * 			
+			Descriptors di = new Descriptors();
+			di.addColumnDescriptor(new ColumnDescriptor("USER_ID",						36, 	50,true,' ', ";",""));
+			di.addColumnDescriptor(new ColumnDescriptor("nome",								35, 	50,true,' ', ";",""));
+			di.addColumnDescriptor(new ColumnDescriptor("cognome",						35, 	50,true,' ', ";",""));
+			di.addColumnDescriptor(new ColumnDescriptor("data_nascita",					0, 		50,true,' ', ";","YYYYMMdd"));
+			di.addColumnDescriptor(new ColumnDescriptor("sesso",								1, 		1,true,' ', ";",""));
+			di.addColumnDescriptor(new ColumnDescriptor("cf",									16, 	16,true,' ', ";",""));
+			di.addColumnDescriptor(new ColumnDescriptor("STATO_NASCITA",				35, 	50,true,' ', ";",""));
+			di.addColumnDescriptor(new ColumnDescriptor("COD_STATO_NASCITA",		4,		50,true,' ', ";",""));
+			di.addColumnDescriptor(new ColumnDescriptor("COD_COMUNE_NASCITA",	4,		50,true,' ', ";",""));
+			di.addColumnDescriptor(new ColumnDescriptor("COMUNE_NASCITA",			35, 	50,true,' ', ";",""));
+			*/
+			
+			for (HashMap<String, Object> map: dbo.dynamicRead(di, " alunni", "", "", "")) {
+				rf.println(StringFormat.formatMap(map, true, di));
+				rf2.println(StringFormat.formatMap(map, false, di));
+			}
+			rf.closePrintStream();
+			rf2.closePrintStream();
+			
+		}
+		c.closeConnection();//chiude la connessione proprio quando abbiamo finito di usarla
+	}
+	
 }

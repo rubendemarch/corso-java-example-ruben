@@ -10,6 +10,9 @@ import java.util.HashMap;
 
 import org.apache.commons.lang3.StringUtils;
 
+import bussinessObject.interfaces.ColumnDescriptorInterface;
+import bussinessObject.interfaces.DescriptorsInterface;
+
 import enums.Alunno;
 
 
@@ -40,12 +43,12 @@ public class StringFormat {
 						(a.isLeftAlign())?
 						StringUtils.rightPad(
 								format(alunno.get(a.getColumnName()),a),
-									a.getFileSize(),
-									a.getPadChar()):
+								a.getFileSize(),
+								a.getPadChar()):
 						StringUtils.leftPad(
 								format(alunno.get(a.getColumnName()),a),
-									a.getFileSize(),
-									a.getPadChar())
+								a.getFileSize(),
+								a.getPadChar())
 						);
 						
 						
@@ -74,5 +77,57 @@ public class StringFormat {
 		}
 		
 		return"";//rappresentazione stringa vuota
+	}
+	
+	
+	
+	public static String formatMap(HashMap<String, Object>map, boolean isCsvFormat, DescriptorsInterface di){
+		StringBuilder ret= new StringBuilder();
+		if(isCsvFormat){
+			for(ColumnDescriptorInterface cdi : di.getDescriptors()){
+				ret.append(format(map.get(cdi.getColumnName()),cdi)).append(cdi.getSeparetor());
+			}
+		}else {//formato righe fisse
+			for(ColumnDescriptorInterface cdi : di.getDescriptors()){
+				ret.append(
+						
+						(cdi.isLeftAlign())?
+						StringUtils.rightPad(
+								format(map.get(cdi.getColumnName()),cdi),
+								cdi.getFileSize(),
+								cdi.getPadChar()):
+						StringUtils.leftPad(
+								format(map.get(cdi.getColumnName()),cdi),
+								cdi.getFileSize(),
+								cdi.getPadChar())
+						);
+						
+						
+			}
+		}
+		return ret.toString();
+	}
+
+	
+	
+	public static String format(Object val, ColumnDescriptorInterface cdi){
+		if(val!=null){
+			
+			if(val.getClass()==String.class){
+				return (String)val;
+			}
+			if(val.getClass()==Calendar.class){
+			
+				return new SimpleDateFormat(cdi.getPattern()).format(((Calendar)val).getTime());
+			}
+		
+			if(val.getClass()==Timestamp.class){
+			
+				return new SimpleDateFormat(cdi.getPattern()).format(((Timestamp)val).getTime());
+			}
+			return val.getClass().getName();
+		}
+		
+		return"";
 	}
 }
