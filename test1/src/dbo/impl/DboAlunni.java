@@ -128,7 +128,8 @@ FROM ALUNNI order by cognome asc*/
 					while (rs.next()){
 						HashMap<String, Object> alunno=new HashMap<String, Object>();
 						for (enums.Alunno a:enums.Alunno.values()){
-							alunno.put(a.getColumnName(), Convert.convert(a, rs));
+							//alunno.put(a.getColumnName(), Convert.convert(a, rs));//va a capire che oggetto è alunno
+							alunno.put(a.getColumnName(), rs.getObject(a.getColumnName()));//il tipo dell'oggetto è quello che dice la tabella
 						}
 						alunnoList.add(
 								alunno

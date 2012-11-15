@@ -3,6 +3,7 @@
  */
 package util;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -54,12 +55,24 @@ public class StringFormat {
 	}
 
 	public static String format(Object val, Alunno a){
-		if(a.getClazz()==String.class){
-			return (String)val;
+		if(val!=null){
+			
+//			if(a.getClazz()==String.class){//non mi piace il getClazz
+			if(val.getClass()==String.class){//infatti capisce direttamente la classe di val
+				return (String)val;//casta l'OBJECT come String
+			}
+			if(val.getClass()==Calendar.class){
+			
+				return new SimpleDateFormat(a.getPattern()).format(((Calendar)val).getTime());//c'è ClassCastException da date a calendar
+			}
+		
+			if(val.getClass()==Timestamp.class){//Timestamp è il formato in cui ritornano le date (si può vedere debuggando)
+			
+				return new SimpleDateFormat(a.getPattern()).format(((Timestamp)val).getTime());
+			}
+			return val.getClass().getName();//dice qual è la classe che non sono riuscito a gestire
 		}
-		if(a.getClazz()==Calendar.class){
-			return new SimpleDateFormat("YYYYMMdd").format(((Calendar)val).getTime());
-		}
-		return"";
+		
+		return"";//rappresentazione stringa vuota
 	}
 }
