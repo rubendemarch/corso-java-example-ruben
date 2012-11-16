@@ -68,7 +68,7 @@ public class Connessione {
 	 @Deprecated //ciò serve x farlo usare solo a noi quando serve
 	 public void closeConnection(){
 	//	logger=new MyLogger(this.getClass()); //tengo lo stesso logger di prima
-		System.out.println("distruttore");
+	//	System.out.println("chiudo connessione");
 		final String metodo="closeConnection";
 		logger.start(metodo);
 		 if (connection!=null) {
