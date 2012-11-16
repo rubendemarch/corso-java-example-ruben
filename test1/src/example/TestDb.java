@@ -14,6 +14,7 @@ import configuration.MyProperties;
 import bussinessObject.Alunno;
 import bussinessObject.ColumnDescriptor;
 import bussinessObject.Descriptors;
+import bussinessObject.interfaces.ColumnDescriptorInterface;
 import dbo.RootDbo;
 import dbo.connection.Connessione;
 import dbo.impl.DboAlunni;
@@ -103,8 +104,7 @@ public class TestDb {
 			rf.creaFile("test1_1.txt");
 			RootFile rf2 = new RootFile();
 			rf2.creaFile("test2_1.txt");
-/* Se lo vogliamo fare a mano:
- * 			
+// Se lo vogliamo fare a mano:
 			Descriptors di = new Descriptors();
 			di.addColumnDescriptor(new ColumnDescriptor("USER_ID",						36, 	50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("nome",								35, 	50,true,' ', ";",""));
@@ -116,9 +116,18 @@ public class TestDb {
 			di.addColumnDescriptor(new ColumnDescriptor("COD_STATO_NASCITA",		4,		50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("COD_COMUNE_NASCITA",	4,		50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("COMUNE_NASCITA",			35, 	50,true,' ', ";",""));
-			*/
 			
-			for (HashMap<String, Object> map: dbo.dynamicRead(di, " alunni", "", "", "")) {
+			StringBuilder sql=new StringBuilder("select ");
+			for(ColumnDescriptorInterface cdi : di.getDescriptors()){
+				sql.append(cdi.getColumnName()).append(",");
+			}
+			sql=sql.deleteCharAt(sql.length()-1);
+			sql.append(" from").append(" alunni")
+				.append("")//whereCond
+				.append("")//orderByCond
+				.append("");//groupByCond
+			
+			for (HashMap<String, Object> map: dbo.dynamicExecuteQuery(di, sql.toString(), null)) {
 				rf.println(StringFormat.formatMap(map, true, di));
 				rf2.println(StringFormat.formatMap(map, false, di));
 			}
