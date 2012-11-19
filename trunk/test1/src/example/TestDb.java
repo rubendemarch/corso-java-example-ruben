@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import util.StringFormat;
-import util.file.RootFile;
 
 import configuration.MyProperties;
 
@@ -18,6 +17,7 @@ import bussinessObject.interfaces.ColumnDescriptorInterface;
 import dbo.RootDbo;
 import dbo.connection.Connessione;
 import dbo.impl.DboAlunni;
+import file.RootFile;
 
 /**
  * @author ALFA403
@@ -90,7 +90,10 @@ public class TestDb {
 		c.closeConnection();//chiude la connessione proprio quando abbiamo finito di usarla
 	}
 	
-	private static void test2() {
+	/**
+	 * 
+	 */
+	  private static void test2() {
 		Connessione c=null;
 			try {
 				c = new Connessione(new MyProperties("DbConf.xml"));
@@ -109,7 +112,7 @@ public class TestDb {
 			di.addColumnDescriptor(new ColumnDescriptor("USER_ID",						36, 	50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("nome",								35, 	50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("cognome",						35, 	50,true,' ', ";",""));
-			di.addColumnDescriptor(new ColumnDescriptor("data_nascita",					0, 		50,true,' ', ";","YYYYMMdd"));
+			di.addColumnDescriptor(new ColumnDescriptor("data_nascita",					0, 		50,true,' ', ";","yyyyMMdd"));//YYYY dà l'anno della settimana, non del giorno
 			di.addColumnDescriptor(new ColumnDescriptor("sesso",								1, 		1,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("cf",									16, 	16,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("STATO_NASCITA",				35, 	50,true,' ', ";",""));

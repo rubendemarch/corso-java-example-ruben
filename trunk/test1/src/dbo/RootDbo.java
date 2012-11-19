@@ -199,6 +199,8 @@ public class RootDbo {
 	}
 
 	/**
+	 * Sostituisce i punti interrogativi nella query del set [values(?,?,?,....) ] con i parametri params
+	 * 
 	 * @param params
 	 * @param ps
 	 * @throws SQLException
