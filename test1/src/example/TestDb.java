@@ -17,6 +17,7 @@ import bussinessObject.interfaces.ColumnDescriptorInterface;
 import dbo.RootDbo;
 import dbo.connection.Connessione;
 import dbo.impl.DboAlunni;
+import exception.config.Config;
 import file.RootFile;
 
 /**
@@ -54,6 +55,8 @@ public class TestDb {
 			try {
 				c = new Connessione(new MyProperties("DbConf.xml"));
 			} catch (ReflectiveOperationException | SQLException e) {
+				e.printStackTrace();
+			}catch (Config e) {
 				e.printStackTrace();
 			}
 		if (c!=null) {
@@ -98,6 +101,8 @@ public class TestDb {
 			try {
 				c = new Connessione(new MyProperties("DbConf.xml"));
 			} catch (ReflectiveOperationException | SQLException e) {
+				e.printStackTrace();
+			} catch (Config e) {
 				e.printStackTrace();
 			}
 		if (c!=null) {

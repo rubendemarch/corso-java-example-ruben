@@ -26,7 +26,7 @@ public class Connessione {
 	 * e ritorna il tipo intrinseco, cioè la classe stessa
 	 * 
 	 */
-	 public Connessione(MyProperties mP) throws ReflectiveOperationException, SQLException {
+	 public Connessione(MyProperties mP) throws ReflectiveOperationException, SQLException, Config {
 		logger=new MyLogger(this.getClass());
 		final String metodo="costruttore";
 		logger.start(metodo);

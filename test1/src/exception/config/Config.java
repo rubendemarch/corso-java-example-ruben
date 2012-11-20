@@ -34,7 +34,7 @@ public class Config extends MyException {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
+	/**s
 	 * @param arg0
 	 * @param arg1
 	 */
@@ -49,8 +49,9 @@ public class Config extends MyException {
 	 * @param arg2
 	 * @param arg3
 	 */
-	public Config(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
-		super(arg0, arg1, arg2, arg3);
+	public Config(String message, Throwable cause, boolean enableSuppression,
+			boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
 	}
 
