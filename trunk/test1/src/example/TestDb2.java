@@ -16,6 +16,7 @@ import bussinessObject.interfaces.ColumnDescriptorInterface;
 import configuration.MyProperties;
 import dbo.RootDbo;
 import dbo.connection.Connessione;
+import exception.config.Config;
 import file.RootFile;
 
 /**
@@ -32,6 +33,8 @@ public class TestDb2 {
 		try {
 			c = new Connessione(new MyProperties("DbConf.xml"));
 		} catch (ReflectiveOperationException | SQLException e) {
+			e.printStackTrace();
+		} catch (Config e) {
 			e.printStackTrace();
 		}
 		

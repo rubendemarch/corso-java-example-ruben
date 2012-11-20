@@ -4,9 +4,11 @@
 package util;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -129,5 +131,35 @@ public class StringFormat {
 		}
 		
 		return"";
+	}
+	
+	public static HashMap<String, Object> formatMap(	String line,
+			boolean isCsvFormat,
+			DescriptorsInterface di){
+		HashMap<String,Object>map=new HashMap<String,Object>();
+		StringTokenizer tokenizer = new StringTokenizer(line,";");
+		for(ColumnDescriptorInterface cdi:di.getDescriptors()){
+			if(isCsvFormat){
+				if(StringUtils.isEmpty(cdi.getPattern())){
+					map.put(cdi.getColumnName(), tokenizer.nextToken());
+				}else{
+					try {
+						map.put(
+								cdi.getColumnName(),
+								new Timestamp(
+										new SimpleDateFormat(
+												cdi.getPattern()).parse(
+														tokenizer.nextToken()).getTime()));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}else{
+
+			}
+		}
+
+		return map;
 	}
 }
