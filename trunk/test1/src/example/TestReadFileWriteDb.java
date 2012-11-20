@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import util.StringFormat;
+import util.map.Convert;
 import bussinessObject.ColumnDescriptor;
 import bussinessObject.Descriptors;
 import bussinessObject.interfaces.ColumnDescriptorInterface;
@@ -84,7 +84,7 @@ public class TestReadFileWriteDb {
 				while( (line=bufferedReader.readLine())!=null ){
 				//for (int i =0;i<alunni.size();i++) {
 					
-					alunno=StringFormat.formatMap(line, true, di);
+					alunno=Convert.formatMap(line, true, di);
 					params.clear();
 					
 					for (int ci =0;ci<di.getDescriptors().size();ci++ ) {
