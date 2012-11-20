@@ -63,7 +63,12 @@ public class Convert {
 							appo=appo.substring(1);
 						}
 				}
-				//i metodi sopra si possono sostituire con StringUtils.StripEnd e StripStart
+				//i metodi sopra si possono sostituire con StringUtils.StripEnd e StripStart:
+				/*
+				 * appo=cdi.isLeftAlign()?StringUtils.StripEnd(appo,cdi.getPadChar()+""):
+				 * 							StringUtils.StripStart(appo,cdi.getPadChar()+"");
+				 * 
+				 */
 				
 				if(StringUtils.isEmpty(cdi.getPattern())){//se la colonna non ha il pattern
 						map.put(cdi.getColumnName(), appo);
