@@ -50,8 +50,8 @@ public class TestReadFileWriteDb {
 			di.addColumnDescriptor(new ColumnDescriptor("cf",									16, 	16,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("STATO_NASCITA",				35, 	50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("COD_STATO_NASCITA",		4,		50,true,' ', ";",""));
-			di.addColumnDescriptor(new ColumnDescriptor("COD_COMUNE_NASCITA",	4,		50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("COMUNE_NASCITA",			35, 	50,true,' ', ";",""));
+			di.addColumnDescriptor(new ColumnDescriptor("COD_COMUNE_NASCITA",	4,		50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("DATA_ISCRIZIONE",			0, 	50,true,' ', ";","yyyyMMdd"));
 
 			StringBuilder sqlInsert = new StringBuilder("INSERT INTO ALUNNI (");
@@ -101,7 +101,7 @@ public class TestReadFileWriteDb {
 			
 			
 		}
-
+		c.closeConnection();
 	}
 
 }

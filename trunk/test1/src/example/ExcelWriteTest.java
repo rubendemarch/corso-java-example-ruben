@@ -6,25 +6,17 @@ package example;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-
-import bussinessObject.ColumnDescriptor;
-import bussinessObject.Descriptors;
-import bussinessObject.interfaces.ColumnDescriptorInterface;
-import configuration.MyProperties;
-import dbo.RootDbo;
-import dbo.connection.Connessione;
-import exception.config.Config;
-import file.RootFile;
 
 import jxl.CellView;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.UnderlineStyle;
-import jxl.write.Formula;
+import jxl.write.DateTime;
 import jxl.write.Label;
 import jxl.write.Number;
 import jxl.write.WritableCellFormat;
@@ -33,7 +25,17 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+
+import org.apache.commons.lang3.StringUtils;
+
 import util.MyLogger;
+import bussinessObject.ColumnDescriptor;
+import bussinessObject.Descriptors;
+import bussinessObject.interfaces.ColumnDescriptorInterface;
+import configuration.MyProperties;
+import dbo.RootDbo;
+import dbo.connection.Connessione;
+import exception.config.Config;
 
 
 public class ExcelWriteTest {
@@ -47,7 +49,6 @@ public class ExcelWriteTest {
 		logger=new MyLogger(this.getClass());
 		final String metodo="costruttore";
 		logger.start(metodo);
-		//
 		logger.end(metodo);
 	}
 
@@ -61,10 +62,10 @@ public class ExcelWriteTest {
 		File file = new File(inputFile);
 		WorkbookSettings wbSettings = new WorkbookSettings();
 
-		wbSettings.setLocale(new Locale("en", "EN"));
+		wbSettings.setLocale(new Locale("it", "IT"));
 
 		WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
-		workbook.createSheet("Report", 0);
+		workbook.createSheet("Alunni", 0);
 		WritableSheet excelSheet = workbook.getSheet(0);
 		createLabel(excelSheet);
 //		createContent(excelSheet);
@@ -90,8 +91,8 @@ public class ExcelWriteTest {
 			di.addColumnDescriptor(new ColumnDescriptor("cf",						16, 	16,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("STATO_NASCITA",			35, 	50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("COD_STATO_NASCITA",		4,		50,true,' ', ";",""));
-			di.addColumnDescriptor(new ColumnDescriptor("COD_COMUNE_NASCITA",		4,		50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("COMUNE_NASCITA",			35, 	50,true,' ', ";",""));
+			di.addColumnDescriptor(new ColumnDescriptor("COD_COMUNE_NASCITA",		4,		50,true,' ', ";",""));
 			di.addColumnDescriptor(new ColumnDescriptor("DATA_ISCRIZIONE",			35, 	50,true,' ', ";","yyyyMMdd"));
 
 			StringBuilder sql=new StringBuilder("select ");
@@ -104,7 +105,6 @@ public class ExcelWriteTest {
 			List<HashMap<String, Object>> alunni = dbo.dynamicExecuteQuery(di, sql.toString(), null);
 			HashMap<String, Object> alunno;
 			ColumnDescriptorInterface cdi;
-			ArrayList<Object>params=new ArrayList<>();
 			//scrivo i nomi delle colonne
 			for(int i=0;i<di.getDescriptors().size();i++){
 				cdi=di.getDescriptors().get(i);
@@ -113,27 +113,32 @@ public class ExcelWriteTest {
 			//scrivo i valori dentro le colonne
 			for (int j=0;j<alunni.size();j++) {
 				alunno=alunni.get(j);
-				params.clear();
 				for (int i=0;i<di.getDescriptors().size();i++){
 					cdi=di.getDescriptors().get(i);
-				
-			//TODO
-				
-					params.add("USER_ID".equals(cdi.getColumnName())?
-							i+"_"+alunno.get(cdi.getColumnName())
-							:alunno.get(cdi.getColumnName()));
+					if(StringUtils.isEmpty(cdi.getPattern())){//se la colonna non ha il pattern
+						addLabel(excelSheet, i, j+1, alunno.get(cdi.getColumnName()).toString());
+					}else{//se la colonna ha il pattern (e quindi sarà una data)
+//						Date date = (Date) alunno.get(cdi.getColumnName());//cast da sql.date a util.date//ma è influenzato dalla timezone
+						Timestamp timestamp = (Timestamp) alunno.get(cdi.getColumnName());
+						Date date=new Date(timestamp.getTime());
+						addDate(excelSheet, i, j+1, date);
+					}
 				}
-			
-			
-			
 			}
 		}
-
-
+		//aggiusto larghezza colonne
+		for(int j = 0; j < excelSheet.getColumns(); j++) {
+		CellView cv = excelSheet.getColumnView(j);
+		cv.setAutosize(true);
+		excelSheet.setColumnView(j, cv);
+		}
 		workbook.write();
 		workbook.close();
+		c.closeConnection();
 	}
 
+
+	
 	private void createLabel(WritableSheet sheet)
 			throws WriteException {
 		// Lets create a times font
@@ -153,7 +158,7 @@ public class ExcelWriteTest {
 		CellView cv = new CellView();
 		cv.setFormat(times);
 		cv.setFormat(timesBoldUnderline);
-		cv.setAutosize(true);
+		cv.setAutosize(false);
 
 //		// Write a few headers
 //		addCaption(sheet, 0, 0, "Header 1");
@@ -209,6 +214,12 @@ public class ExcelWriteTest {
 		Label label;
 		label = new Label(column, row, s, times);
 		sheet.addCell(label);
+	}
+	
+	private void addDate(WritableSheet sheet, int column, int row,
+			Date date) throws WriteException, RowsExceededException {
+		DateTime dateTime = new DateTime(column, row, date );
+		sheet.addCell(dateTime);
 	}
 
 	public static void main(String[] args) throws WriteException, IOException {
