@@ -287,7 +287,12 @@ public class RootDbo {
 										rs.getInt("DB_SIZE"),
 										rs.getInt("FILE_SIZE"),
 										rs.getBoolean("IS_LEFT_ALIGN"),
-										((char)rs.getObject("PAD_CHAR")),
+										((String)rs.getObject("PAD_CHAR")).charAt(0),
+										/*il char del padchar lo vede come stringa,
+										 *  quindi dobbiamo prendere il primo carattere (che è anche l'unico).
+										 *   char non deve essere null, perché non esiste il char vuoto
+										 *   (ma esiste la stringa vuota)
+										 */
 										rs.getString("SEP"),
 										rs.getString("PATTERN")));
 						
