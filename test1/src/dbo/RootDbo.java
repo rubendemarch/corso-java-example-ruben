@@ -171,6 +171,7 @@ public class RootDbo {
 		ResultSet rs=null;
 		ArrayList<HashMap<String, Object>> res=null;
 		try {
+			logger.debug(metodo, sql);
 			ps = getPreparedStatement(sql);
 			
 			setParams(params, ps);
@@ -212,11 +213,15 @@ public class RootDbo {
 	 */
 	private void setParams(List<Object> params, PreparedStatement ps)
 			throws SQLException {
+		final String metodo="setparams";
+		logger.start(metodo);
 		if (params!=null) {
 			for (int i = 0; i < params.size(); i++) {
+				logger.trace(metodo, params.get(i).toString());
 				ps.setObject(i + 1, params.get(i));//i+1 perché nel DB la prima entrata delle tabelle ha indice 1 anziché 0
 			}
 		}
+		logger.end(metodo);
 	}
 
 	/**
@@ -230,7 +235,7 @@ public class RootDbo {
 			List<Object>params){
 		final String metodo="dynamicExecuteUpdate";
 		logger.start(metodo);
-
+		logger.debug(metodo, sql);
 		PreparedStatement ps=null;
 		try {
 			ps = getPreparedStatement(sql);

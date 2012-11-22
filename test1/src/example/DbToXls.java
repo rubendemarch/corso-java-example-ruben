@@ -150,6 +150,7 @@ public class DbToXls {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			connessione.closeConnection();
 		}
 	}
 }
