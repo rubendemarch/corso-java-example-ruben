@@ -12,7 +12,6 @@ import java.util.List;
 
 import util.MyLogger;
 import util.dbo.Convert;
-
 import bussinessObject.Alunno;
 import bussinessObject.TitoloDiStudio;
 import bussinessObject.interfaces.ColumnDescriptorInterface;
@@ -179,6 +178,47 @@ FROM ALUNNI order by cognome asc*/
 		sql.append(" from").append(" alunni");
 		
 		return dynamicExecuteQuery(di, sql.toString(), null);
+	}
+
+
+	@Override
+	public int dynamicInsertAlunno(DescriptorsInterface di,
+			HashMap<String, Object> alunno) {
+		List<Object>params = new ArrayList<Object>();
+		StringBuilder sqlInsert = new StringBuilder("INSERT INTO ALUNNI (");
+		StringBuilder sqlInsertParam = new StringBuilder();
+		for (ColumnDescriptorInterface cdi: di.getDescriptors()) {
+			sqlInsert.append(cdi.getColumnName()).append(",");
+			sqlInsertParam.append("?,");
+			params.add(alunno.get(cdi.getColumnName()));
+		}
+		sqlInsert=sqlInsert.deleteCharAt(sqlInsert.length()-1);
+		sqlInsert.append(")VALUES(")
+					.append(sqlInsertParam.deleteCharAt(sqlInsertParam.length()-1))
+					.append(")");
+		return dynamicExecuteUpdate(sqlInsert.toString(), params);
+	}
+
+	@Override
+	public int dynamicUpdateAlunno(DescriptorsInterface di,
+			HashMap<String, Object> alunno) {
+		StringBuilder sqlUpdate = new StringBuilder("UPDATE ALUNNI SET ");
+		StringBuilder sqlwhere = new StringBuilder(" WHERE ");
+		List<Object>params = new ArrayList<Object>();
+		Object k=null;
+		for (ColumnDescriptorInterface cdi: di.getDescriptors()) {
+			if(!"user_id".equalsIgnoreCase(cdi.getColumnName())){
+				sqlUpdate.append(cdi.getColumnName()).append("=?,");
+				params.add(alunno.get(cdi.getColumnName()));
+			}else{
+				sqlwhere.append(cdi.getColumnName()).append("=?");
+				k=alunno.get(cdi.getColumnName());
+			}
+		}
+		params.add(k);//aggiunge lo user_id come ultimo param da settare
+		sqlUpdate=sqlUpdate.deleteCharAt(sqlUpdate.length()-1);
+		sqlUpdate.append(sqlwhere);
+		return dynamicExecuteUpdate(sqlUpdate.toString(), params);
 	}
 
 }
