@@ -129,12 +129,11 @@ public class ExcelReadTest {
 						cdi=di.getDescriptors().get(ci);
 						params.add(alunno.get(cdi.getColumnName()));
 					}
-					System.out.println(i +"  "+dbo.dynamicExecuteUpdate(sqlInsert.toString(), params));
+					System.out.println(dbo.dynamicExecuteUpdate(sqlInsert.toString(), params));
 				}
 			} catch (BiffException e) {
 				e.printStackTrace();
 			}
-			alunni.clear();
 			c.closeConnection();
 			
 		}

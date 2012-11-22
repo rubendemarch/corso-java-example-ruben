@@ -15,6 +15,8 @@ import util.dbo.Convert;
 
 import bussinessObject.Alunno;
 import bussinessObject.TitoloDiStudio;
+import bussinessObject.interfaces.ColumnDescriptorInterface;
+import bussinessObject.interfaces.DescriptorsInterface;
 import dbo.RootDbo;
 import dbo.connection.Connessione;
 
@@ -164,6 +166,19 @@ FROM ALUNNI order by cognome asc*/
 		
 		logger.end(metodo);
 		return alunnoList;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> dynamicReadAlunni(
+			DescriptorsInterface di) {
+		StringBuilder sql=new StringBuilder("select ");
+		for(ColumnDescriptorInterface cdi : di.getDescriptors()){
+			sql.append(cdi.getColumnName()).append(",");
+		}
+		sql=sql.deleteCharAt(sql.length()-1);
+		sql.append(" from").append(" alunni");
+		
+		return dynamicExecuteQuery(di, sql.toString(), null);
 	}
 
 }

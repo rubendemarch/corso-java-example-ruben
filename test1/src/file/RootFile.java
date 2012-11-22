@@ -67,4 +67,11 @@ private PrintStream printStream=null;
 	public void closePrintStream(){
 		printStream.close();
 	}
+
+	/**
+	 * @return the f
+	 */
+	public File getF() {
+		return f;
+	}
 }

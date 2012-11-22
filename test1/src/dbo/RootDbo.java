@@ -10,10 +10,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import bussinessObject.Alunno;
+import bussinessObject.ColumnDescriptor;
+import bussinessObject.Descriptors;
+import bussinessObject.TitoloDiStudio;
 import bussinessObject.interfaces.ColumnDescriptorInterface;
 import bussinessObject.interfaces.DescriptorsInterface;
 
 import util.MyLogger;
+import util.dbo.Convert;
 import dbo.connection.Connessione;
 
 /**
@@ -247,6 +252,62 @@ public class RootDbo {
 	 */
 	private int executeUpdate(PreparedStatement ps) throws SQLException {
 		return ps.executeUpdate();
+	}
+
+	public DescriptorsInterface readConfig(String configName){
+		final String metodo="readConfig";
+		logger.start(metodo);
+		StringBuilder sql=
+				new StringBuilder("select ")//imp lo spazio dopo select
+					.append("COL_NAME,TBL_NAME,DB_SIZE,FILE_SIZE,IS_LEFT_ALIGN,PAD_CHAR,SEP,PATTERN")
+					.append(" from CONFIG_DESCRIPTORS where NOME_DESCRIPTOR=? order by INDEX_ORDER");
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		DescriptorsInterface di=new Descriptors();
+		try {
+			ps = getPreparedStatement(sql.toString());
+			ps.setObject(1, configName);
+			rs = executeQuery(ps);
+			if(rs!=null){
+				try {
+/*					NOME_DESCRIPTOR
+					COL_NAME
+					TBL_NAME
+					DB_SIZE
+					FILE_SIZE
+					IS_LEFT_ALIGN
+					PAD_CHAR
+					SEP
+					PATTERN
+					INDEX_ORDER*/
+					while (rs.next()){
+						di.addColumnDescriptor(
+								new ColumnDescriptor(
+										rs.getString("COL_NAME"),
+										rs.getInt("DB_SIZE"),
+										rs.getInt("FILE_SIZE"),
+										rs.getBoolean("IS_LEFT_ALIGN"),
+										((char)rs.getObject("PAD_CHAR")),
+										rs.getString("SEP"),
+										rs.getString("PATTERN")));
+						
+					}
+				} catch (SQLException e) {
+					logger.error(metodo, "scorro risultato", e);
+					throw e;
+				} catch (Exception e) {
+					logger.error(metodo, "COSTRUZIONE ALUNNO", e);
+					throw e;
+				}
+			}
+		} catch (SQLException e) {
+			logger.error(metodo, "", e);//il primo try e questo catch servono solo x far eseguire sempre il seguente finally
+		} finally{
+			close(ps, rs);
+		}
+		
+		logger.end(metodo);
+		return di;
 	}
 
 }
