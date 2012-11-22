@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import bussinessObject.Alunno;
+import bussinessObject.interfaces.DescriptorsInterface;
 
 /**
  * @author ALFA403
@@ -24,5 +25,11 @@ public interface DboAlunni {
 	 * @return restituisce tutti gli alunni presenti nella tabella alunni
 	 */
 	public List<HashMap<String, Object>>dynamicReadAlunni();
+	
+	/*
+	 * 
+	 * @return restituisce tutti gli alunni presenti nella tabella alunni
+	 */
+	public List<HashMap<String, Object>>dynamicReadAlunni(DescriptorsInterface di);
 
 }
