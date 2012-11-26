@@ -3,17 +3,21 @@
 <head>
 <!-- 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> -->
 <title>Prova 1</title>
-<link href="primoStile.css" rel="stylesheet">
+<link 
+href="primoStile.css" 
+rel="stylesheet"
+type="text/css"><!-- non è necessario -->
 
-<script type="text/javascript">
-	function saluta() {
-		alert("Hai confermato! Che cosa?");
-	}
+
+<script
+type="text/javascript"
+src="primoFileJS.js">
+
 </script>
 
 </head>
-<body>
-	<table border="0" bordercolor="#AD1DBD" width="100%" cellspacing="14">
+<body class="principale">
+	<table>
 		<tr>
 			<th bgcolor="fuchsia" colspan="2">
 				<p
@@ -49,26 +53,26 @@
 			<td bgcolor="aqua" colspan="2">
 				<table width="100%">
 					<tr>
-						<td width="50%" align="right">Nome: <input type="text"
+						<td align="right">Nome: <input type="text"
 							title="Nome" size="25">
 						</td>
-						<td width="50%" align="right">Telefono: <input type="text"
+						<td align="right">Telefono: <input type="text"
 							title="Telefono" size="25">
 						</td>
 					</tr>
 					<tr>
-						<td width="50%" align="right">Cognome: <input type="text"
+						<td align="right">Cognome: <input type="text"
 							title="Cognome" size="25">
 						</td>
-						<td width="50%" align="right">e-mail: <input type="text"
+						<td align="right">e-mail: <input type="text"
 							title="e-mail" size="25">
 						</td>
 					</tr>
 					<tr>
-						<td width="50%" align="right">Data di Nascita: <input
+						<td align="right">Data di Nascita: <input
 							title="Data di Nascita" type="text" size="25">
 						</td>
-						<td width="50%" align="center"><input type="button"
+						<td align="center"><input type="button"
 							title="Ti ho detto vai tranquillo!"
 							value="Conferma tutto e vai tranquillo" onclick="saluta()">
 						</td>

@@ -1,5 +1,35 @@
-@CHARSET "ISO-8859-1";
+/* @CHARSET "ISO-8859-1"; */
 body{
 	 background-color:black;
+ 	 font: 12; /*istruzione non valida*/
+	 font-family: verdana;
 }
+
+body.principale{
+	 background-color:pink;
+}
+
+table {
+	border:0px;
+	border-color:#AD1DBD;
+	width:100%;
+/*	margin:80px; 
+	padding:14px;*/
+	font-size:10px;
+	font-style: italic;
+	font-weight: bold;
+	border-collapse:separate;
+}
+
+th {
+	font-style: oblique;
+}
+
+tr{
+	font-size: 16em;
+	font-weight: normal;
+}
+td {width:50%;
+	font-size: 9px;
 	
+}
