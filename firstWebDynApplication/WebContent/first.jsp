@@ -1,3 +1,5 @@
+<%@page import="java.util.GregorianCalendar"%>
+<%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -7,9 +9,33 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Timezones globali</title>
 </head>
 <body>
+<table>
+<tr>
+<th>Id Disponibili</th>
+<th>Nome ID</th>
+<th>Ora in quel posto</th>
+</tr>
+<%
+SimpleDateFormat sdf = new SimpleDateFormat(//sdf è una VARIABILE DI PAGINA
+		"EEEEEEEEE d MMMMMMMMMMMM YYYY H:m.s SSS",
+		Locale.ITALY);
+for(String id: TimeZone.getAvailableIDs()){
+	sdf.setTimeZone(TimeZone.getTimeZone(id));//sovrascrive LOCALE.ITALY
+	%>
+<tr>
+<td><%=id%></td>
+<td><%=TimeZone.getTimeZone(id).getDisplayName() %></td>
+<td><%=sdf.format(Calendar.getInstance().getTime()) %></td>
+</tr>
+<%
+}
+%>
+
+
+</table>
 	<p>
 		<%=new SimpleDateFormat(
 					"EEEEEEEEE d MMMMMMMMMMMM YYYY H:m.s SSS",
