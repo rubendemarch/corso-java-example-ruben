@@ -62,7 +62,7 @@ for(String id: TimeZone.getAvailableIDs()){
 		<%=new SimpleDateFormat(
 					"EEEEEEEEE d MMMMMMMMMMMM YYYY H:m.s SSS",
 					Locale.CANADA_FRENCH
-					).format(Calendar.getInstance(Locale.GERMAN).getTime())%>
+					).format(Calendar.getInstance(Locale.FRENCH).getTime())%>
 	</p>
 	<p>
 		<%=new SimpleDateFormat(
