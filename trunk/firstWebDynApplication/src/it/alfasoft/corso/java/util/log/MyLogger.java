@@ -4,6 +4,8 @@
 package it.alfasoft.corso.java.util.log;
 
 
+import it.alfasoft.corso.java.util.format.StringFormat;
+
 import org.apache.log4j.Logger;
 
 /**
