@@ -20,7 +20,7 @@ ResourceBundle rb = ResourceBundle.getBundle("test", request.getLocale());
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><%=rb.getString("title") %></title>
+<title>aaa</title>
 </head>
 <body>
 <table>
