@@ -53,8 +53,7 @@ public class Home extends RootServlet{
 		List<String>resources=new ArrayList<String>();
 		resources.add("test");
 		resources.add("testa");
-		ResourceBundle rb=loadLanguage(request, resources);
-		request.setAttribute(Session.LANG, rb);
+		loadLanguage(request, resources);
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 	}
 }

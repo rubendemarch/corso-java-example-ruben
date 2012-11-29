@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="WebApp_ID" version="3.0">
-	<display-name>firstWebDynApplication</display-name>
-	<welcome-file-list>
-		<welcome-file>first.jsp</welcome-file>
-	</welcome-file-list>
-
-	<servlet>
-		<servlet-name>primonome</servlet-name>
-		<servlet-class>it.alfasoft.corso.java.servlet.Home</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<!-- il servletname serve per mappare il server che c'è riportato sopra -->
-		<servlet-name>primonome</servlet-name>
-		<url-pattern>/home</url-pattern>
-	</servlet-mapping>
-
-
-
-	<context-param>
-		<param-name>supportedLanguages</param-name>
-		<param-value>it;en;fr</param-value>
-	</context-param>
-<!-- caso mai servisse -->
-<!-- 	<locale-encoding-mapping-list> -->
-<!-- 		<locale-encoding-mapping> -->
-<!-- 			<locale>ja</locale> -->
-<!-- 			<encoding>Shift_jsp</encoding> -->
-<!-- 		</locale-encoding-mapping> -->
-<!-- 	</locale-encoding-mapping-list> -->
-
-
-
-
-
-
-
-
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>firstWebDynApplication</display-name>
+  <welcome-file-list>
+    <welcome-file>first.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>HomeServlet</servlet-name>
+    <servlet-class>it.alfasoft.corso.java.servlet.Home</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>ManageLanguages</servlet-name>
+    <servlet-class>it.alfasoft.corso.java.servlet.ManageLanguages</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>HomeServlet</servlet-name>
+    <url-pattern>/home</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>ManageLanguages</servlet-name>
+    <url-pattern>/ManageLanguages</url-pattern>
+  </servlet-mapping>
+  
+  <context-param>
+    <param-name>managedLanguages</param-name>
+    <param-value>it en fr</param-value>
+  </context-param>
 </web-app>
