@@ -59,10 +59,11 @@ public class RootServlet extends HttpServlet {
 	protected Locale getLocale(HttpServletRequest request) {
 		final String metodo="getLocale";
 		log.start(metodo);
-		String language= (String) getServletContext().getInitParameter("managedLanguages");
-		log.info(metodo, language);
 		if(request.getSession().getAttribute(Session.LANG)==null){
 
+			String language= (String) getServletContext().getInitParameter("managedLanguages");
+			log.info(metodo, language);
+			
 			List<Locale>locs=Collections.list(request.getLocales());
 			//setta la lingua di default
 			/*NB Come lingua di default viene data la lingua 
@@ -76,7 +77,7 @@ public class RootServlet extends HttpServlet {
 					break;
 				}
 			}
-			/*hasMoreElements e nextElement ciclano all'infinito
+			/*hasMoreElements() e nextElement() ciclano all'infinito
 			 * while(request.getLocales().hasMoreElements()){
 				l=request.getLocales().nextElement();
 				if(language.contains(
@@ -92,8 +93,7 @@ public class RootServlet extends HttpServlet {
 	}
 
 	protected void loadLanguage(HttpServletRequest request,
-			List<String> resources// sono i nomi di tutti i file di properties
-			// che ci servono
+			List<String> resources// sono i nomi di tutti i file di properties che ci servono
 			) {
 		Locale locale = getLocale(request);
 		request.setAttribute(Request.ResourceBundle,
