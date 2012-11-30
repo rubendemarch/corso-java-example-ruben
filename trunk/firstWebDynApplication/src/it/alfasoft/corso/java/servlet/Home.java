@@ -1,14 +1,10 @@
 package it.alfasoft.corso.java.servlet;
 
-import it.alfasoft.corso.java.util.constants.Session;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Home
  */
-@WebServlet(description = "home", urlPatterns = { "/Home" })
+//@WebServlet(description = "home", urlPatterns = { "/Home" })
 /*urlPatterns può anche non essere l'url-pattern nel web-xml,
-verranno letti entrambi allo stesso modo*/
+verranno letti entrambi allo stesso modo
+MEGLIO CENTRALIZZARE SOLO NEL web.xml
+*/
 public class Home extends RootServlet{
 	private static final long serialVersionUID = 1L;
 

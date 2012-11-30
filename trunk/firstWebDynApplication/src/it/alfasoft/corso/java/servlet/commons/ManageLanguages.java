@@ -1,7 +1,6 @@
 package it.alfasoft.corso.java.servlet.commons;
 
 import it.alfasoft.corso.java.servlet.RootServlet;
-import it.alfasoft.corso.java.util.constants.Request;
 import it.alfasoft.corso.java.util.constants.Session;
 
 import java.io.IOException;
@@ -10,14 +9,14 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class ManageLanguages
  */
-@WebServlet("/ManageLanguages")
+
 public class ManageLanguages extends RootServlet {
 	private static final long serialVersionUID = 1L;
        
