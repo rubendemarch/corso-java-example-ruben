@@ -4,38 +4,46 @@
 
 	<appender name="FileAppender" class="org.apache.log4j.RollingFileAppender">
 		<param name="File" value="C:/log/test1.log" />
-<!-- 		<param name="Threshold" value="TRACE" /> -->
-		<param name="Append" value="true"/>
+		<!-- <param name="Threshold" value="TRACE" /> -->
+		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
-<!--  Il DEFAULT è <param name="ConversionPattern" value="%-4r [%t] %-5p %c %x - %m%n" /> -->
+			<!-- Il DEFAULT è <param name="ConversionPattern" value="%-4r [%t] %-5p 
+				%c %x - %m%n" /> -->
 			<param name="ConversionPattern" value="[%d{ISO8601}][%-5p] [%t] [%c]%m%n" />
 		</layout>
 	</appender>
 
 	<appender name="MybatisFileAppender" class="org.apache.log4j.RollingFileAppender">
 		<param name="File" value="C:/log/mybatis.log" />
-<!-- 		<param name="Threshold" value="TRACE" /> -->
-		<param name="Append" value="true"/>
+		<!-- <param name="Threshold" value="TRACE" /> -->
+		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
-<!--  Il DEFAULT è <param name="ConversionPattern" value="%-4r [%t] %-5p %c %x - %m%n" /> -->
+			<!-- Il DEFAULT è <param name="ConversionPattern" value="%-4r [%t] %-5p 
+				%c %x - %m%n" /> -->
 			<param name="ConversionPattern" value="[%d{ISO8601}][%-5p] [%t] [%c]%m%n" />
 		</layout>
 	</appender>
 
-<categoryFactory class="()org.apache.ibatis">
-	<param name="mybatis" value="TRACE"/>
-<!-- 	<level value="TRACE"></level> -->
-	<appender-ref  ref="MybatisFileAppender"/>
-	
-</categoryFactory>
+<!-- PER OGNI MAPPER POSSO FARE UN LOGGER A PARTE -->
+
+<!-- L'ADDITIVITY A false DICE CHE NON AGGIUNGE ANCHE NELLA ROOT -->
+	<logger name="org.apache.ibatis" additivity="false">
+		<level value="TRACE"></level>
+		<appender-ref ref="MybatisFileAppender" />
+	</logger>
+
+	<logger name="language" additivity="false">
+		<level value="TRACE"></level>
+		<appender-ref ref="MybatisFileAppender" />
+	</logger>
 
 	<root>
-<!-- 		<level value="TRACE" "DEBUG" "INFO" "WARN" "ERROR" "FATAL" /> -->
-	<level value="TRACE" />
+		<!-- <level value="TRACE" "DEBUG" "INFO" "WARN" "ERROR" "FATAL" /> -->
+		<level value="WARN" />
 		<appender-ref ref="FileAppender" />
 	</root>
 </log4j:configuration>
