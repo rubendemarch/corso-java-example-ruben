@@ -1,10 +1,12 @@
 package it.ecommerce.servlet;
 
-import it.ecommerce.util.log.MyLogger;
 import it.ecommerce.util.constants.Common;
 import it.ecommerce.util.constants.Request;
 import it.ecommerce.util.constants.Session;
+import it.ecommerce.util.log.MyLogger;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,18 +15,21 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
 import javax.servlet.Servlet;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 /**
  * Servlet implementation class RootServlet
  */
-@WebServlet(description = "RootServlet", urlPatterns = { "/RootServlet" })
 public class RootServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MyLogger log;
-
+	protected SqlSessionFactory sqlSessionFactory = null;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -34,7 +39,20 @@ public class RootServlet extends HttpServlet {
 		final String metodo = "costruttore";
 		log.start(metodo);
 
-		// .....
+		String resource = "mybatis/config/mybatis-config.xml";
+		/*La configurazione di mybatis va bene qui perché
+		 *  tanto lo uso solo in questo metodo (almeno per il momento)*/
+		InputStream inputStream = null;
+		try {
+			inputStream = Resources.getResourceAsStream(resource);
+		} catch (IOException e) {
+			log.fatal(metodo, "Fallita SqlSessionFactoryBuilder", e);
+		}
+		try {
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		} catch (Exception e) {
+			log.fatal(metodo, "Fallita SqlSessionFactoryBuilder", e);
+		}
 
 		log.end(metodo);
 	}
