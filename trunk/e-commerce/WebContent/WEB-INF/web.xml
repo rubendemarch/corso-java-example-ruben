@@ -24,4 +24,9 @@
 		<url-pattern>/ManageLanguages</url-pattern>
 	</servlet-mapping>
 
+	<context-param>
+		<param-name>managedLanguages</param-name>
+		<param-value>it en fr</param-value>
+	</context-param>
+
 </web-app>
