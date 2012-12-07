@@ -4,11 +4,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- QUESTO E' IL FILE CHE COMPONE LE QUERY -->
 <mapper namespace="language">
-	<select id="List" resultType="HashMap">
+	<select id="list" resultType="HashMap">
 		select * from languages
 	</select>
 	<insert id="add" parameterType="HashMap">
 	INSERT INTO languages(ID_LANGUAGE,IS_VISIBLE)
 	VALUES(#{ID_LANGUAGE},#{IS_VISIBLE})
 	</insert>
+	<update id="update" parameterType="HashMap">
+		update languages SET IS_VISIBLE=#{IS_VISIBLE}
+		WHERE ID_LANGUAGE=#{ID_LANGUAGE}
+	</update>
 </mapper>
