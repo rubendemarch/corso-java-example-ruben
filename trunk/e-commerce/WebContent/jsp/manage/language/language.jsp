@@ -1,3 +1,4 @@
+<%@page import="java.math.BigDecimal"%>
 <%@page import="it.ecommerce.util.constants.Common"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.HashMap"%>
@@ -12,10 +13,8 @@
 	ResourceBundle rb = (ResourceBundle) request
 			.getAttribute(Request.ResourceBundle);
 	Locale inLocale= (Locale)request.getAttribute(Request.LOCALE);
-	List<HashMap<String, Object>> managedLanguages = (List<HashMap<String, Object>>) request
-			.getAttribute(Request.MANAGED_LANGUAGES);
-	List<Locale> toManage = (List<Locale>) request
-			.getAttribute(Request.TO_MANAGE_LANGUAGES);
+	List<HashMap<String, Object>>managedLanguages = (List<HashMap<String, Object>>)request.getAttribute(Request.MANAGED_LANGUAGES);
+	List<Locale>toManage = (List<Locale>)request.getAttribute(Request.TO_MANAGE_LANGUAGES);
 %>
 <html>
 <head>
@@ -32,17 +31,18 @@ String lang;
 boolean isVisible;
 for(HashMap<String,Object> managedLanguage:managedLanguages){ 
 lang=(String)managedLanguage.get("id_language");
-isVisible=(boolean)managedLanguage.get("is_visible");%>
+isVisible=((BigDecimal)managedLanguage.get("is_visible")).intValue()>0;
+/*In questo modo dà false se l'int è 0 e true se l'int è 1*/%>
 <tr><td>
 <%=new Locale(lang).getDisplayLanguage(inLocale) %>
 </td><td>
-<input type="checkbox" name="managed_<%=lang%>"<%if(isVisible){ %> checked <%} %>>
+<input type="checkbox" name="<%=lang%>"<%if(isVisible){ %> checked <%} %>>
 </td></tr>
 <%} %>
 </table>
 <select name="toManage">
 	<option value="0000"><%= rb.getString("common.sel")%></option>
-<%for(Locale locale:toManage){ %>
+<% for(Locale locale:toManage){ %>
 	<option value="<%= locale.getLanguage()%>"><%= locale.getDisplayLanguage(inLocale)%></option>
 <%} %>
 </select>

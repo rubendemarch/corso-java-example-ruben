@@ -6,8 +6,6 @@
 		<param name="File" value="C:/log/e-commerce.log" />
 		<!-- <param name="Threshold" value="TRACE" /> -->
 		<param name="Append" value="true" />
-		<param name="MaxFileSize" value="1MB" />
-		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- Il DEFAULT è <param name="ConversionPattern" value="%-4r [%t] %-5p 
 				%c %x - %m%n" /> -->
@@ -19,8 +17,6 @@
 		<param name="File" value="C:/log/mybatisE-commerce.log" />
 		<!-- <param name="Threshold" value="TRACE" /> -->
 		<param name="Append" value="true" />
-		<param name="MaxFileSize" value="1MB" />
-		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- Il DEFAULT è <param name="ConversionPattern" value="%-4r [%t] %-5p 
 				%c %x - %m%n" /> -->
