@@ -30,8 +30,8 @@
 String lang;
 boolean isVisible;
 for(HashMap<String,Object> managedLanguage:managedLanguages){ 
-lang=(String)managedLanguage.get("id_language");
-isVisible=((BigDecimal)managedLanguage.get("is_visible")).intValue()>0;
+lang=(String)managedLanguage.get("ID_LANGUAGE");
+isVisible=((BigDecimal)managedLanguage.get("IS_VISIBLE")).intValue()>0;
 /*In questo modo dà false se l'int è 0 e true se l'int è 1*/%>
 <tr><td>
 <%=new Locale(lang).getDisplayLanguage(inLocale) %>

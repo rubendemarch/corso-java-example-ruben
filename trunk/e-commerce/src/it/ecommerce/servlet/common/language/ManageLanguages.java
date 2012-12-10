@@ -74,7 +74,7 @@ public class ManageLanguages extends RootServlet {
 		for (String locale : Locale.getISOLanguages()) {
 			find=false;
 			for (HashMap<String, Object> managedLanguage : managedLanguages) {
-				if(locale.equals((String)managedLanguage.get("id_language"))){
+				if(locale.equals((String)managedLanguage.get("ID_LANGUAGE"))){
 					find=true;
 					break;
 				}
@@ -97,8 +97,8 @@ public class ManageLanguages extends RootServlet {
 			//1 se hanno aggiunto una lingua la va a salvare nel db
 			if(!"0000".equals(id_language)){
 			HashMap<String, Object> toManage=new HashMap<String, Object>();
-			toManage.put("id_language", id_language);
-			toManage.put("is_visible", false);//abbiamo scelto che di default la visibilità è false
+			toManage.put("ID_LANGUAGE", id_language);
+			toManage.put("IS_VISIBLE", false);//abbiamo scelto che di default la visibilità è false
 			sql.insert("language.add", toManage);
 			}
 			//2 aggiorna lo stato di visibilità delle lingue gestite
@@ -108,14 +108,14 @@ public class ManageLanguages extends RootServlet {
 					(List<HashMap<String, Object>>)request.getSession()
 						.getAttribute(Request.MANAGED_LANGUAGES);
 			for (HashMap<String, Object> managedLanguage : managedLanguages) {
-				if(request.getParameter((String)managedLanguage.get("id_language")) != null){//cioé nella pagina il valore è checckato e quindi viene mandato come parametro
-					if(((BigDecimal)managedLanguage.get("is_visible")).intValue()==0){//devo fare update solo se la lingua è invisibile
-						managedLanguage.put("is_visible", true);
+				if(request.getParameter((String)managedLanguage.get("ID_LANGUAGE")) != null){//cioé nella pagina il valore è checckato e quindi viene mandato come parametro
+					if(((BigDecimal)managedLanguage.get("IS_VISIBLE")).intValue()==0){//devo fare update solo se la lingua è invisibile
+						managedLanguage.put("IS_VISIBLE", true);
 						sql.update("language.update",managedLanguage);
 					}
 				}else{//cioé nella pagina il valore non è checckato e quindi NON viene mandato come parametro
-					if(((BigDecimal)managedLanguage.get("is_visible")).intValue()==1){//devo fare update solo se la lingua è visibile
-						managedLanguage.put("is_visible", false);
+					if(((BigDecimal)managedLanguage.get("IS_VISIBLE")).intValue()==1){//devo fare update solo se la lingua è visibile
+						managedLanguage.put("IS_VISIBLE", false);
 						sql.update("language.update",managedLanguage);
 					}
 				}
