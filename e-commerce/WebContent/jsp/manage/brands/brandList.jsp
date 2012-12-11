@@ -9,12 +9,10 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<%-- <jsp:include page="../../common/props.jsp"></jsp:include> --%>
-<!-- IL COMANDO PRECEDENTE IMPORTA SOLO RUNTIME LE VARIABILI, NON DURANTE LA COSTRUZIONE, E DA' ERRORE -->
-<%@include file="../../common/props.jsp" %>
-<!-- IL COMANDO PRECEDENTE INCOLLA SEMPRE IL PEZZO INCLUSO -->
-
 <%
+	ResourceBundle rb = (ResourceBundle) request
+			.getAttribute(Request.ResourceBundle);
+	Locale inLocale= (Locale)request.getAttribute(Request.LOCALE);
 	List<HashMap<String, Object>>managedLanguages = (List<HashMap<String, Object>>)request.getAttribute(Request.MANAGED_LANGUAGES);
 	List<Locale>toManage = (List<Locale>)request.getAttribute(Request.TO_MANAGE_LANGUAGES);
 %>

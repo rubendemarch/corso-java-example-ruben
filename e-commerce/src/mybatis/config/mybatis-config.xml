@@ -16,5 +16,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</environments>
 	<mappers>
 		<mapper resource="mybatis/mapper/language.xml" />
+		<mapper resource="mybatis/mapper/brand.xml" />
+		<mapper resource="mybatis/mapper/key.xml" />
 	</mappers>
 </configuration>

@@ -12,21 +12,33 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-
+	
+<!-- 	START Dichiarazioni di servlet -->
 	<servlet>
 		<servlet-name>ManageLanguages</servlet-name>
 		<servlet-class>it.ecommerce.servlet.common.language.ManageLanguages</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ManageBrand</servlet-name>
+		<servlet-class>it.ecommerce.servlet.common.brands.ManageBrand</servlet-class>
+	</servlet>
+	
+<!-- 	END Dichiarazioni di servlet -->	
 
-
+<!-- 	START Dichiarazioni di servlet mapping -->
 	<servlet-mapping>
 		<servlet-name>ManageLanguages</servlet-name>
 		<url-pattern>/ManageLanguages</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>ManageBrand</servlet-name>
+		<url-pattern>/ManageBrands</url-pattern>
+	</servlet-mapping>
+	
+<!-- 	END Dichiarazioni di servlet mapping -->
+	
 	<context-param>
 		<param-name>managedLanguages</param-name>
 		<param-value>it en fr</param-value>
 	</context-param>
-
 </web-app>
