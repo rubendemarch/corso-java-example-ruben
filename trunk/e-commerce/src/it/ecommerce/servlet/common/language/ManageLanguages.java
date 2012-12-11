@@ -3,6 +3,7 @@ package it.ecommerce.servlet.common.language;
 import it.ecommerce.servlet.RootServlet;
 import it.ecommerce.util.constants.Common;
 import it.ecommerce.util.constants.Request;
+import it.ecommerce.util.log.MyLogger;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,13 +27,13 @@ import org.apache.ibatis.session.TransactionIsolationLevel;
  */
 public class ManageLanguages extends RootServlet {
 	private static final long serialVersionUID = 1L;
-
+	private MyLogger log;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ManageLanguages() {
 		super();
-		// TODO Auto-generated constructor stub
+		log = new MyLogger(this.getClass());
 	}
 
 	/**
@@ -41,7 +42,10 @@ public class ManageLanguages extends RootServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		final String metodo="doGet";
+		log.start(metodo);
 		process(request, response);
+		log.end(metodo);
 	}
 
 	/**
@@ -50,13 +54,16 @@ public class ManageLanguages extends RootServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		final String metodo="doPost";
+		log.start(metodo);
 		process(request, response);
+		log.end(metodo);
 	}
 
 	protected void process(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		loadLanguage(request);
-		String action = request.getParameter(Common.ACTION);
+		String action = request.getParameter(Common.ACTION);//va a prendere il value del form hidden
 		if(!StringUtils.isEmpty(action)){
 			updateLanguages(request, response);
 		}
