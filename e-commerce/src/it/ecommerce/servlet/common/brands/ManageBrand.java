@@ -91,8 +91,8 @@ public class ManageBrand extends RootServlet {
 			brand.put("ID_BRAND",
 					KeyGenerator.keyGen(sql, "ID_BRAND", "brands", "B"));
 			brand.put("IS_VISIBLE", true);
-			brand.put("URL", null);//da inserire successivamente tramite update
-			brand.put("LOGO_URL", null);//da inserire successivamente tramite update
+			brand.put("URL", request.getParameter("url"));
+			brand.put("LOGO_URL", request.getParameter("urlLogo"));
 			brand.put("NAME", request.getParameter("name"));
 			brand.put("IS_DELETED", false);
 			rowsAffected = sql.insert("brand.add", brand);

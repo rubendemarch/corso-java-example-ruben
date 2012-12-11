@@ -24,6 +24,7 @@
 <title><%= rb.getString("manage.language.page.title")%></title>
 </head>
 <body>
+<jsp:include page="../../common/menu/headerMenu.jsp"></jsp:include>
 <form name="language" action="./ManageLanguages" method="post">
 <input type="hidden" name="<%=Common.ACTION%>" value="save">
 <table>

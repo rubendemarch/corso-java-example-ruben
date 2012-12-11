@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="list" resultType="HashMap">
 		select * from brands
 	</select>
+	
 	<insert id="add" parameterType="HashMap">
 		INSERT INTO brands
 		(ID_BRAND,
@@ -17,11 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		IS_DELETED)
 		VALUES(#{ID_BRAND},#{IS_VISIBLE},
 			#{URL,jdbcType=VARCHAR},
-<!-- 			IL TIPO null DA' PROBLEMI A IBATIS, QUINDI SI SPECIFICA IL JDBCTYPE -->
+<!-- 			IL null DA' PROBLEMI A IBATIS, QUINDI SI SPECIFICA IL SUO TIPO CON JDBCTYPE -->
 			#{LOGO_URL,jdbcType=VARCHAR},
 			#{NAME},#{IS_DELETED})
 <!-- 	se non gli passo qualche valore mette null , che non è un problema se nel db la colonna è nullable-->
 	</insert>
+	
 	<update id="update" parameterType="HashMap">
 		update languages SET IS_VISIBLE=#{IS_VISIBLE},
 		IS_DELETED=#{IS_DELETED},

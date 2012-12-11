@@ -24,12 +24,23 @@
 onload="msg('<%=msg%>')"<%-- <%} %> --%>>
 	<!-- QUESTA FUNZIONE CE L'HA GIA' IL JAVASCRIPT -->
 
+<jsp:include page="../../common/menu/headerMenu.jsp"></jsp:include>
+
 	<form action="./ManageBrands" method="post">
 		<input type="hidden" name="<%=Common.ACTION%>" value="inserisci">
-		<label><%=rb.getString("manage.brand.page.labelName")%></label> <input
-			type="text" value="" name="name" maxlength="100" size="50"> <input
-			type="submit"
-			value="<%=rb.getString("common.save")%><%=rb.getString("manage.brand")%>">
+	<table><tr><td>
+		<label><%=rb.getString("manage.brand.page.labelName")%></label>
+		<input	type="text" value="" name="name" maxlength="100" size="50">
+		</td></tr><tr><td>
+		<label><%=rb.getString("manage.brand.page.labelUrl")%></label>
+		<input	type="text" value="" name="url" maxlength="150" size="50">
+		</td></tr><tr><td>
+		<label><%=rb.getString("manage.brand.page.labelUrlLogo")%></label>
+		<input	type="text" value="" name="urlLogo" maxlength="150" size="50">
+		</td></tr>
+	</table>
+		<input	type="submit" value="<%=rb.getString("common.save")%><%=rb.getString("manage.brand")%>">
+		
 	</form>
 
 </body>
