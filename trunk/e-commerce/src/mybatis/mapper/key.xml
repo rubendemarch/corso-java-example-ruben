@@ -9,5 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="String"
 		parameterType="HashMap">
 		select max(${colName}) from ${tableName}
+<!-- 		il dollaro anziché il diesis passa direttamente la stringa -->
+<!-- il value associato alla key col diesis di solito è un object, e # lo mette a posto, compresi apici, etc,etc... -->
 	</select>
 </mapper>
