@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- QUESTO E' IL FILE CHE COMPONE LE QUERY -->
+<mapper namespace="Common">
+<!-- LA PRIMA LETTERA MAIUSCOLA PERCHE'
+ E' BELLO VEDERE UNA CLASSE JAVA CON LA MAIUSCOLA
+  (QUESTO xml SARA' COMPILATO IN UNA CLASSE JAVA) -->
+<!-- 	CONTA QUANTE ENTRATE NELLA COLONNA COLnAME HANNO IL COLVALUE -->
+		<select id="count"
+		resultType="int"
+		parameterType="HashMap">
+		select COUNT(${colName}) from ${tableName}
+		WHERE ${colName}=#{colValue}
+<!-- 		il dollaro anziché il diesis sostituisce a ${..} direttamente il value così com'è, che sia int, string,.. -->
+<!-- il value associato alla key col diesis di solito è un object, e # lo mette a posto:
+ se è una stringa mette gli apici, se è int non li mette, insomma crea bene il prepareStatement -->
+	</select>
+</mapper>

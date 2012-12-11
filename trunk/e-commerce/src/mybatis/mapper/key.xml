@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- QUESTO E' IL FILE CHE COMPONE LE QUERY -->
-<mapper namespace="key">
+<mapper namespace="Key">
 	<select 
 		id="lastInsertedKey"
 		resultType="String"

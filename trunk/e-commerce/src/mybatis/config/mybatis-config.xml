@@ -18,5 +18,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/mapper/language.xml" />
 		<mapper resource="mybatis/mapper/brand.xml" />
 		<mapper resource="mybatis/mapper/key.xml" />
+		<mapper resource="mybatis/mapper/common.xml" />
 	</mappers>
 </configuration>
