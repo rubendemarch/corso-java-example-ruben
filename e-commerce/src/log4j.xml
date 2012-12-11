@@ -32,7 +32,22 @@
 		<appender-ref ref="MybatisFileAppender" />
 	</logger>
 
-	<logger name="language" additivity="false">
+	<logger name="Language" additivity="false">
+		<level value="TRACE"></level>
+		<appender-ref ref="MybatisFileAppender" />
+	</logger>
+	
+	<logger name="Brand" additivity="false">
+		<level value="TRACE"></level>
+		<appender-ref ref="MybatisFileAppender" />
+	</logger>
+	
+	<logger name="Key" additivity="false">
+		<level value="TRACE"></level>
+		<appender-ref ref="MybatisFileAppender" />
+	</logger>
+	
+	<logger name="Common" additivity="false">
 		<level value="TRACE"></level>
 		<appender-ref ref="MybatisFileAppender" />
 	</logger>

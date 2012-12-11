@@ -70,7 +70,7 @@ public class ManageLanguages extends RootServlet {
 		SqlSession sql = sqlSessionFactory.openSession();
 		//3 carico la lista delle lingue gestite
 		@SuppressWarnings("unchecked")
-		List<HashMap<String, Object>> managedLanguages =(List<HashMap<String, Object>>)(List<?>)sql.selectList("language.list");
+		List<HashMap<String, Object>> managedLanguages =(List<HashMap<String, Object>>)(List<?>)sql.selectList("Language.list");
 		sql.close();//non devo più fare query e quindi chiudo
 		request.setAttribute(Request.MANAGED_LANGUAGES, managedLanguages);
 		request.getSession().setAttribute(Request.MANAGED_LANGUAGES, managedLanguages);//si salva una copia della sessione
@@ -106,7 +106,7 @@ public class ManageLanguages extends RootServlet {
 			HashMap<String, Object> toManage=new HashMap<String, Object>();
 			toManage.put("ID_LANGUAGE", id_language);
 			toManage.put("IS_VISIBLE", false);//abbiamo scelto che di default la visibilità è false
-			sql.insert("language.add", toManage);
+			sql.insert("Language.add", toManage);
 			}
 			//2 aggiorna lo stato di visibilità delle lingue gestite
 			List<String>parameters =Collections.list(request.getParameterNames());
@@ -118,12 +118,12 @@ public class ManageLanguages extends RootServlet {
 				if(request.getParameter((String)managedLanguage.get("ID_LANGUAGE")) != null){//cioé nella pagina il valore è checckato e quindi viene mandato come parametro
 					if(((BigDecimal)managedLanguage.get("IS_VISIBLE")).intValue()==0){//devo fare update solo se la lingua è invisibile
 						managedLanguage.put("IS_VISIBLE", true);
-						sql.update("language.update",managedLanguage);
+						sql.update("Language.update",managedLanguage);
 					}
 				}else{//cioé nella pagina il valore non è checckato e quindi NON viene mandato come parametro
 					if(((BigDecimal)managedLanguage.get("IS_VISIBLE")).intValue()==1){//devo fare update solo se la lingua è visibile
 						managedLanguage.put("IS_VISIBLE", false);
-						sql.update("language.update",managedLanguage);
+						sql.update("Language.update",managedLanguage);
 					}
 				}
 			}

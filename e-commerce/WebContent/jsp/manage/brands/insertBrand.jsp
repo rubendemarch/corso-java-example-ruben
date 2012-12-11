@@ -15,6 +15,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><%=rb.getString("manage.brand.page.title")%></title>
 <script type="text/javascript" src="js/common/message.js"></script>
+<script type="text/javascript" src="js/common/radio.js"></script>
 </head>
 <%
 	String msg = (String) request.getAttribute("msg");
@@ -26,20 +27,24 @@ onload="msg('<%=msg%>')"<%-- <%} %> --%>>
 
 <jsp:include page="../../common/menu/headerMenu.jsp"></jsp:include>
 
-	<form action="./ManageBrands" method="post">
+	<form action="./ManageBrands" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="<%=Common.ACTION%>" value="inserisci">
-	<table><tr><td>
+	<table><tr><td colspan="2">
 		<label><%=rb.getString("manage.brand.page.labelName")%></label>
 		<input	type="text" value="" name="name" maxlength="100" size="50">
-		</td></tr><tr><td>
+		</td></tr><tr><td colspan="2">
 		<label><%=rb.getString("manage.brand.page.labelUrl")%></label>
 		<input	type="text" value="" name="url" maxlength="150" size="50">
 		</td></tr><tr><td>
+		<input type="radio" name="radioUrl" checked="checked" onchange='manageRadio("urlLogo","imgLogo")'>
 		<label><%=rb.getString("manage.brand.page.labelUrlLogo")%></label>
-		<input	type="text" value="" name="urlLogo" maxlength="150" size="50">
+		<input	type="text" value="" name="urlLogo" id="urlLogo" maxlength="150" size="50">
+		</td><td>
+		<input type="radio" name="radioUrl" onchange='manageRadio("imgLogo","urlLogo")'>
+		<input	type="file" name="imgLogo" id="imgLogo" disabled="disabled" accept="image/*">
 		</td></tr>
 	</table>
-		<input	type="submit" value="<%=rb.getString("common.save")%><%=rb.getString("manage.brand")%>">
+		<input	type="submit" value="<%=rb.getString("common.save")%> <%=rb.getString("manage.brand")%>">
 		
 	</form>
 
