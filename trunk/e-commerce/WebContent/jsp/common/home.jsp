@@ -7,8 +7,8 @@
 <title>home</title>
 </head>
 <body>
-<a href="./ManageLanguages">lingue</a>
-<br>
-<a href="./ManageBrands">marche</a>
+
+<jsp:include page="menu/headerMenu.jsp"></jsp:include>
+
 </body>
 </html>
