@@ -16,6 +16,9 @@
 <title><%=rb.getString("manage.brand.page.title")%></title>
 <script type="text/javascript" src="js/common/message.js"></script>
 <script type="text/javascript" src="js/common/radio.js"></script>
+<style> 
+ @import url("css/rdm.css");
+ </style>
 </head>
 <%
 	String msg = (String) request.getAttribute("msg");
@@ -36,11 +39,11 @@ onload="msg('<%=msg%>')"<%-- <%} %> --%>>
 		<label><%=rb.getString("manage.brand.page.labelUrl")%></label>
 		<input	type="text" value="" name="url" maxlength="150" size="50">
 		</td></tr><tr><td>
-		<input type="radio" name="radioUrl" checked="checked" onchange='manageRadio("urlLogo","imgLogo")'>
+		<input type="radio" name="radioLogoUrl" checked="checked" onchange='manageRadio("urlLogo","imgLogo")' value="url">
 		<label><%=rb.getString("manage.brand.page.labelUrlLogo")%></label>
 		<input	type="text" value="" name="urlLogo" id="urlLogo" maxlength="150" size="50">
 		</td><td>
-		<input type="radio" name="radioUrl" onchange='manageRadio("imgLogo","urlLogo")'>
+		<input type="radio" name="radioLogoUrl" onchange='manageRadio("imgLogo","urlLogo")' value="image">
 		<input	type="file" name="imgLogo" id="imgLogo" disabled="disabled" accept="image/*">
 		</td></tr>
 	</table>

@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style> 
+ @import url("css/rdm.css");
+ </style>
+<!-- <link href="css/rdm.css" rel="stylesheet" type="text/css"> -->
 <title>home</title>
 </head>
 <body>

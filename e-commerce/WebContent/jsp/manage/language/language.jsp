@@ -22,6 +22,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><%= rb.getString("manage.language.page.title")%></title>
+<style> 
+ @import url("css/rdm.css");
+ </style>
 </head>
 <body>
 <jsp:include page="../../common/menu/headerMenu.jsp"></jsp:include>

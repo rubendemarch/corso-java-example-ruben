@@ -7,27 +7,22 @@ import it.ecommerce.util.constants.Request;
 import it.ecommerce.util.log.MyLogger;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.TransactionIsolationLevel;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileItemFactory;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 /**
  * Servlet implementation class ManageBrand
  */
-
 public class ManageBrand extends RootServlet {
 	private static final long serialVersionUID = 1L;
 	private MyLogger log;
@@ -69,16 +64,7 @@ public class ManageBrand extends RootServlet {
 		log.start(metodo);
 		loadLanguage(request);
 		String action = request.getParameter(Common.ACTION);//va a prendere il value del form hidden
-		if (ServletFileUpload.isMultipartContent(request)){
-		ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
-		List<FileItem> items;
-		try {
-			items=upload.parseRequest(request);
-		} catch (FileUploadException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		}
+
 		if("inserisci".equals(action)){
 			ResourceBundle rb = (ResourceBundle) request.getAttribute(Request.ResourceBundle);
 			HashMap<String, Object> brand = new HashMap<String, Object>();
@@ -97,7 +83,23 @@ public class ManageBrand extends RootServlet {
 			if(count>0){request.setAttribute(
 					"msg",
 					rb.getString("salvataggio.alreadyInserted"));
-			}else{request.setAttribute(
+			}else{
+				if("image".equals(request.getParameter("radioLogoUrl"))){
+				//upload image
+					Part filePart = request.getPart("logoImg");
+					String realPath=request.getServletContext().getRealPath("/");
+					String contextPath=request.getRealPath("/");
+					String realPathS=request.getServletContext().getContextPath();
+					String contextPathS=request.getContextPath();
+					System.out.println(realPath);
+					System.out.println(contextPath);
+					System.out.println(realPathS);
+					System.out.println(contextPathS);
+					
+					filePart.write(contextPathS+"image\\brands\\");//scrive il file sul server
+				//crea url nella parameter da passare come si farebbe altrimenti
+				}
+				request.setAttribute(
 					"msg",
 					(insertNewBrand(request))?
 							rb.getString("salvataggio.ok"):
