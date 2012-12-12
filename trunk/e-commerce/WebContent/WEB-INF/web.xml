@@ -21,6 +21,14 @@
 	<servlet>
 		<servlet-name>ManageBrand</servlet-name>
 		<servlet-class>it.ecommerce.servlet.common.brands.ManageBrand</servlet-class>
+		<multipart-config>
+		<max-file-size>1048576</max-file-size>
+		<max-request-size>1058576</max-request-size>
+		<file-size-threshold>524288</file-size-threshold>
+<!-- 		LA SOGLIA SOTTO LA QUALE PESCA I DATI NELLA REQUEST SENZA SCRIVERLI SU DISCO -->
+
+<!-- 	<location></location>	BISOGNA SCRIVERE IL PATH ASSOLUTO, QUINDI MEGLIO LASCIARE IL DEFAULT "" -->
+		</multipart-config>
 	</servlet>
 	
 <!-- 	END Dichiarazioni di servlet -->	
