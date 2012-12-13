@@ -8,6 +8,7 @@
  @import url("css/rdm.css");
  </style>
 <!-- <link href="css/rdm.css" rel="stylesheet" type="text/css"> -->
+<script type="text/javascript" src="js/common/form.js"></script>
 <title>home</title>
 </head>
 <body>

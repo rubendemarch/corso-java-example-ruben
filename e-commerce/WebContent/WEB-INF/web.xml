@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>e-commerce</display-name>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>RootServlet</welcome-file>
 		<welcome-file>index.htm</welcome-file>
 		<welcome-file>jsp/common/home.jsp</welcome-file>
 		<welcome-file>default.html</welcome-file>
@@ -14,6 +14,10 @@
 	</welcome-file-list>
 	
 <!-- 	START Dichiarazioni di servlet -->
+	<servlet>
+		<servlet-name>RootServlet</servlet-name>
+		<servlet-class>it.ecommerce.servlet.RootServlet</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>ManageLanguages</servlet-name>
 		<servlet-class>it.ecommerce.servlet.common.language.ManageLanguages</servlet-class>
@@ -35,6 +39,10 @@
 
 <!-- 	START Dichiarazioni di servlet mapping -->
 	<servlet-mapping>
+		<servlet-name>RootServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>ManageLanguages</servlet-name>
 		<url-pattern>/ManageLanguages</url-pattern>
 	</servlet-mapping>
@@ -48,5 +56,9 @@
 	<context-param>
 		<param-name>managedLanguages</param-name>
 		<param-value>it en fr</param-value>
+	</context-param>
+	<context-param>
+		<param-name>urlSite</param-name>
+		<param-value>http://10.0.4.3:8050</param-value>
 	</context-param>
 </web-app>
