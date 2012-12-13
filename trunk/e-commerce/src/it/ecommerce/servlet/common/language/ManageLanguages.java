@@ -62,7 +62,9 @@ public class ManageLanguages extends RootServlet {
 
 	protected void process(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		loadLanguage(request);
+		final String metodo="process";
+		log.start(metodo);
+		initProcess(request);
 		String action = request.getParameter(Common.ACTION);//va a prendere il value del form hidden
 		if(!StringUtils.isEmpty(action)){
 			updateLanguages(request, response);
@@ -91,8 +93,8 @@ public class ManageLanguages extends RootServlet {
 				}
 		}
 		request.setAttribute(Request.TO_MANAGE_LANGUAGES, toManage);
-		
-		request.getRequestDispatcher("jsp/manage/language/language.jsp").forward(request, response);
+		dispatch(request, response);
+		log.end(metodo);
 	}
 	
 	private synchronized void updateLanguages(HttpServletRequest request,

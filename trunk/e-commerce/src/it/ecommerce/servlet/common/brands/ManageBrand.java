@@ -1,13 +1,13 @@
 package it.ecommerce.servlet.common.brands;
 
 import it.ecommerce.servlet.RootServlet;
+import it.ecommerce.util.FileNameGenerator;
 import it.ecommerce.util.KeyGenerator;
 import it.ecommerce.util.constants.Common;
 import it.ecommerce.util.constants.Request;
 import it.ecommerce.util.log.MyLogger;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -26,6 +26,8 @@ import org.apache.ibatis.session.TransactionIsolationLevel;
 public class ManageBrand extends RootServlet {
 	private static final long serialVersionUID = 1L;
 	private MyLogger log;
+	private String imagePath="images\\brands\\";
+	private String imageUrl="/images/brands/";
 	/**
 	 * @see RootServlet#RootServlet()
 	 */
@@ -62,10 +64,10 @@ public class ManageBrand extends RootServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		final String metodo="process";
 		log.start(metodo);
-		loadLanguage(request);
+		initProcess(request);
 		String action = request.getParameter(Common.ACTION);//va a prendere il value del form hidden
-
-		if("inserisci".equals(action)){
+		request.setAttribute(Common.ACTION,action);
+		if(Common.SAVE.equals(request.getParameter(Common.SUB_ACTION))){
 			ResourceBundle rb = (ResourceBundle) request.getAttribute(Request.ResourceBundle);
 			HashMap<String, Object> brand = new HashMap<String, Object>();
 			brand.put("colName","NAME");
@@ -84,10 +86,11 @@ public class ManageBrand extends RootServlet {
 					"msg",
 					rb.getString("salvataggio.alreadyInserted"));
 			}else{
+				String logoUrl=request.getParameter("logoUrl");
 				if("image".equals(request.getParameter("radioLogoUrl"))){
 				//upload image
-					Part filePart = request.getPart("logoImg");
-					String realPath=request.getServletContext().getRealPath("/");
+					Part filePart = request.getPart("logoImg");//scarica il file
+				/*	String realPath=request.getServletContext().getRealPath("/");
 					String contextPath=request.getRealPath("/");
 					String realPathS=request.getServletContext().getContextPath();
 					String contextPathS=request.getContextPath();
@@ -96,24 +99,47 @@ public class ManageBrand extends RootServlet {
 					System.out.println(realPathS);
 					System.out.println(contextPathS);
 					
-					filePart.write(contextPathS+"image\\brands\\");//scrive il file sul server
+					filePart.write(contextPathS+"image\\brands\\");
+					*/
+					if(filePart!=null){
+						String ext = request.getParameter("ext");
+						ext=ext.substring(ext.lastIndexOf('.'));
+						String fileNameGen=FileNameGenerator.fileNameGen(ext);
+						filePart.write(realPath + imagePath + fileNameGen);//scrive il file sul server
+						logoUrl = urlSite +contextPath + imageUrl + fileNameGen;
+					}
 				//crea url nella parameter da passare come si farebbe altrimenti
 				}
 				request.setAttribute(
 					"msg",
-					(insertNewBrand(request))?
+					(insertNewBrand(request,logoUrl))?
 							rb.getString("salvataggio.ok"):
 							rb.getString("salvataggio.ko")
 					);}
 		}
-		request
-		.getRequestDispatcher("jsp/manage/brands/insertBrand.jsp")
-			.forward(request, response);
-	
+		if(Common.LIST.equals(action)){
+			
+			SqlSession sql= sqlSessionFactory.openSession();
+			request.setAttribute(
+					"brandList",
+					sql.selectList("Brand.list"));
+			sql.close();
+		/*	request
+			.getRequestDispatcher("jsp/manage/brands/brandList.jsp")
+				.forward(request, response);*/
+		}
+/*		if(!"LIST".equals(action)){
+			request
+				.getRequestDispatcher("jsp/manage/brands/insertBrand.jsp")
+					.forward(request, response);
+		}*/
+		dispatch(request, response);
 		log.end(metodo);
 	}
-	
-	private boolean insertNewBrand(HttpServletRequest request){
+
+	private synchronized boolean insertNewBrand(
+			HttpServletRequest request,
+			String logoUrl){
 		final String metodo="insertNewBrand";
 		log.start(metodo);
 		
@@ -124,7 +150,7 @@ public class ManageBrand extends RootServlet {
 			brand.put("ID_BRAND",KeyGenerator.keyGen(sql, "ID_BRAND", "brands", "B"));
 			brand.put("IS_VISIBLE", true);
 			brand.put("URL", request.getParameter("url"));
-			brand.put("LOGO_URL", request.getParameter("urlLogo"));
+			brand.put("LOGO_URL", logoUrl);
 			brand.put("NAME", request.getParameter("name"));
 			brand.put("IS_DELETED", false);
 			rowsAffected = sql.insert("Brand.add", brand);
