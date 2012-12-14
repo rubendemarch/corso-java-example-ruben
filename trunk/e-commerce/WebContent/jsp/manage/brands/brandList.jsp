@@ -22,6 +22,11 @@
 	<%=rb.getString("manage.brand.page.detail") %>
 </button>
 </td>
+<td>
+<button onclick="loadAll('./ManageBrands','<%=Common.MODIFY%>','<%=(String)brand.get("ID_BRAND")%>')">
+	<%=rb.getString("manage.brand.page.modify") %>
+</button>
+</td>
 </tr>
 <%--  SE LO VUOI FARE IN GET E NON IN POST:
 <a href="./ManageBrands?<%=Common.ACTION%>=<%=Common.DETAIL%>&id=<%=(String)brand.get("ID_BRAND")%>">
