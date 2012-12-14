@@ -13,7 +13,7 @@
 		<input	type="text" value="" name="url" maxlength="150" size="50">
 		</td></tr><tr><td>
 		<input type="radio" name="radioLogoUrl" checked="checked" onchange='manageRadio("logoUrl","logoImg")' value="url">
-		<label><%=rb.getString("manage.brand.page.labelUrlLogo")%></label>
+		<label><%=rb.getString("manage.brand.page.labelLogoUrl")%></label>
 		<input	type="text" value="" name="logoUrl" id="logoUrl" maxlength="150" size="50">
 		</td><td>
 		<input type="radio" name="radioLogoUrl" onchange='manageRadio("logoImg","logoUrl")' value="image">

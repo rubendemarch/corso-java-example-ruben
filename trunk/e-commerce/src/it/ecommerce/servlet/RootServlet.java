@@ -1,6 +1,5 @@
 package it.ecommerce.servlet;
 
-import it.ecommerce.util.FileNameGenerator;
 import it.ecommerce.util.constants.Common;
 import it.ecommerce.util.constants.Request;
 import it.ecommerce.util.constants.Session;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -22,10 +20,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
@@ -39,6 +35,8 @@ public class RootServlet extends HttpServlet {
 	protected String urlSite;
 	protected String realPath;
 	protected String contextPath;
+	
+	protected String action;
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -141,6 +139,8 @@ public class RootServlet extends HttpServlet {
 
 	protected void initProcess(HttpServletRequest request){
 		loadLanguage(request);
+		action = request.getParameter(Common.ACTION);//va a prendere il value del form hidden
+		request.setAttribute(Common.ACTION,action);
 	}
 	
 	protected void dispatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

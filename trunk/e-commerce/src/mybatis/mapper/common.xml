@@ -17,4 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- il value associato alla key col diesis di solito è un object, e # lo mette a posto:
  se è una stringa mette gli apici, se è int non li mette, insomma crea bene il prepareStatement -->
 	</select>
+<!-- 	IL DETTAGLIO SCRITTO COSI' VA BENE PER TUTTI I TIPI -->
+	<select
+			id="detail"
+			resultType="HashMap"
+			parameterType="HashMap">
+		SELECT * FROM ${tableName}
+		WHERE ${colName}=#{colValue}
+	</select>
 </mapper>
