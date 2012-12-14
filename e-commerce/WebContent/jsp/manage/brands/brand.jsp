@@ -14,7 +14,7 @@
 <%
 	} else if (Common.DETAIL.equals(action)) {
 %>
-<jsp:include page="brandDetail.jsp" />
+<jsp:include page="detailBrand.jsp" />
 <%
 	}
 %>

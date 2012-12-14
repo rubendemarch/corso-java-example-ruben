@@ -1,7 +1,6 @@
 package it.ecommerce.servlet.common.language;
 
 import it.ecommerce.servlet.RootServlet;
-import it.ecommerce.util.constants.Common;
 import it.ecommerce.util.constants.Request;
 import it.ecommerce.util.log.MyLogger;
 
@@ -65,7 +64,6 @@ public class ManageLanguages extends RootServlet {
 		final String metodo="process";
 		log.start(metodo);
 		initProcess(request);
-		String action = request.getParameter(Common.ACTION);//va a prendere il value del form hidden
 		if(!StringUtils.isEmpty(action)){
 			updateLanguages(request, response);
 		}

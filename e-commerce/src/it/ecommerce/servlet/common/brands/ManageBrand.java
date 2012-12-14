@@ -65,8 +65,6 @@ public class ManageBrand extends RootServlet {
 		final String metodo="process";
 		log.start(metodo);
 		initProcess(request);
-		String action = request.getParameter(Common.ACTION);//va a prendere il value del form hidden
-		request.setAttribute(Common.ACTION,action);
 		if(Common.SAVE.equals(request.getParameter(Common.SUB_ACTION))){
 			ResourceBundle rb = (ResourceBundle) request.getAttribute(Request.ResourceBundle);
 			HashMap<String, Object> brand = new HashMap<String, Object>();
@@ -133,6 +131,17 @@ public class ManageBrand extends RootServlet {
 				.getRequestDispatcher("jsp/manage/brands/insertBrand.jsp")
 					.forward(request, response);
 		}*/
+		if(Common.DETAIL.equals(action)){
+			SqlSession sql= sqlSessionFactory.openSession();
+			HashMap<String, Object> brand = new HashMap<String, Object>();
+			brand.put("colName","ID_BRAND");
+			brand.put("tableName","BRANDS");
+			brand.put("colValue", request.getParameter("id"));
+			request.setAttribute(
+					"brand",
+					sql.selectOne("Common.detail", brand));
+			sql.close();
+		}
 		dispatch(request, response);
 		log.end(metodo);
 	}

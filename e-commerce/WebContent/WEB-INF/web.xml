@@ -5,12 +5,7 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>e-commerce</display-name>
 	<welcome-file-list>
-		<welcome-file>RootServlet</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>jsp/common/home.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>Home</welcome-file>
 	</welcome-file-list>
 	
 <!-- 	START Dichiarazioni di servlet -->
@@ -40,7 +35,7 @@
 <!-- 	START Dichiarazioni di servlet mapping -->
 	<servlet-mapping>
 		<servlet-name>RootServlet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/Home</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ManageLanguages</servlet-name>
