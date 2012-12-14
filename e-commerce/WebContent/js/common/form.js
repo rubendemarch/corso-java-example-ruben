@@ -14,7 +14,7 @@ function loadActionAndSubAction(commonFormActionValue,commonActionValue){
 }
 
 function loadAll(commonFormActionValue,commonActionValue,commonIdValue){
-	document.getElementById('commonAction').value=commonFormActionValue;
+	document.getElementById('commonAction').value=commonActionValue;
 	document.getElementById('commonId').value=commonIdValue;
 	document.getElementById('commonForm').action=commonFormActionValue;
 	document.getElementById('commonForm').submit();

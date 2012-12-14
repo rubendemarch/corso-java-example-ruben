@@ -54,7 +54,7 @@
 
 	<root>
 		<!-- <level value="TRACE" "DEBUG" "INFO" "WARN" "ERROR" "FATAL" /> -->
-		<level value="WARN" />
+		<level value="TRACE" />
 		<appender-ref ref="RootAppender" />
 	</root>
 </log4j:configuration>
