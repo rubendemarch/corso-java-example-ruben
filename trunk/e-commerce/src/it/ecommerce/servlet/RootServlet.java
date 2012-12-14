@@ -139,7 +139,7 @@ public class RootServlet extends HttpServlet {
 
 	protected void initProcess(HttpServletRequest request){
 		loadLanguage(request);
-		action = request.getParameter(Common.ACTION);//va a prendere il value del form hidden
+		action = request.getParameter("commonAction");//va a prendere il value del form hidden
 		request.setAttribute(Common.ACTION,action);
 	}
 	

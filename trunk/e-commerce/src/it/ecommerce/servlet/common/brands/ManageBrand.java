@@ -65,7 +65,7 @@ public class ManageBrand extends RootServlet {
 		final String metodo="process";
 		log.start(metodo);
 		initProcess(request);
-		if(Common.SAVE.equals(request.getParameter(Common.SUB_ACTION))){
+		if(Common.SAVE.equals(action)){
 			ResourceBundle rb = (ResourceBundle) request.getAttribute(Request.ResourceBundle);
 			HashMap<String, Object> brand = new HashMap<String, Object>();
 			brand.put("colName","NAME");
@@ -136,7 +136,7 @@ public class ManageBrand extends RootServlet {
 			HashMap<String, Object> brand = new HashMap<String, Object>();
 			brand.put("colName","ID_BRAND");
 			brand.put("tableName","BRANDS");
-			brand.put("colValue", request.getParameter("id"));
+			brand.put("colValue", request.getParameter("commonId"));
 			request.setAttribute(
 					"brand",
 					sql.selectOne("Common.detail", brand));
