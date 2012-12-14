@@ -1,8 +1,19 @@
 @CHARSET "ISO-8859-1";
 body {
 	background-image: url("moosefly.gif");
-	background-size: 100%;/*ridimensiona l'immagine*/
- 	background-color: pink; 
+	background-size: 20%;/*ridimensiona l'immagine*/
+	background-color: pink; 
 	background-repeat:no-repeat;
 	background-position:right top;
+}
+table {
+	border:1px solid fuchsia;
+	background-color: #CFE;
+}
+th {
+	background-color: #DF0;
+}
+td{
+	border: 1px dotted;
+	border-color: fuchsia;
 }

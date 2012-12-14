@@ -1,9 +1,9 @@
 <%@page import="it.ecommerce.util.constants.Common"%>
 <%@include file="../../common/props.jsp"%>
 
-	<form action="./ManageBrands" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="<%=Common.ACTION%>" value="ADD">
-		<input type="hidden" name="<%=Common.SUB_ACTION%>" value="SAVE">
+<form action="./ManageBrands" method="post" name="brand" enctype="multipart/form-data">
+		<input type="hidden" name="<%=Common.COMMON_ACTION%>" value="<%=Common.ADD%>">
+		<input type="hidden" name="<%=Common.CUSTOM_ACTION%>" value="<%=Common.SAVE%>">
 		<input type="hidden" name="ext" value="" id="ext"><!-- L'unico modo per trasportare l'estensione del file -->
 	<table><tr><td colspan="2">
 		<label><%=rb.getString("manage.brand.page.labelName")%></label>

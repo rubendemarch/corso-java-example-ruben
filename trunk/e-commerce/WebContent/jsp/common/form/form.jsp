@@ -1,5 +1,5 @@
 <%-- <!-- <%@page import="it.ecommerce.util.constants.Common"%> NON SERVE + --> --%>
-<%--  TANTO E'  UN FORM PER TUTTI <%
+<%--  TANTO E' IL FORM PER TUTTI <%
 String formId =request.getParameter(Common.FORM_ID);
 %> --%>
 <%--  LA VECCHIA VERSIONE

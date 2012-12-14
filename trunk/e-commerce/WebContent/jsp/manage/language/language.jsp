@@ -16,7 +16,7 @@
 %>
 
 <form name="language" action="./ManageLanguages" method="post">
-<input type="hidden" name="<%=Common.ACTION%>" value="save">
+<input type="hidden" name="<%=Common.CUSTOM_ACTION%>" value="<%=Common.SAVE%>">
 <table>
 <tr><th colspan="2"><%= rb.getString("manage.language.page.managedLanguages")%></th></tr>
 <%

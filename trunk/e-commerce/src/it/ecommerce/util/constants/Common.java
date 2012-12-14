@@ -11,6 +11,8 @@ public class Common {
 	public final static String RESOURCE="resources/baseLabels";
 	public final static String ACTION="ACTION";
 	public final static String SUB_ACTION="SUB_ACTION";
+	public final static String CUSTOM_ACTION="CUSTOM_ACTION";
+	public final static String COMMON_ACTION="commonAction";
 	
 	public final static String SAVE="SAVE";
 	public final static String LIST="LIST";

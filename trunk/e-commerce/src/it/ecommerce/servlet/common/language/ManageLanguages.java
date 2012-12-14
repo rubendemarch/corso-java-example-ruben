@@ -1,6 +1,7 @@
 package it.ecommerce.servlet.common.language;
 
 import it.ecommerce.servlet.RootServlet;
+import it.ecommerce.util.constants.Common;
 import it.ecommerce.util.constants.Request;
 import it.ecommerce.util.log.MyLogger;
 
@@ -63,7 +64,7 @@ public class ManageLanguages extends RootServlet {
 		final String metodo="process";
 		log.start(metodo);
 		initProcess(request);
-		if(!StringUtils.isEmpty(action)){
+		if(!StringUtils.isEmpty(request.getParameter(Common.CUSTOM_ACTION))){
 			updateLanguages(request, response);
 		}
 		SqlSession sql = sqlSessionFactory.openSession();
