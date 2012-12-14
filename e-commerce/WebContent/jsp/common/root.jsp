@@ -30,6 +30,8 @@
 onload="msg('<%=msg%>')"<%-- <%} %> --%>>
 	<!-- QUESTA FUNZIONE CE L'HA GIA' IL JAVASCRIPT -->
 
+<jsp:include page="form/form.jsp"></jsp:include>
+
 <jsp:include page="menu/headerMenu.jsp"></jsp:include>
 <br>
 <%

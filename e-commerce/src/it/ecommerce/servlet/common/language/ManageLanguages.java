@@ -7,7 +7,6 @@ import it.ecommerce.util.log.MyLogger;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -109,8 +108,8 @@ public class ManageLanguages extends RootServlet {
 			sql.insert("Language.add", toManage);
 			}
 			//2 aggiorna lo stato di visibilità delle lingue gestite
-			List<String>parameters =Collections.list(request.getParameterNames());
-			HashMap<String, Object> toManage=new HashMap<String, Object>();
+		/*	List<String>parameters =Collections.list(request.getParameterNames());
+			HashMap<String, Object> toManage=new HashMap<String, Object>();*/
 			List<HashMap<String, Object>> managedLanguages =
 					(List<HashMap<String, Object>>)request.getSession()
 						.getAttribute(Request.MANAGED_LANGUAGES);
