@@ -140,6 +140,15 @@ public class ManageBrand extends RootServlet {
 			request.setAttribute("brand",sql.selectOne("Common.detail", brand));
 			sql.close();
 		}
+		if(Common.MODIFY.equals(commonAction)){
+			SqlSession sql= sqlSessionFactory.openSession();
+			HashMap<String, Object> brand = new HashMap<String, Object>();
+			brand.put("colName","ID_BRAND");
+			brand.put("tableName","BRANDS");
+			brand.put("colValue", request.getParameter("commonId"));
+			request.setAttribute("brand",sql.selectOne("Common.detail", brand));
+			sql.close();
+		}
 		dispatch(request, response);
 		log.end(metodo);
 	}

@@ -17,4 +17,9 @@
 <jsp:include page="detailBrand.jsp" />
 <%
 	}
+	 else if (Common.MODIFY.equals(action)) {
+%>
+<jsp:include page="modifyBrand.jsp" />
+<%
+	}
 %>
