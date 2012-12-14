@@ -137,9 +137,7 @@ public class ManageBrand extends RootServlet {
 			brand.put("colName","ID_BRAND");
 			brand.put("tableName","BRANDS");
 			brand.put("colValue", request.getParameter("commonId"));
-			request.setAttribute(
-					"brand",
-					sql.selectOne("Common.detail", brand));
+			request.setAttribute("brand",sql.selectOne("Common.detail", brand));
 			sql.close();
 		}
 		dispatch(request, response);
