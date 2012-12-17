@@ -16,6 +16,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 		il dollaro anziché il diesis sostituisce a ${..} direttamente il value così com'è, che sia int, string,.. -->
 <!-- il value associato alla key col diesis di solito è un object, e # lo mette a posto:
  se è una stringa mette gli apici, se è int non li mette, insomma crea bene il prepareStatement -->
+ 		<if test="idColName!=null">
+ 		AND ${idColName}!=#{idColValue}
+ 		</if>
+<!--  		QUERY DINAMICA -->
 	</select>
 <!-- 	IL DETTAGLIO SCRITTO COSI' VA BENE PER TUTTI I TIPI -->
 	<select

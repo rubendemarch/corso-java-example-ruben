@@ -7,6 +7,7 @@ import it.ecommerce.util.constants.Common;
 import it.ecommerce.util.constants.Request;
 import it.ecommerce.util.log.MyLogger;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.TransactionIsolationLevel;
 
@@ -71,6 +73,10 @@ public class ManageBrand extends RootServlet {
 			brand.put("colName","NAME");
 			brand.put("tableName","BRANDS");
 			brand.put("colValue", request.getParameter("name"));
+			if(commonAction.equals(Common.MODIFY)){
+				brand.put("idColName", "ID_BRAND");
+				brand.put("idColValue", request.getParameter("idColumnValue"));
+			}
 			SqlSession sql = sqlSessionFactory.openSession();
 			int count=0;
 			try {
@@ -84,6 +90,7 @@ public class ManageBrand extends RootServlet {
 					"msg",
 					rb.getString("salvataggio.alreadyInserted"));
 			}else{
+				
 				String logoUrl=request.getParameter("logoUrl");
 				if("image".equals(request.getParameter("radioLogoUrl"))){
 				//upload image
@@ -104,16 +111,31 @@ public class ManageBrand extends RootServlet {
 						ext=ext.substring(ext.lastIndexOf('.'));
 						String fileNameGen=FileNameGenerator.fileNameGen(ext);
 						filePart.write(realPath + imagePath + fileNameGen);//scrive il file sul server
-						logoUrl = urlSite +contextPath + imageUrl + fileNameGen;
+						logoUrl = urlSite +contextPath + imageUrl + fileNameGen;//crea url nella parameter da passare come si farebbe altrimenti
 					}
-				//crea url nella parameter da passare come si farebbe altrimenti
 				}
+				boolean success=insertOrUpdateBrand(request,logoUrl);
 				request.setAttribute(
 					"msg",
-					(insertNewBrand(request,logoUrl))?
-							rb.getString("salvataggio.ok"):
-							rb.getString("salvataggio.ko")
-					);}
+					rb.getString((success)?"salvataggio.ok":"salvataggio.ko"));
+				String oldLogoUrl = request.getParameter("oldLogoUrl");
+				if(success
+					&& Common.MODIFY.equals(commonAction)
+					&& !StringUtils.isEmpty(oldLogoUrl)
+					&& oldLogoUrl.contains(urlSite)
+					&& oldLogoUrl.contains("/")
+					&& logoUrl.contains("/")
+					&& !oldLogoUrl.substring(oldLogoUrl.lastIndexOf('/'))
+						.equals(logoUrl.substring(logoUrl.lastIndexOf('/')))
+					){
+					//cancella la vecchia immagine, però solo se è stato fatto il commit
+					try{
+						new File(realPath+imagePath+oldLogoUrl.substring(oldLogoUrl.lastIndexOf('/'))).delete();//avrà i diritti per scrivere? ma tanto prima ha scritto
+					}catch(Exception e){
+						log.error(metodo, "on delete file", e);
+					}
+				}
+			}
 		}
 		if(Common.LIST.equals(commonAction)){
 			
@@ -131,16 +153,7 @@ public class ManageBrand extends RootServlet {
 				.getRequestDispatcher("jsp/manage/brands/insertBrand.jsp")
 					.forward(request, response);
 		}*/
-		if(Common.DETAIL.equals(commonAction)){
-			SqlSession sql= sqlSessionFactory.openSession();
-			HashMap<String, Object> brand = new HashMap<String, Object>();
-			brand.put("colName","ID_BRAND");
-			brand.put("tableName","BRANDS");
-			brand.put("colValue", request.getParameter("commonId"));
-			request.setAttribute("brand",sql.selectOne("Common.detail", brand));
-			sql.close();
-		}
-		if(Common.MODIFY.equals(commonAction)){
+		if(Common.DETAIL.equals(commonAction)||Common.MODIFY.equals(commonAction)){
 			SqlSession sql= sqlSessionFactory.openSession();
 			HashMap<String, Object> brand = new HashMap<String, Object>();
 			brand.put("colName","ID_BRAND");
@@ -153,23 +166,29 @@ public class ManageBrand extends RootServlet {
 		log.end(metodo);
 	}
 
-	private synchronized boolean insertNewBrand(
+	private synchronized boolean insertOrUpdateBrand(
 			HttpServletRequest request,
 			String logoUrl){
-		final String metodo="insertNewBrand";
+		final String metodo="insertOrUpdateBrand";
 		log.start(metodo);
 		
 		SqlSession sql = sqlSessionFactory.openSession(TransactionIsolationLevel.READ_COMMITTED);
 		int rowsAffected =0;
 		try {
 			HashMap<String, Object> brand = new HashMap<String, Object>();
-			brand.put("ID_BRAND",KeyGenerator.keyGen(sql, "ID_BRAND", "brands", "B"));
-			brand.put("IS_VISIBLE", true);
+			brand.put(
+				"ID_BRAND",
+				Common.MODIFY.equals(commonAction)?
+					request.getParameter("idColumnValue"):
+						KeyGenerator.keyGen(sql, "ID_BRAND", "brands", "B"));
+			brand.put("IS_VISIBLE", request.getParameter("isVisible"));
 			brand.put("URL", request.getParameter("url"));
 			brand.put("LOGO_URL", logoUrl);
 			brand.put("NAME", request.getParameter("name"));
-			brand.put("IS_DELETED", false);
-			rowsAffected = sql.insert("Brand.add", brand);
+			brand.put("IS_DELETED", request.getParameter("isDeleted"));
+			rowsAffected = Common.ADD.equals(commonAction)?
+					sql.insert("Brand.add", brand):
+						sql.update("Brand.update", brand);
 			
 			sql.commit();
 		} catch (Exception e) {
@@ -180,6 +199,5 @@ public class ManageBrand extends RootServlet {
 			log.end(metodo);
 		}
 		return rowsAffected>0;
-		
 	}
 }
