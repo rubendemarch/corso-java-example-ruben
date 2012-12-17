@@ -30,19 +30,21 @@ boolean isDeleted =((BigDecimal)brand.get("IS_DELETED")).intValue()>0;
 	<input	type="file" name="logoImg" id="logoImg" disabled="disabled" accept="image/*">
 	</td></tr>
 	
-	<tr><td colspan="2">
+	<tr><td>
 	<%=rb.getString("manage.brand.page.IS_VISIBLE")%>&nbsp;
-	<input	type="radio" value="0" name="isVisible" <%if(!isVisible){ %> checked <%} %>>
-	<%=rb.getString("common.no")%>&nbsp;
+	</td><td>
 	<input	type="radio" value="1" name="isVisible" <%if(isVisible){ %> checked <%} %>>
 	<%=rb.getString("common.yes")%>
-	</td></tr>
-	<tr><td colspan="2">
-	<%=rb.getString("manage.brand.page.IS_DELETED")%>&nbsp;
-	<input	type="radio" value="0" name="isDeleted" <%if(!isDeleted){ %> checked <%} %>>
+	<input	type="radio" value="0" name="isVisible" <%if(!isVisible){ %> checked <%} %>>
 	<%=rb.getString("common.no")%>&nbsp;
+	</td></tr>
+	<tr><td >
+	<%=rb.getString("manage.brand.page.IS_DELETED")%>&nbsp;
+	</td><td>
 	<input	type="radio" value="1" name="isDeleted"<%if(isDeleted){ %> checked <%} %>>
 	<%=rb.getString("common.yes")%>
+	<input	type="radio" value="0" name="isDeleted" <%if(!isDeleted){ %> checked <%} %>>
+	<%=rb.getString("common.no")%>&nbsp;
 	</td></tr>
 	
 	
