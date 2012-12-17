@@ -20,6 +20,7 @@ public class Common {
 	public final static String DETAIL="DETAIL";
 	public final static String MODIFY="MODIFY";
 	
+	
 	public final static String FORM_ID="FORM_ID";
 	
 	public final static String SERVLET_NAME="servletName";

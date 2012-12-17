@@ -5,6 +5,8 @@
 	<input type="hidden" name="<%=Common.COMMON_ACTION%>" value="<%=Common.ADD%>">
 	<input type="hidden" name="<%=Common.CUSTOM_ACTION%>" value="<%=Common.SAVE%>">
 	<input type="hidden" name="ext" value="" id="ext"><!-- L'unico modo per trasportare l'estensione del file -->
+	<input type="hidden" name="isVisible" value="1" >
+	<input type="hidden" name="isDeleted" value="0" >
 <table><tr><td colspan="2">
 	<label><%=rb.getString("manage.brand.page.labelName")%></label>
 	<input	type="text" value="" name="name" maxlength="100" size="50">

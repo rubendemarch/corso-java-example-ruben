@@ -5,7 +5,7 @@
 <%@include file="../../common/props.jsp"%>
 <%List<HashMap<String,Object>>brandList=(List<HashMap<String,Object>>)request.getAttribute("brandList");%>
 <table>
-<tr><th colspan="4">LISTA DELLE MARCHE</th></tr>
+<tr><th colspan="5">LISTA DELLE MARCHE</th></tr>
 <%for(HashMap<String,Object>brand:brandList){%>
 <tr>
 <td>

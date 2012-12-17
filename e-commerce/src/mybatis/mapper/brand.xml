@@ -16,19 +16,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LOGO_URL,
 		NAME,
 		IS_DELETED)
-		VALUES(#{ID_BRAND},#{IS_VISIBLE},
+		VALUES(#{ID_BRAND},
+			#{IS_VISIBLE,jdbcType=NUMERIC},
 			#{URL,jdbcType=VARCHAR},
-<!-- 			IL null DA' PROBLEMI A IBATIS, QUINDI SI SPECIFICA IL SUO TIPO CON JDBCTYPE -->
+<!-- 			IL null DA' PROBLEMI A IBATIS, QUINDI SI SPECIFICA IL SUO TIPO CON JDBCTYPE=VARCHAR-->
 			#{LOGO_URL,jdbcType=VARCHAR},
-			#{NAME},#{IS_DELETED})
+			#{NAME},
+			#{IS_DELETED,jdbcType=NUMERIC})
 <!-- 	se non gli passo qualche valore mette null , che non è un problema se nel db la colonna è nullable-->
 	</insert>
 	
 	<update id="update" parameterType="HashMap">
-		update languages SET IS_VISIBLE=#{IS_VISIBLE},
-		IS_DELETED=#{IS_DELETED},
-		URL=#{URL},
-		LOGO_URL=#{LOGO_URL},
+		update brands SET 
+		IS_VISIBLE=#{IS_VISIBLE,jdbcType=NUMERIC},
+		IS_DELETED=#{IS_DELETED,jdbcType=NUMERIC},
+		URL=#{URL,jdbcType=VARCHAR},
+		LOGO_URL=#{LOGO_URL,jdbcType=VARCHAR},
 		NAME=#{NAME}
 		WHERE ID_BRAND=#{ID_BRAND}
 	</update>
