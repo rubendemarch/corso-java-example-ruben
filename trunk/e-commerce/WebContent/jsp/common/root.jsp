@@ -18,6 +18,7 @@
 <script type="text/javascript" src="js/common/radio.js"></script>
 <script type="text/javascript" src="js/common/button.js"></script>
 <script type="text/javascript" src="js/common/form.js"></script>
+<script type="text/javascript" src="js/common/validate.js"></script>
 <style> 
  @import url("css/rdm.css");
  </style>

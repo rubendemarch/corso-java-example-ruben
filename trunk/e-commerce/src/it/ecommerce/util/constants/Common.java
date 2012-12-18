@@ -25,4 +25,5 @@ public class Common {
 	
 	public final static String SERVLET_NAME="servletName";
 	public final static String PAGE_TITLE="pageTitle";
+	public static final String maxImageSize = "maxImageSize";
 }

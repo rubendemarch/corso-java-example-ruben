@@ -56,4 +56,8 @@
 		<param-name>urlSite</param-name>
 		<param-value>http://10.0.4.3:8050</param-value>
 	</context-param>
+		<context-param>
+		<param-name>maxImageSize</param-name>
+		<param-value>1048576</param-value>
+	</context-param>
 </web-app>

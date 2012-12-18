@@ -67,8 +67,26 @@ public class ManageBrand extends RootServlet {
 		final String metodo="process";
 		log.start(metodo);
 		initProcess(request);
+		ResourceBundle rb = (ResourceBundle) request.getAttribute(Request.ResourceBundle);
+		if (StringUtils.isEmpty(commonAction)) {
+			String msg=null;
+			try {
+				request.getParts();
+			} catch (IllegalStateException e) {
+				log.error(metodo, "IllegalStateException", e);
+				msg="file.size.limit.exceeded";
+			} catch (ServletException e) {
+				log.error(metodo, "ServletException", e);
+				msg="servlet.exception";
+			} catch (IOException e) {
+				log.error(metodo, "IOException", e);
+				msg="io.exception";
+			} finally{
+				request.setAttribute(Common.ACTION, Common.ADD);
+				request.setAttribute("msg", rb.getString(msg));
+			}
+		}
 		if(Common.SAVE.equals(request.getParameter(Common.CUSTOM_ACTION))){
-			ResourceBundle rb = (ResourceBundle) request.getAttribute(Request.ResourceBundle);
 			HashMap<String, Object> brand = new HashMap<String, Object>();
 			brand.put("colName","NAME");
 			brand.put("tableName","BRANDS");
