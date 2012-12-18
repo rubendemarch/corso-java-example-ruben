@@ -17,14 +17,14 @@ boolean isDeleted =((BigDecimal)brand.get("IS_DELETED")).intValue()>0;
 
 <table><tr><td colspan="2">
 	<label><%=rb.getString("manage.brand.page.labelName")%></label>
-	<input	type="text" value="<%=(String)brand.get("NAME")%>" name="name" maxlength="100" size="50">
+	<input	type="text" value="<%=(String)brand.get("NAME")%>" name="name" maxlength="100" size="50" onkeypress="validateText(event)" onblur="cleanText(this)">
 	</td></tr><tr><td colspan="2">
 	<label><%=rb.getString("manage.brand.page.labelUrl")%></label>
-	<input	type="text" value="<%=(String)brand.get("URL")%>" name="url" maxlength="150" size="50">
+	<input	type="url" value="<%=(String)brand.get("URL")%>" name="url" maxlength="150" size="50" onblur="cleanUrl(this)">
 	</td></tr><tr><td>
 	<input type="radio" name="radioLogoUrl" checked="checked" onchange='manageRadio("logoUrl","logoImg")' value="url">
 	<label><%=rb.getString("manage.brand.page.labelLogoUrl")%></label>
-	<input	type="text" value="<%=(String)brand.get("LOGO_URL")%>" name="logoUrl" id="logoUrl" maxlength="150" size="50">
+	<input	type="url" value="<%=(String)brand.get("LOGO_URL")%>" name="logoUrl" id="logoUrl" maxlength="150" size="50" onblur="cleanUrl(this)">
 	</td><td>
 	<input type="radio" name="radioLogoUrl" onchange='manageRadio("logoImg","logoUrl")' value="image">
 	<input	type="file" name="logoImg" id="logoImg" disabled="disabled" accept="image/*">

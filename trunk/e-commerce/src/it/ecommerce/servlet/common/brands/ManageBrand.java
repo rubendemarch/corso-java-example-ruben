@@ -106,7 +106,7 @@ public class ManageBrand extends RootServlet {
 					
 					filePart.write(contextPathS+"image\\brands\\");
 					*/
-					if(filePart!=null){
+					if(filePart!=null && filePart.getSize()>0){//così se il primo è vero va a vedere il secondo termine, se scambiati metterebbe un nullpointer exception
 						String ext = request.getParameter("ext");
 						ext=ext.substring(ext.lastIndexOf('.'));
 						String fileNameGen=FileNameGenerator.fileNameGen(ext);
@@ -130,6 +130,7 @@ public class ManageBrand extends RootServlet {
 					){
 					//cancella la vecchia immagine, però solo se è stato fatto il commit
 					try{
+						log.info(metodo, "try delete");
 						new File(realPath+imagePath+oldLogoUrl.substring(oldLogoUrl.lastIndexOf('/'))).delete();//avrà i diritti per scrivere? ma tanto prima ha scritto
 					}catch(Exception e){
 						log.error(metodo, "on delete file", e);
