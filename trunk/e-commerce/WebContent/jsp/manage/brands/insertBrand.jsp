@@ -1,7 +1,7 @@
 <%@page import="it.ecommerce.util.constants.Common"%>
 <%@include file="../../common/props.jsp"%>
 
-<form action="./ManageBrands" method="post" name="brand" enctype="multipart/form-data" id="blabla">
+<form action="./ManageBrands" method="post" name="brand" enctype="multipart/form-data">
 	<input type="hidden" name="<%=Common.COMMON_ACTION%>" value="<%=Common.ADD%>">
 	<input type="hidden" name="<%=Common.CUSTOM_ACTION%>" value="<%=Common.SAVE%>">
 	<input type="hidden" name="ext" value="" id="ext"> <!-- L'unico modo per trasportare l'estensione del file -->
@@ -22,7 +22,7 @@
 	<input	type="file" name="logoImg" id="logoImg" disabled="disabled" accept="image/*">
 	</td></tr>
 </table>
-	<input	type="button" value="<%=rb.getString("common.save")%> <%=rb.getString("manage.brand")%>"
+	<input id="buttonSubmit" type="button" value="<%=rb.getString("common.save")%> <%=rb.getString("manage.brand")%>"
 		onmouseup="copyValue('logoImg','ext')"
-		onclick="validateBrand('<%=rb.getString("file.size.limit.exceeded") %>',<%=(String)request.getAttribute(Common.maxImageSize) %>,'blabla')">
+		onclick="validateBrand('<%=rb.getString("file.size.limit.exceeded") %>',<%=(String)request.getAttribute(Common.maxImageSize) %>,'buttonSubmit')">
 </form>
