@@ -39,7 +39,7 @@ onload="msg('<%=msg%>')"<%-- <%} %> --%>>
 <%
 if(ManageBrand.class.getName().equals(servletName)){
 %>
-<jsp:include page="../manage/brands/brand.jsp"></jsp:include>
+<jsp:include page="../manage/brands/root.jsp"></jsp:include>
 <%
 } else if(ManageLanguages.class.getName().equals(servletName)){
 %>
