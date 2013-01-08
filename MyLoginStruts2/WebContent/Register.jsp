@@ -15,7 +15,7 @@
     <s:textfield name="userName" key="label.reg.username" size="20" />
     <s:password name="password" key="label.reg.password" size="20" />
     <s:password name="passwordConfirm" key="label.reg.passwordConfirm" size="20" />
-    <s:submit method="execute" key="label.register" align="center" /> 
+    <s:submit method="execute" key="label.register" align="center"/>
 </s:form>
 </body>
 </html>

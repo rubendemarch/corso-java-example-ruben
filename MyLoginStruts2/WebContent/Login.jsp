@@ -20,6 +20,6 @@
     <s:password name="password" key="label.password" size="20" />
     <s:submit method="execute" key="label.login" align="center" /> <!-- non scrivere method="execute" mette errori in console--> 
 </s:form>
-<s:a href="Register.jsp"><s:text name="label.register"></s:text></s:a>
+<s:a href="Register.jsp"><s:text name="label.register"/></s:a>
 </body>
 </html>
