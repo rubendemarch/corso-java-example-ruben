@@ -3,6 +3,14 @@
  */
 package struts2;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -50,7 +58,37 @@ public class LoginAction extends ActionSupport {
 	}
 
 	public String execute() {//si chiama sempre execute(), che di default returna sempre "success"
-		if (this.userName.equals("admin") && this.password.equals("admin123")) {
+		SqlSessionFactory sqlSessionFactory = null;
+		InputStream inputStream = null;
+		try {
+			inputStream = Resources.getResourceAsStream("mybatis/config/mybatis-config.xml");
+		} catch (IOException e) {
+			e.printStackTrace();
+			//log.fatal(metodo, "Fallita SqlSessionFactoryBuilder", e);
+		}
+		try {
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		} catch (Exception e) {
+			e.printStackTrace();
+			//log.fatal(metodo, "Fallita SqlSessionFactoryBuilder", e);
+		}
+		/*HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("colName","USERNAME");
+		map.put("table","UTENTI");
+		map.put("colPw","PASSWORD");
+		map.put("userName",getUserName());
+		map.put("password", getPassword());*/
+		SqlSession sql = sqlSessionFactory.openSession();
+		int count=0;
+		try {
+			count = sql.selectOne("Users.count", this);
+		} catch (Exception e) {
+			e.printStackTrace();
+			//log.error(metodo, request.getSession().getId(), e);
+		} finally{
+			sql.close();
+		}
+		if (count>0) {
 			return SUCCESS;
 		} else {
 			addActionError(getText("error.login"));
@@ -63,14 +101,21 @@ public class LoginAction extends ActionSupport {
 	 */
 	@Override
 	public void validate() {
+		final int minPasswLenght = 8;
 		if (getUserName().length() == 0) {
-			addFieldError("userName", getText("requiredstring"));
-			} else if (!getUserName().equals("Eswar")) {
-			addFieldError("userName", "error.user");
-			}
-			if (getPassword().length() == 0) {
-			addFieldError("password", getText("requiredstring"));
-			}
+			addFieldError("userName", getText("requiredstring",new String[]{getText("label.username")}));
+		} 
+		if (getPassword().length() == 0) {
+			addFieldError("password", getText("requiredstring",new String[]{getText("label.password")}));
+		}else if (getPassword().length() < minPasswLenght) {
+			addFieldError("password", getText("error.password",new String[]{minPasswLenght+" "+getText("error.password.long")}));
+		}else{
+			if (!getPassword().matches(".*\\d.*")) {
+				addFieldError("password", getText("error.password",new String[]{getText("error.password.number")}));}
+			if (!getPassword().matches(".*[A-Z].*")) {
+			addFieldError("password", getText("error.password",new String[]{getText("error.password.upper")}));}
+			if (!getPassword().matches(".*[a-z].*")) {
+			addFieldError("password", getText("error.password",new String[]{getText("error.password.lower")}));}
+		}
 	}
-	
 }

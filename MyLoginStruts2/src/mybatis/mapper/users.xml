@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- QUESTO E' IL FILE CHE COMPONE LE QUERY -->
+<mapper namespace="Users">
+	<select id="count" resultType="int" parameterType="struts2.LoginAction">
+		select count(USERNAME) from UTENTI
+		WHERE PASSWORD=#{password} AND USERNAME=#{userName}
+	</select>
+</mapper>
+<!-- select count(USERNAME) from UTENTI
+		WHERE PASSWORD='admin123' AND USERNAME='admin' -->
+		<!-- select count(${colName}) from ${table}
+		WHERE ${colPw}=#{getPassword()} and ${colName}=#{getUserName()} -->
