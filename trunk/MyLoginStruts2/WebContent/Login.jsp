@@ -7,6 +7,7 @@
 <html>
 <head>
 <title><s:text name="label.pageTitle"/></title>
+<s:head/>
 </head>
  
 <body>
@@ -17,7 +18,7 @@
 <!-- la action è quella che vedremo nell'url -->
     <s:textfield name="userName" key="label.username" size="20" />
     <s:password name="password" key="label.password" size="20" />
-    <s:submit method="execute" key="label.login" align="center" />
+    <s:submit key="label.login" align="center" /> <!-- non serve scrivere dentro  method="execute" --> 
 </s:form>
 </body>
 </html>
