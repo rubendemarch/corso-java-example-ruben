@@ -14,5 +14,10 @@
 			<result name="success">Welcome.jsp</result>
 			<result name="error">Login.jsp</result>
 		</action>
+		<action name="register" class="struts2.RegisterAction">
+			<result name="success">Welcome.jsp</result>
+			<result name="input">Register.jsp</result>
+			<result name="error">Register.jsp</result>
+		</action>
 	</package>
 </struts>

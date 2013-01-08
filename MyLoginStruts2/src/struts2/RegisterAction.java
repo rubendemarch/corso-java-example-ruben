@@ -11,6 +11,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.session.TransactionIsolationLevel;
 
 import util.log.MyLogger;
 
@@ -20,14 +21,15 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author ALFA403
  * 
  */
-public class LoginAction extends ActionSupport {
+public class RegisterAction extends ActionSupport {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -218343389796005612L;
+	private static final long serialVersionUID = 8807034165591599215L;
 	private String userName;
 	private String password;
+	private String passwordConfirm;
 	private MyLogger log;
 	
 	//getters e setters ci devono essere (a volte sono costruiti in automatico)
@@ -61,6 +63,20 @@ public class LoginAction extends ActionSupport {
 		this.password = password;
 	}
 
+	/**
+	 * @return the passwordConfirm
+	 */
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	/**
+	 * @param passwordConfirm the passwordConfirm to set
+	 */
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+
 	public String getMd5password(){// quando mybatis cercherà 'md5password' gliela darà questo metodo detto 'finto getter'
 		return DigestUtils.md5Hex(password);
 	}
@@ -81,29 +97,41 @@ public class LoginAction extends ActionSupport {
 		} catch (Exception e) {
 			log.fatal(metodo, "Fallita SqlSessionFactoryBuilder", e);
 		}
-		/*HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("colName","USERNAME");
-		map.put("table","UTENTI");
-		map.put("colPw","PASSWORD");
-		map.put("userName",getUserName());
-		map.put("password", getPassword());*/
 		SqlSession sql = sqlSessionFactory.openSession();
 		int count=0;
-		log.info("Username", userName);
-		log.info("Password", password);
 		try {
-			count = sql.selectOne("Users.login", this);
+			count = sql.selectOne("Users.count", this);
 		} catch (Exception e) {
 			log.error(metodo, sqlSessionFactory.toString(), e);
 		} finally{
 			sql.close();
 		}
 		
-		if (count>0) {
-			log.end(metodo+" - "+SUCCESS);
-			return SUCCESS;
+		if (count==0) {
+			sql = sqlSessionFactory.openSession(TransactionIsolationLevel.READ_COMMITTED);
+			int rowsAffected =0;
+			try {
+				rowsAffected = sql.insert("Users.add", this);
+				sql.commit();
+			} catch (Exception e) {
+				log.error(metodo, sqlSessionFactory.toString(), e);
+				sql.rollback();
+			} finally{
+				sql.close();
+			}
+			if(rowsAffected>0){
+				log.info(metodo, "NEW USER");
+				log.info("Username", userName);
+				log.info("Password", password);
+				log.end(metodo+" - "+SUCCESS);
+				return SUCCESS;
+			}else{
+				addActionError(getText("error.database"));
+				log.end(metodo+" - "+ERROR);
+				return ERROR;
+			}
 		} else {
-			addActionError(getText("error.login"));
+			addActionError(getText("error.register"));
 			log.end(metodo+" - "+ERROR);
 			return ERROR;
 		}
@@ -132,7 +160,8 @@ public class LoginAction extends ActionSupport {
 			addFieldError("password", getText("error.password",new String[]{getText("error.password.upper")}));}
 			if (!getPassword().matches(".*[a-z].*")) {
 			addFieldError("password", getText("error.password",new String[]{getText("error.password.lower")}));}
-		}
+		}if (!getPassword().equals(getPasswordConfirm())) {
+			addActionError(getText("error.password.notConfirm"));}
 		log.end(metodo);
 	}
 }
