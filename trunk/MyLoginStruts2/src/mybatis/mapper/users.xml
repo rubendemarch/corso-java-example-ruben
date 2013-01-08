@@ -4,12 +4,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- QUESTO E' IL FILE CHE COMPONE LE QUERY -->
 <mapper namespace="Users">
-	<select id="count" resultType="int" parameterType="struts2.LoginAction">
+	<select id="login" resultType="int" parameterType="struts2.LoginAction">
 		select count(USERNAME) from UTENTI
-		WHERE PASSWORD=#{password} AND USERNAME=#{userName}
+		WHERE PASSWORD=#{md5password} AND USERNAME=#{userName}
 	</select>
-</mapper>
 <!-- select count(USERNAME) from UTENTI
 		WHERE PASSWORD='admin123' AND USERNAME='admin' -->
 		<!-- select count(${colName}) from ${table}
-		WHERE ${colPw}=#{getPassword()} and ${colName}=#{getUserName()} -->
+		WHERE ${colPw}=#{getPassword()} and ${colName}=#{getUserName()} 
+		controlla se utente e password sono nel db
+		-->
+	<select id="count" resultType="int" parameterType="struts2.RegisterAction">
+		select count(USERNAME) from UTENTI
+		WHERE USERNAME=#{userName}
+	</select>
+	<insert id="add" parameterType="struts2.RegisterAction">
+		INSERT INTO UTENTI(USERNAME,PASSWORD)
+		VALUES(#{userName},#{md5password})
+	</insert>
+</mapper>
