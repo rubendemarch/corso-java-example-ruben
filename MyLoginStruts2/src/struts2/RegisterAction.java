@@ -5,6 +5,9 @@ package struts2;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ibatis.io.Resources;
@@ -27,11 +30,16 @@ public class RegisterAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 8807034165591599215L;
+	private MyLogger log;
 	private String userName;
 	private String password;
 	private String passwordConfirm;
-	private MyLogger log;
-	
+	private Date birthDate;
+	private String name;
+	private String surname;
+	private String email;
+	private String phone;
+	private String mobilePhone;
 	//getters e setters ci devono essere (a volte sono costruiti in automatico)
 	/**
 	 * @return the userName
@@ -77,8 +85,108 @@ public class RegisterAction extends ActionSupport {
 		this.passwordConfirm = passwordConfirm;
 	}
 
+	/**
+	 * @return the birthDate
+	 */
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	/**
+	 * @param birthDate the birthDate to set
+	 */
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the surname
+	 */
+	public String getSurname() {
+		return surname;
+	}
+
+	/**
+	 * @param surname the surname to set
+	 */
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	/**
+	 * @return the eMail
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param eMail the eMail to set
+	 */
+	public void setEmail(String eMail) {
+		this.email = eMail;
+	}
+
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @param phone the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @return the mobilePhone
+	 */
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	/**
+	 * @param mobilePhone the mobilePhone to set
+	 */
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
+	}
+
+	/**
+	 * @return the idRole
+	 */
+	public String getIdRole() {
+		return "idRole";
+	}
+
 	public String getMd5password(){// quando mybatis cercherà 'md5password' gliela darà questo metodo detto 'finto getter'
 		return DigestUtils.md5Hex(password);
+	}
+
+	public Date getRegisterDate(){
+		return new Date();
+	}
+	
+	public String getIdUser() {
+		long now = Calendar.getInstance().getTimeInMillis();
+		return now + "" + new Random(now).nextInt(1000);
 	}
 	
 	public String execute() {//si chiama sempre execute(), che di default returna sempre "success"
@@ -145,6 +253,20 @@ public class RegisterAction extends ActionSupport {
 		String metodo="validate";
 		log=new MyLogger(getClass());
 		log.start(metodo);
+		System.out.println(getBirthDate());
+		System.out.println(new Date());
+		System.out.println(getBirthDate().compareTo(new Date()));
+		if (getName().length() == 0) {
+			addFieldError("name", getText("requiredstring",new String[]{getText("label.name")}));}
+		if (getSurname().length() == 0) {
+			addFieldError("surname", getText("requiredstring",new String[]{getText("label.surname")}));} 
+		if (!getEmail().matches("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")) {
+			addFieldError("email", getText("error.email"));}
+		/*Calendar date = Calendar.getInstance();
+		date.setTimeInMillis(date.getTimeInMillis()-3600000*24);//va indietro di un giorno
+		if(getBirthDate().compareTo(new Date(date.getTimeInMillis()))>=0){*/
+		if(getBirthDate().compareTo(new Date())>=0){
+			addFieldError("birthDate", getText("error.birthDate"));}
 		int minPasswLenght = 8;
 		if (getUserName().length() == 0) {
 			addFieldError("userName", getText("requiredstring",new String[]{getText("label.username")}));

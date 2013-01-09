@@ -67,9 +67,9 @@ public class MyLogger {
 	}
 
 	public void start(String metodo){
-		logger.info(StringFormat.formatMessage(metodo,START));
+		logger.trace(StringFormat.formatMessage(metodo,START));
 	}
 	public void end(String metodo){
-		logger.info(StringFormat.formatMessage(metodo,END));
+		logger.trace(StringFormat.formatMessage(metodo,END));
 	}
 }

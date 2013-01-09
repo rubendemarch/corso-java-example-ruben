@@ -5,12 +5,14 @@ package struts2;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.session.TransactionIsolationLevel;
 
 import util.log.MyLogger;
 
@@ -65,6 +67,10 @@ public class LoginAction extends ActionSupport {
 		return DigestUtils.md5Hex(password);
 	}
 	
+	public Date getLastLogin(){
+		return new Date();
+	}
+	
 	public String execute() {//si chiama sempre execute(), che di default returna sempre "success"
 		String metodo="execute";
 		log=new MyLogger(getClass());
@@ -92,7 +98,7 @@ public class LoginAction extends ActionSupport {
 		log.info("Username", userName);
 		log.info("Password", password);
 		try {
-			count = sql.selectOne("Users.login", this);
+			count = sql.selectOne("Users.lookfor", this);
 		} catch (Exception e) {
 			log.error(metodo, sqlSessionFactory.toString(), e);
 		} finally{
@@ -100,8 +106,25 @@ public class LoginAction extends ActionSupport {
 		}
 		
 		if (count>0) {
-			log.end(metodo+" - "+SUCCESS);
-			return SUCCESS;
+			sql = sqlSessionFactory.openSession(TransactionIsolationLevel.READ_COMMITTED);
+			int rowsAffected =0;
+			try {
+				rowsAffected = sql.insert("Users.login", this);
+				sql.commit();
+			} catch (Exception e) {
+				log.error(metodo, sqlSessionFactory.toString(), e);
+				sql.rollback();
+			} finally{
+				sql.close();
+			}
+			if(rowsAffected>0){
+				log.end(metodo+" - "+SUCCESS);
+				return SUCCESS;
+			}else{
+				addActionError(getText("error.database"));
+				log.end(metodo+" - "+ERROR);
+				return ERROR;
+			}
 		} else {
 			addActionError(getText("error.login"));
 			log.end(metodo+" - "+ERROR);
