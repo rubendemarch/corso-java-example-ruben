@@ -21,7 +21,8 @@ window.onload = function() {document.getElementsByName("dojo.birthDate")[0].setA
 	<s:textfield name="email" key="label.eMail" size="20" required="true"/>
 	<s:textfield name="phone" key="label.phone" size="20" />
 	<s:textfield name="mobilePhone" key="label.mobilePhone" size="20" />
-	<sd:datetimepicker name="birthDate" key="label.birthDate" toggleType="fade" toggleDuration="1000" displayFormat="%{getText('date.pattern')}" />
+	<sd:datetimepicker name="birthDate" key="label.birthDate" weekStartsOn="1" toggleType="wipe" toggleDuration="800" displayFormat="%{getText('date.pattern')}" />
+	<!-- se toggleDuration>=1000 non funge più l'effetto speciale -->
     <s:textfield name="userName" key="label.reg.username" size="20" required="true"/>
     <s:password name="password" key="label.reg.password" size="20" required="true"/>
     <s:password name="passwordConfirm" key="label.reg.passwordConfirm" size="20" required="true"/>
