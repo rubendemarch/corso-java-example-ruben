@@ -7,7 +7,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Random;
+
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ibatis.io.Resources;
@@ -40,6 +48,15 @@ public class RegisterAction extends ActionSupport {
 	private String email;
 	private String phone;
 	private String mobilePhone;
+
+	
+	/**
+	 * @param log
+	 */
+	public RegisterAction() {
+		log = new MyLogger(getClass());
+	}
+
 	//getters e setters ci devono essere (a volte sono costruiti in automatico)
 	/**
 	 * @return the userName
@@ -191,7 +208,7 @@ public class RegisterAction extends ActionSupport {
 	
 	public String execute() {//si chiama sempre execute(), che di default returna sempre "success"
 		String metodo="execute";
-		log=new MyLogger(getClass());
+		String ret=SUCCESS;
 		log.start(metodo);
 		SqlSessionFactory sqlSessionFactory = null;
 		InputStream inputStream = null;
@@ -231,19 +248,47 @@ public class RegisterAction extends ActionSupport {
 				log.info(metodo, "NEW USER");
 				log.info("Username", userName);
 				log.info("Password", password);
-				log.end(metodo+" - "+SUCCESS);
-				return SUCCESS;
+				try {
+					sendMail();
+				} catch (Exception e) {
+					addActionError(getText("error.mail"));
+					log.error(metodo, "sendMail", e);
+				}
 			}else{
 				addActionError(getText("error.database"));
-				log.end(metodo+" - "+ERROR);
-				return ERROR;
+				ret=ERROR;
 			}
 		} else {
 			addActionError(getText("error.register"));
-			log.end(metodo+" - "+ERROR);
-			return ERROR;
+			ret=ERROR;
 		}
+		log.end(metodo+" - "+ret);
+		return ret;
 	}
+
+	private void sendMail() throws Exception {
+		final String metodo = "sendMail";
+		log.start(metodo);
+		final Properties properties = new Properties();
+		InputStream in = getClass().getResourceAsStream("/email.properties");
+		properties.load(in);
+		in.close();
+		Session session = Session.getDefaultInstance(properties,
+				new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(properties.getProperty("address"), properties.getProperty("password"));
+					}
+				});
+
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress(properties.getProperty("address")));
+		message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(email));
+		message.setSubject(getSubject());
+		message.setContent(getBody(), "text/html");
+		Transport.send(message);
+		log.end(metodo);
+	}
+
 
 	/* (non-Javadoc)
 	 * @see com.opensymphony.xwork2.ActionSupport#validate()
@@ -251,11 +296,7 @@ public class RegisterAction extends ActionSupport {
 	@Override
 	public void validate() {
 		String metodo="validate";
-		log=new MyLogger(getClass());
 		log.start(metodo);
-		System.out.println(getBirthDate());
-		System.out.println(new Date());
-		System.out.println(getBirthDate().compareTo(new Date()));
 		if (getName().length() == 0) {
 			addFieldError("name", getText("requiredstring",new String[]{getText("label.name")}));}
 		if (getSurname().length() == 0) {
@@ -265,7 +306,7 @@ public class RegisterAction extends ActionSupport {
 		/*Calendar date = Calendar.getInstance();
 		date.setTimeInMillis(date.getTimeInMillis()-3600000*24);//va indietro di un giorno
 		if(getBirthDate().compareTo(new Date(date.getTimeInMillis()))>=0){*/
-		if(getBirthDate().compareTo(new Date())>=0){
+		if(getBirthDate()!=null && getBirthDate().compareTo(new Date())>=0){
 			addFieldError("birthDate", getText("error.birthDate"));}
 		int minPasswLenght = 8;
 		if (getUserName().length() == 0) {
@@ -285,5 +326,21 @@ public class RegisterAction extends ActionSupport {
 		}if (!getPassword().equals(getPasswordConfirm())) {
 			addActionError(getText("error.password.notConfirm"));}
 		log.end(metodo);
+	}
+
+	public String getSubject() {
+		return getText("Complimenti")+" "+name;
+	}
+
+	public String getBody() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(getText("Sei.un.utente.registrato")+"<br>")
+			.append(getText("label.username")+":")
+			.append("<div style='font-weight: bold;'>").append(userName).append("</div><br>")
+			.append(getText("label.password")+":")
+			.append("<div style='font-weight: bold;'>").append(password).append("</div><br><br>")
+			.append(getText("Per.entrare.puoi.accedere"))
+			.append("<p align='center'><a href='"+util.Constants.SITE_URL_LOGIN+"'>"+getText("body.link")+"</a></p>");
+		return builder.toString();
 	}
 }
