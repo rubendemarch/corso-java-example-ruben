@@ -19,5 +19,9 @@
 			<result name="input">Register.jsp</result>
 			<result name="error">Register.jsp</result>
 		</action>
+		<action name="list" class="struts2.ListAction">
+			<result name="success">List.jsp</result>
+			<result name="error">Login.jsp</result>
+		</action>
 	</package>
 </struts>
