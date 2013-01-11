@@ -75,17 +75,22 @@ public class LoginAction extends ActionSupport {
 		String metodo="execute";
 		log=new MyLogger(getClass());
 		log.start(metodo);
+		String ret = SUCCESS;
 		SqlSessionFactory sqlSessionFactory = null;
 		InputStream inputStream = null;
 		try {
 			inputStream = Resources.getResourceAsStream("mybatis/config/mybatis-config.xml");
 		} catch (IOException e) {
 			log.fatal(metodo, "Fallita SqlSessionFactoryBuilder", e);
+			addActionError(getText("error.database"));
+			return ERROR;
 		}
 		try {
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		} catch (Exception e) {
 			log.fatal(metodo, "Fallita SqlSessionFactoryBuilder", e);
+			addActionError(getText("error.database"));
+			return ERROR;
 		}
 		/*HashMap<String, Object> map = new HashMap<String,Object>();
 		map.put("colName","USERNAME");
@@ -101,6 +106,8 @@ public class LoginAction extends ActionSupport {
 			count = sql.selectOne("Users.lookfor", this);
 		} catch (Exception e) {
 			log.error(metodo, sqlSessionFactory.toString(), e);
+			addActionError(getText("error.database"));
+			return ERROR;
 		} finally{
 			sql.close();
 		}
@@ -118,18 +125,18 @@ public class LoginAction extends ActionSupport {
 				sql.close();
 			}
 			if(rowsAffected>0){
-				log.end(metodo+" - "+SUCCESS);
-				return SUCCESS;
+				log.end(metodo+" - "+ret);
 			}else{
 				addActionError(getText("error.database"));
-				log.end(metodo+" - "+ERROR);
-				return ERROR;
+				ret=ERROR;
+				log.end(metodo+" - "+ret);
 			}
 		} else {
 			addActionError(getText("error.login"));
-			log.end(metodo+" - "+ERROR);
-			return ERROR;
+			ret=ERROR;
+			log.end(metodo+" - "+ret);
 		}
+		return ret;
 	}
 
 	/* (non-Javadoc)

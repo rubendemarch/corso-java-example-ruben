@@ -27,4 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update USERS set LAST_LOGIN=#{lastLogin}
 		WHERE USER_NAME=#{userName}
 	</update>
+	<select id="list" resultType="struts2.User">
+		select * from users
+	</select>
 </mapper>
