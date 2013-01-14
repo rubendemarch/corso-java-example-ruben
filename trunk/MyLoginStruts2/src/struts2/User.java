@@ -16,7 +16,7 @@ public class User {
 	private String name;
 	private String surname;
 	private String password;
-	private int wrongTriesCount;
+	private Integer wrongTriesCount;
 	private String email;
 	private String phone;
 	private String mobilePhone;
@@ -24,6 +24,40 @@ public class User {
 	private Date registerDay;
 	private Date lastLogin;
 	private String idRole;
+	/**
+	 * @param idUser
+	 * @param userName
+	 * @param name
+	 * @param surname
+	 * @param password
+	 * @param wrongTriesCount
+	 * @param email
+	 * @param phone
+	 * @param mobilePhone
+	 * @param birthDay
+	 * @param registerDay
+	 * @param lastLogin
+	 * @param idRole
+	 * @return 
+	 */
+	public void init(String idUser, String userName, String name, String surname,
+			String password, Integer wrongTriesCount, String email, String phone,
+			String mobilePhone, Date birthDay, Date registerDay,
+			Date lastLogin, String idRole) {
+		this.idUser = idUser;
+		this.userName = userName;
+		this.name = name;
+		this.surname = surname;
+		this.password = password;
+		this.wrongTriesCount = wrongTriesCount;
+		this.email = email;
+		this.phone = phone;
+		this.mobilePhone = mobilePhone;
+		this.birthDay = birthDay;
+		this.registerDay = registerDay;
+		this.lastLogin = lastLogin;
+		this.idRole = idRole;
+	}
 	/**
 	 * @return the idUser
 	 */
@@ -35,6 +69,18 @@ public class User {
 	 */
 	public void setIdUser(String idUser) {
 		this.idUser = idUser;
+	}
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	/**
 	 * @return the name
@@ -75,13 +121,13 @@ public class User {
 	/**
 	 * @return the wrongTriesCount
 	 */
-	public int getWrongTriesCount() {
+	public Integer getWrongTriesCount() {
 		return wrongTriesCount;
 	}
 	/**
 	 * @param wrongTriesCount the wrongTriesCount to set
 	 */
-	public void setWrongTriesCount(int wrongTriesCount) {
+	public void setWrongTriesCount(Integer wrongTriesCount) {
 		this.wrongTriesCount = wrongTriesCount;
 	}
 	/**
@@ -166,51 +212,6 @@ public class User {
 	 * @param idRole the idRole to set
 	 */
 	public void setIdRole(String idRole) {
-		this.idRole = idRole;
-	}
-	/**
-	 * @return the userName
-	 */
-	public String getUserName() {
-		return userName;
-	}
-	/**
-	 * @param userName the userName to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	/**
-	 * @param idUser
-	 * @param userName
-	 * @param name
-	 * @param surname
-	 * @param password
-	 * @param wrongTriesCount
-	 * @param email
-	 * @param phone
-	 * @param mobilePhone
-	 * @param birthDay
-	 * @param registerDay
-	 * @param lastLogin
-	 * @param idRole
-	 */
-	public User(String idUser, String userName, String name, String surname,
-			String password, int wrongTriesCount, String email, String phone,
-			String mobilePhone, Date birthDay, Date registerDay,
-			Date lastLogin, String idRole) {
-		this.idUser = idUser;
-		this.userName = userName;
-		this.name = name;
-		this.surname = surname;
-		this.password = password;
-		this.wrongTriesCount = wrongTriesCount;
-		this.email = email;
-		this.phone = phone;
-		this.mobilePhone = mobilePhone;
-		this.birthDay = birthDay;
-		this.registerDay = registerDay;
-		this.lastLogin = lastLogin;
 		this.idRole = idRole;
 	}
 }
