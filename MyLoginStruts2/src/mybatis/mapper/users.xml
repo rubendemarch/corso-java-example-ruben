@@ -30,8 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<resultMap id="UserResult" type="struts2.User">
-	    <constructor >
-	    	<arg column="ID_USER" javaType="String"/>
+	<!--    <constructor >
+	   	<arg column="ID_USER" javaType="String"/>
 	    	<arg column="USER_NAME" javaType="String"/>
 	    	<arg column="NAME" javaType="String"/>
 	    	<arg column="SURNAME" javaType="String"/>
@@ -44,8 +44,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	<arg column="REGISTER_DAY" javaType="Date"/>
 	    	<arg column="LAST_LOGIN" javaType="Date"/>
 	    	<arg column="ID_ROLE" javaType="String"/>
-	    </constructor>
-	    <result property="idUser" column="ID_USER" javaType="String"/>
+	    </constructor> -->  
+	<!--    <result property="idUser" column="ID_USER" javaType="String"/>
 	    <result property="userName" column="USER_NAME" javaType="String"/>
 	    <result property="name" column="NAME" javaType="String"/>
 	    <result property="surname" column="SURNAME" javaType="String"/>
@@ -57,7 +57,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <result property="birthDay" column="BIRTH_DAY" javaType="Date"/>
 	    <result property="registerDay" column="REGISTER_DAY" javaType="Date"/>
 	    <result property="lastLogin" column="LAST_LOGIN" javaType="Date"/>
-	    <result property="idRole" column="ID_ROLE" javaType="String"/>
+	    <result property="idRole" column="ID_ROLE" javaType="String"/>-->
+	    
+	    <result property="idUser" column="ID_USER"/>
+	    <result property="userName" column="USER_NAME" />
+	    <result property="name" column="NAME" />
+	    <result property="surname" column="SURNAME"/>
+	    <result property="password" column="PASSWORD" />
+	    <result property="wrongTriesCount" column="WRONG_TRIES_CNT" />
+	    <result property="email" column="E_MAIL"/>
+	    <result property="phone" column="PHONE"/>
+	    <result property="mobilePhone" column="MOBILE_PHONE" />
+	    <result property="birthDay" column="BIRTH_DAY" />
+	    <result property="registerDay" column="REGISTER_DAY" />
+	    <result property="lastLogin" column="LAST_LOGIN" />
+	    <result property="idRole" column="ID_ROLE"/>
    </resultMap>
   
 	<select id="list" resultMap="UserResult">
