@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13581516510160" configfile="/myJsf/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="pages/login.xhtml" x="120" id="pf13581547896660" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13581547896661" path="/pages/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/welcome.xhtml" x="156" y="108" id="pf13581547896662" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13581547896661" path="/pages/welcome.xhtml"/>
-  <links id="pf13581547896661" target="pf13581547896662" source="pf13581547896660" outcome="login"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/login.xhtml" x="338" y="178" id="pf13581547896660" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf135832880842611" inlinks="pf13583266809163" path="/pages/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="WEB-INF/templates/subHeader.xhtml" id="pf13583266809164" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf13583266809163 pf13583266809165 pf13583266809166" path="/WEB-INF/templates/subHeader.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/logout.xhtml" x="168" y="192" id="pf13583266809167" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf13583266809165" path="/pages/logout.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/register.xhtml" x="12" y="132" id="pf13583266809178" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf13583266809166" path="/pages/register.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/welcome.xhtml" x="288" id="pf135832880842712" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf135832880842611" path="/pages/welcome.xhtml"/>
+  <links id="pf13583266809163" target="pf13581547896660" source="pf13583266809164" outcome="login"/>
+  <links id="pf13583266809165" target="pf13583266809167" source="pf13583266809164" outcome="logout"/>
+  <links id="pf13583266809166" target="pf13583266809178" source="pf13583266809164" outcome="register"/>
+  <links id="pf135832880842611" target="pf135832880842712" source="pf13581547896660" outcome="welcome"/>
 </pageflow:Pageflow>

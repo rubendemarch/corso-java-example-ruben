@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- QUESTO E' IL FILE CHE COMPONE LE QUERY -->
+<mapper namespace="Users">
+	<select id="lookfor" resultType="int" parameterType="struts2.LoginAction">
+		select count(USER_NAME) from USERS
+		WHERE PASSWORD=#{md5password} AND USER_NAME=#{userName}
+	</select>
+<!-- select count(USERNAME) from UTENTI
+		WHERE PASSWORD='admin123' AND USERNAME='admin' -->
+		<!-- select count(${colName}) from ${table}
+		WHERE ${colPw}=#{getPassword()} and ${colName}=#{getUserName()} 
+		controlla se utente e password sono nel db
+		-->
+	<select id="count" resultType="int" parameterType="struts2.RegisterAction">
+		select count(USER_NAME) from USERS
+		WHERE USER_NAME=#{userName}
+	</select>
+	<insert id="add" parameterType="struts2.RegisterAction">
+		INSERT INTO USERS(ID_USER,USER_NAME,NAME,SURNAME,PASSWORD,
+		E_MAIL,PHONE,MOBILE_PHONE,BIRTH_DAY,REGISTER_DAY,ID_ROLE)
+		VALUES(#{idUser},#{userName},#{name},#{surname},#{md5password},#{email},#{phone,jdbcType=VARCHAR},#{mobilePhone,jdbcType=VARCHAR},#{birthDate,jdbcType=DATE},#{registerDate},#{idRole})
+	</insert>
+	<update id="login" parameterType="struts2.LoginAction">
+		update USERS set LAST_LOGIN=#{lastLogin}
+		WHERE USER_NAME=#{userName}
+	</update>
+
+
+	<resultMap id="UserResult" type="struts2.User">
+	    <constructor >
+	    	<arg column="ID_USER" javaType="String"/>
+	    	<arg column="USER_NAME" javaType="String"/>
+	    	<arg column="NAME" javaType="String"/>
+	    	<arg column="SURNAME" javaType="String"/>
+	    	<arg column="PASSWORD" javaType="String"/>
+	    	<arg column="WRONG_TRIES_CNT" javaType="Integer"/>
+	    	<arg column="E_MAIL" javaType="String"/>
+	    	<arg column="PHONE" javaType="String"/>
+	    	<arg column="MOBILE_PHONE" javaType="String"/>
+	    	<arg column="BIRTH_DAY" javaType="Date"/>
+	    	<arg column="REGISTER_DAY" javaType="Date"/>
+	    	<arg column="LAST_LOGIN" javaType="Date"/>
+	    	<arg column="ID_ROLE" javaType="String"/>
+	    </constructor>
+	    <result property="idUser" column="ID_USER" javaType="String"/>
+	    <result property="userName" column="USER_NAME" javaType="String"/>
+	    <result property="name" column="NAME" javaType="String"/>
+	    <result property="surname" column="SURNAME" javaType="String"/>
+	    <result property="password" column="PASSWORD" javaType="String"/>
+	    <result property="wrongTriesCount" column="WRONG_TRIES_CNT" javaType="int"/>
+	    <result property="email" column="E_MAIL" javaType="String"/>
+	    <result property="phone" column="PHONE" javaType="String"/>
+	    <result property="mobilePhone" column="MOBILE_PHONE" javaType="String"/>
+	    <result property="birthDay" column="BIRTH_DAY" javaType="Date"/>
+	    <result property="registerDay" column="REGISTER_DAY" javaType="Date"/>
+	    <result property="lastLogin" column="LAST_LOGIN" javaType="Date"/>
+	    <result property="idRole" column="ID_ROLE" javaType="String"/>
+   </resultMap>
+  
+	<select id="list" resultMap="UserResult">
+		select * from users
+	</select>
+
+</mapper>
