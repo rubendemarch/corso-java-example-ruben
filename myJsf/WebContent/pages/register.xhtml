@@ -6,19 +6,45 @@
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
 	<ui:define name="content">
 		<h:form>
+			<h:outputText id="outputForm" style="color:red" value="#{user.checkUserName}"/>
 			<h:panelGrid columns="3">
-				<h:outputText value="Name"></h:outputText>
-				<h:inputText value="#{user.userName}" id="name" required="true">
-<!-- 	<f:validateRequired /> è inutile, tanto se non c'è  required="true" sopra non funziona-->
+				<h:outputText value="#{msg.userName}"></h:outputText>
+				<h:inputText id="username" value="#{user.userName}" required="true">
+					<f:ajax execute="username" render="outputName" onevent="onblur"/>
+					<f:ajax execute="username" render="outputForm" onevent="onblur"/>
 				</h:inputText>
-				<h:message for="name" style="color:red" />
-				<h:outputText value="Password"></h:outputText>
+				<h:message for="name" id="outputName" style="color:red" />
+				
+				<h:outputText value="#{msg.password}"></h:outputText>
 				<h:inputSecret value="#{user.password}" id="password" required="true" validatorMessage="La password deve contenere minuscola, maiuscola, numero, ed essere lunga minimo 6">
-<!-- 					<f:validateLength minimum="6"/> -->
+					<f:ajax execute="password" render="outputPassword" onevent="onblur"/>
 					<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,120})" />
 				</h:inputSecret>
-				<h:message for="password" style="color:red" />
-			<h:commandButton value="#{msg.Registrati}" action="login"></h:commandButton>
+				<h:message for="password" id="outputPassword" style="color:red" />
+				
+			
+				<h:outputText value="#{msg.name}"></h:outputText>
+				<h:inputText id="name" value="#{user.name}" required="true"/>
+				<h:message for="name" style="color:red" />
+			
+				<h:outputText value="#{msg.surname}"></h:outputText>
+				<h:inputText id="surname" value="#{user.surname}" required="true"/>
+				<h:message for="surname" style="color:red" />
+			
+				<h:outputText value="#{msg.email}"></h:outputText>
+				<h:inputText id="email" value="#{user.email}" required="true"/>
+				<h:message for="email" style="color:red" />
+				
+				<h:outputText value="#{msg.phone}"></h:outputText>
+				<h:inputText id="phone" value="#{user.phone}"/>
+				<h:message for="phone" style="color:red" />
+				<h:outputText value="#{msg.mobilePhone}"></h:outputText>
+				<h:inputText id="mobilePhone" value="#{user.mobilePhone}" />
+				<h:message for="mobilePhone" style="color:red" />
+				<h:outputText value="#{msg.birthDay}"></h:outputText>
+				<h:inputText id="birthDay" value="#{user.birthDay}"/>
+				<h:message for="birthDay" style="color:red" />
+			<h:commandButton value="#{msg.Registrati}" action="logout"></h:commandButton>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>

@@ -13,6 +13,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import util.log.MyLogger;
+
 /**
  * @author ALFA403
  *
@@ -21,10 +23,11 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 @ApplicationScoped
 public class MySql {
 
+	private MyLogger logger;
 	private static SqlSessionFactory sqlSessionFactory;
 
 	static{
-		String resource = "mybatis-config.xml";
+		String resource = "mybatis/config/mybatis-config.xml";
 		InputStream inputStream=null;
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
