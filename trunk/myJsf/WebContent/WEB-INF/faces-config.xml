@@ -25,7 +25,7 @@
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
 	
-	<navigation-rule>
+<!--	<navigation-rule>
 		<from-view-id>/WEB-INF/templates/subHeader.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>login</from-outcome>
@@ -35,7 +35,6 @@
 	<navigation-rule>
 		<from-view-id>/WEB-INF/templates/subHeader.xhtml</from-view-id>
 		<navigation-case>
-<!-- 			<from-action>#{user.logout}</from-action> -->
 			<from-outcome>logout</from-outcome>
 			<to-view-id>/pages/logout.xhtml</to-view-id>
 		</navigation-case>
@@ -51,10 +50,9 @@
 		<display-name>pages/login.xhtml</display-name>
 		<from-view-id>/pages/login.xhtml</from-view-id>
 		<navigation-case>
-<!-- 			<from-action>#{user.setLogged(true)}</from-action> -->
 			<from-outcome>welcome</from-outcome>
 			<to-view-id>/pages/welcome.xhtml</to-view-id>
 		</navigation-case>
-	</navigation-rule>
+	</navigation-rule>  -->
 	
 </faces-config>
