@@ -5,9 +5,11 @@ package dao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ResourceBundle;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -24,6 +26,7 @@ import util.log.MyLogger;
 public class MySql {
 
 	private MyLogger logger;
+	private static ResourceBundle bundle;
 	private static SqlSessionFactory sqlSessionFactory;
 
 	static{
@@ -55,5 +58,19 @@ public class MySql {
 	 */
 	public static void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
 		MySql.sqlSessionFactory = sqlSessionFactory;
+	}
+	
+	public static ResourceBundle getBundle() {
+
+		if (bundle == null) {
+
+			FacesContext context = FacesContext.getCurrentInstance();
+
+			bundle = context.getApplication().getResourceBundle(context, "msg");
+
+		}
+
+		return bundle;
+
 	}
 }

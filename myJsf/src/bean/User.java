@@ -4,6 +4,7 @@
 package bean;
 
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import javax.faces.bean.ManagedProperty;
 
@@ -37,6 +38,8 @@ public class User {
 	private Date registerDay;
 	private Date lastLogin;
 	private String idRole;
+	
+	private ResourceBundle bundle = MySql.getBundle();
 	/**
 	 * @return the userName
 	 */
@@ -262,9 +265,9 @@ public class User {
 		setPassword(null);
 		setLoggedUserName(null);
 	}
-	public String checkUserName(){
+	public String getCheckUserName(){
 		if (userName!=null){
-			return(getRegistered()? #{msg.userNameExist} : #{msg.userNameOk});
+			return(getRegistered()? bundle.getString("userNameExist") : bundle.getString("userNameOk"));
 		}else return "";
 	}
 }
