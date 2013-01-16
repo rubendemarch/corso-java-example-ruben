@@ -1,20 +1,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
-<head>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
   <title><ui:insert name="title">#{msg.title}</ui:insert></title>
-</head>
+</h:head>
 
-<body>
-
-<div id="header">
+<h:body>
+<div id="header" style="width:100%;background-color: navy;font-size:36px;background-color:#888;color:white">
     <ui:insert name="header">
     	<ui:include src="/WEB-INF/templates/header.xhtml"></ui:include>
     </ui:insert>
 </div>
 
+<div id="subHeader" style="width:100%;background-color: #999; color: blue; text-align: right;">
+    <ui:insert name="subHeader">
+    	<ui:include src="/WEB-INF/templates/subHeader.xhtml"></ui:include>
+    </ui:insert>
+</div>
 <table><tr><td>
 <div id="menu">
     <ui:insert name="menu">
@@ -34,6 +40,6 @@
   </ui:insert>
 </div>
 
-</body>
+</h:body>
 
 </html>

@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<div>
+<!-- 		<h:outputText value="#{user.logged? msg.loggedAs  : msg.loggedNot} " />
+		<h:outputText value="#{user.logged? user.userName : '' }" />
+		<a href="login.xhtml"><h:outputText value="#{user.logged? msg.sloggati : msg.loggati}" /></a> -->
+<h:form>
+<h:outputText value="#{msg.loggedAs} " rendered="#{user.logged}"/> 
+<h:outputText value="#{msg.loggedNot}" rendered="#{!user.logged}"/> 
+<h:outputText value="#{user.loggedUserName}" rendered="#{user.logged}"/>
+<h:commandButton value="#{msg.sloggati}" action="logout" actionListener="#{user.logout}" rendered="#{user.logged}"/>
+<h:commandButton value="#{msg.loggati}" action="login" rendered="#{!user.logged}"/>
+<h:commandButton value="#{msg.Registrati}" action="register" rendered="#{!user.logged}"/>
+</h:form>
+</div>
+
+</html>
