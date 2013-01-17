@@ -7,19 +7,20 @@
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
 	<ui:define name="content">
 		<h:form>
-		<!--al posto di quello che ho fatto per la password si può usare <p:password  > -->
+		<!--al posto di quello che ho fatto per la password si può usare <p:password  >
+		<!-  di default c'è event="change"-->
 			<h:panelGrid columns="4">
 				<h:outputText value="#{msg.userName}"></h:outputText>
 				<h:inputText id="username" value="#{user.userName}" required="true">
-					<f:ajax execute="username" render="outputName" onevent="onblur"/>
-					<f:ajax execute="username" render="outputForm" onevent="onblur"/>
+					<f:ajax execute="username" render="outputName"/>
+					<f:ajax execute="username" render="outputForm"/>
 				</h:inputText>
 				<h:message for="name" id="outputName" style="color:red" />
 				<h:outputText id="outputForm" value="#{user.checkUserName}" style="color:#{user.colorUserName}"/>
 
 				<h:outputText value="#{msg.password}"></h:outputText>
 				<h:inputSecret value="#{user.password}" id="password" required="true" validatorMessage="La password deve contenere minuscola, maiuscola, preferibilmente un numero, ed essere lunga minimo 6">
-					<f:ajax execute="password" render="semaforPassword" onevent="onblur"/>
+					<f:ajax execute="password" render="semaforPassword" />
 					<f:validateRegex pattern="((?=.*[a-z])(?=.*[A-Z]).{6,120})" />
 				</h:inputSecret>
 				<h:message for="password" id="outputPassword" style="color:red" />
