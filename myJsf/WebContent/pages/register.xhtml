@@ -57,8 +57,11 @@
 				</h:outputText>-->
 				<h:message for="birthDay" style="color:red" />
 				<h:outputText value=""/>
-				
-			<h:commandButton value="#{msg.Registrati}" actionListener="#{user.register}"></h:commandButton>
+
+				<p:captcha id="captcha" label="Captcha" required="true" requiredMessage="required" validatorMessage="..."/>
+				<p:message id="captchaMessage" for="captcha" />
+
+				<h:commandButton value="#{msg.Registrati}" actionListener="#{user.register}"/>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>
