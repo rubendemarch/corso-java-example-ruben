@@ -53,6 +53,14 @@
 			<from-outcome>welcome</from-outcome>
 			<to-view-id>/pages/welcome.xhtml</to-view-id>
 		</navigation-case>
+	</navigation-rule> 
+	<navigation-rule>
+		<display-name>pages/regijhvfhjster.xhtml</display-name>
+		<from-view-id>/pages/register.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>registered</from-outcome>
+			<to-view-id>/pages/registered.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>  -->
 	
 </faces-config>

@@ -39,7 +39,18 @@ public class User {
 	private Date lastLogin;
 	private String idRole;
 	
+	private String colorPassword;
 	private ResourceBundle bundle = MySql.getBundle();
+	public String getColorPassword(){
+		return colorPassword;
+	}
+	/**
+	 * @param colorPassword the colorPassword to set
+	 */
+	public void setColorPassword(String colorPassword) {
+		this.colorPassword = colorPassword;
+	}
+	
 	/**
 	 * @return the userName
 	 */
@@ -254,6 +265,18 @@ public class User {
 		else setRegistered(false);
 		return registered;
 	}
+	
+	public boolean register() {
+		if (userName!=null){
+		SqlSessionFactory sqlFactory = MySql.getSqlSessionFactory();
+		SqlSession sql=sqlFactory.openSession();
+		int count = sql.selectOne("Users.count",this);
+		sql.close();
+		setRegistered(count>0);
+		}
+		else setRegistered(false);
+		return registered;
+	}
 	/**
 	 * @param isRegistered the isRegistered to set
 	 */
@@ -264,10 +287,44 @@ public class User {
 		setLogged(false);
 		setPassword(null);
 		setLoggedUserName(null);
+		setBirthDay(null);
+		setEmail(null);
+		setIdRole(null);
+		setIdUser(null);
+		setLastLogin(null);
+		setMobilePhone(null);
+		setName(null);
+		setPhone(null);
+		setRegisterDay(null);
+		setSurname(null);
 	}
 	public String getCheckUserName(){
 		if (userName!=null){
 			return(getRegistered()? bundle.getString("userNameExist") : bundle.getString("userNameOk"));
 		}else return "";
+	}
+	public String getColorUserName(){
+		if (userName!=null){
+			return(getRegistered()? "#FF0000" : "#00CC00");
+		}else return "black";
+	}
+	public String getCheckPassword(){
+		if (password!=null){
+			if(password.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!£$%&#עטיאש§*-+]).{6,120})")) {
+				setColorPassword("#66FF33");
+				return bundle.getString("ottima");
+			}
+			else if (password.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,120})")){
+				setColorPassword("#FFFF33");
+				return bundle.getString("buona");
+			}
+			else {
+				setColorPassword("#FF3333");
+				return bundle.getString("scarsa");
+			}
+		}else {
+			setColorPassword("#FFFFFF");
+			return "";
+		}
 	}
 }
