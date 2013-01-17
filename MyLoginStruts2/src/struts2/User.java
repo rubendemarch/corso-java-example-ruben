@@ -40,7 +40,7 @@ public class User {
 	 * @param idRole
 	 * @return 
 	 */
-	public void init(String idUser, String userName, String name, String surname,
+	public User(String idUser, String userName, String name, String surname,
 			String password, Integer wrongTriesCount, String email, String phone,
 			String mobilePhone, Date birthDay, Date registerDay,
 			Date lastLogin, String idRole) {
