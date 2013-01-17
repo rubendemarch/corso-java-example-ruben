@@ -58,6 +58,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <result property="registerDay" column="REGISTER_DAY" javaType="Date"/>
 	    <result property="lastLogin" column="LAST_LOGIN" javaType="Date"/>
 	    <result property="idRole" column="ID_ROLE" javaType="String"/>-->
+<!-- 	    ID_USER, USER_NAME, NAME, SURNAME, PASSWORD, WRONG_TRIES_CNT, E_MAIL, PHONE, MOBILE_PHONE, BIRTH_DAY, 
+REGISTER_DAY, LAST_LOGIN, ID_ROLE -->
+
 	    
 	    <result property="idUser" column="ID_USER"/>
 	    <result property="userName" column="USER_NAME" />
@@ -75,7 +78,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </resultMap>
   
 	<select id="list" resultMap="UserResult">
-		select * from users
+		select ID_USER, USER_NAME, NAME, SURNAME, PASSWORD, WRONG_TRIES_CNT, E_MAIL, PHONE, MOBILE_PHONE, BIRTH_DAY, 
+REGISTER_DAY, LAST_LOGIN, ID_ROLE from users
 	</select>
 
 </mapper>

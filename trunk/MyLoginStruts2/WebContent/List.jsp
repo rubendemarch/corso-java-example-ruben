@@ -12,16 +12,28 @@
 <body>
 
 <h2><s:text name="label.list.title"/></h2>
-<table>
-	<s:iterator value="table" var="row">
+<table border="1">
+	<s:iterator value="table" >
 		<tr>
-			<s:iterator value="row" id="cell">
-				<td><s:property value=""/></td>
-			</s:iterator>
+			
+			<td><s:property value="idUser"/></td>
+			<td><s:property value="userName"/></td>
+			<td><s:property value="name"/></td>
+			<td><s:property value="surname"/></td>
+			<td><s:property value="password"/></td>
+			<td><s:property value="wrongTriesCount"/></td>
+			<td><s:property value="email"/></td>
+			<td><s:property value="phone"/></td>
+			<td><s:property value="mobilePhone"/></td>
+			<td><s:property value="birthDay"/></td>
+			<td><s:property value="registerDay"/></td>
+			<td><s:property value="lastLogin"/></td>
+			<td><s:property value="idRole"/></td>
+			
 		</tr>
 	</s:iterator>
 </table>
-<table>
+
 	<display:table pagesize="10" name="table">
 		<tr>
 			<td><display:column property="idUser"/></td>
@@ -39,6 +51,6 @@
 			<td><display:column property="idRole"/></td>
 		</tr>
 	</display:table>
-</table>
+
 </body>
 </html>
