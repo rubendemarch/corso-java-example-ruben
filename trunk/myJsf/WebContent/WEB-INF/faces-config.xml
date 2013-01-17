@@ -24,6 +24,11 @@
 		<managed-bean-class>dao.MySql</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>captchaBean</managed-bean-name>
+		<managed-bean-class>bean.CaptchaBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
 	
 <!--	<navigation-rule>
 		<from-view-id>/WEB-INF/templates/subHeader.xhtml</from-view-id>

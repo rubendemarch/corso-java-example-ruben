@@ -21,7 +21,7 @@
 					<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,120})" />
 				</h:inputSecret>
 				<h:message for="password" id="outputPassword" style="color:red" />
-				<h:commandButton value="Login" action="welcome" actionListener="#{user.setLogged(true)}"></h:commandButton>
+				<h:commandButton value="Login" actionListener="#{user.login}"></h:commandButton>
 			
 			</h:panelGrid>
 		</h:form>

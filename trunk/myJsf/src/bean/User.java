@@ -3,7 +3,6 @@
  */
 package bean;
 
-import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -15,9 +14,9 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.TransactionIsolationLevel;
 
 import util.log.MyLogger;
-
 import dao.MySql;
 
 /**
@@ -313,6 +312,52 @@ public class User {
 		String redirect = (rowsAffected>0)?"registered":"error";// define the navigation rule that must be used in order to redirect the user to the adequate page...
 		facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, redirect);
 	}
+	
+	public void login() {
+		final String metodo = "login";
+		log.start(metodo);
+		SqlSessionFactory sqlFactory = MySql.getSqlSessionFactory();
+		SqlSession sql=sqlFactory.openSession();
+		int count=0;
+		String redirect="welcome";
+		log.info("Username", userName);
+		log.info("Password", password);
+		try {
+			count = sql.selectOne("Users.lookfor", this);
+		} catch (Exception e) {
+			log.error(metodo, sqlFactory.toString(), e);
+			redirect="error";
+		} finally{
+			sql.close();
+		}
+		
+		if (count>0) {
+			sql = sqlFactory.openSession(TransactionIsolationLevel.READ_COMMITTED);
+			int rowsAffected =0;
+			try {
+				rowsAffected = sql.insert("Users.login", this);
+				sql.commit();
+			} catch (Exception e) {
+				log.error(metodo, sqlFactory.toString(), e);
+				sql.rollback();
+				redirect="error";
+			} finally{
+				sql.close();
+			}
+			if(rowsAffected>0){
+				setLogged(true);
+				log.end(metodo+" - "+redirect);
+			}else{
+				redirect="error";
+				log.end(metodo+" - "+redirect);
+			}
+		} else {
+			redirect="error";
+			log.end(metodo+" - "+redirect);
+		}
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, redirect);
+	}
 	/**
 	 * @param isRegistered the isRegistered to set
 	 */
@@ -344,6 +389,7 @@ public class User {
 			return(getRegistered()? "#FF0000" : "#00CC00");
 		}else return "black";
 	}
+	
 	public String getCheckPassword(){
 		if (password!=null){
 			if(password.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!£$%&#עטיאש§*-+]).{6,120})")) {
