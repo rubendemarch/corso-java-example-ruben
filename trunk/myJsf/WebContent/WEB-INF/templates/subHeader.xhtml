@@ -14,7 +14,7 @@
 <h:outputText value="#{user.loggedUserName}" rendered="#{user.logged}"/>
 <h:commandButton value="#{msg.sloggati}" action="logout" actionListener="#{user.logout}" rendered="#{user.logged}"/>
 <h:commandButton value="#{msg.loggati}" action="login" rendered="#{!user.logged}"/>
-<h:commandButton value="#{msg.Registrati}" action="register" rendered="#{!user.logged}"/>
+<h:commandButton value="#{msg.Registrati}" action="register" actionListener="#{user.logout}" rendered="#{!user.logged}"/>
 </h:form>
 </div>
 

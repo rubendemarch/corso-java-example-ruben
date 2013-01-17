@@ -1,11 +1,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
 	<ui:define name="content">
 		<h:form>
+		<!--al posto di quello che ho fatto per la password si può usare <p:password  > -->
 			<h:panelGrid columns="4">
 				<h:outputText value="#{msg.userName}"></h:outputText>
 				<h:inputText id="username" value="#{user.userName}" required="true">
@@ -13,15 +15,15 @@
 					<f:ajax execute="username" render="outputForm" onevent="onblur"/>
 				</h:inputText>
 				<h:message for="name" id="outputName" style="color:red" />
-				<h:outputText id="outputForm" style="color:red" value="#{user.checkUserName}"/>
+				<h:outputText id="outputForm" value="#{user.checkUserName}" style="color:#{user.colorUserName}"/>
 
 				<h:outputText value="#{msg.password}"></h:outputText>
-				<h:inputSecret value="#{user.password}" id="password" required="true" validatorMessage="La password deve contenere minuscola, maiuscola, numero, ed essere lunga minimo 6">
-					<f:ajax execute="password" render="outputPassword" onevent="onblur"/>
-					<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,120})" />
+				<h:inputSecret value="#{user.password}" id="password" required="true" validatorMessage="La password deve contenere minuscola, maiuscola, preferibilmente un numero, ed essere lunga minimo 6">
+					<f:ajax execute="password" render="semaforPassword" onevent="onblur"/>
+					<f:validateRegex pattern="((?=.*[a-z])(?=.*[A-Z]).{6,120})" />
 				</h:inputSecret>
 				<h:message for="password" id="outputPassword" style="color:red" />
-				<h:outputText value=""/>
+				<h:outputText id="semaforPassword" value="#{user.checkPassword}" style="background-color:#{user.colorPassword}"/>
 			
 				<h:outputText value="#{msg.name}"></h:outputText>
 				<h:inputText id="name" value="#{user.name}" required="true"/>
@@ -46,11 +48,16 @@
 				<h:inputText id="mobilePhone" value="#{user.mobilePhone}" />
 				<h:message for="mobilePhone" style="color:red" />
 				<h:outputText value=""/>
-				<h:outputText value="#{msg.birthDay}"></h:outputText>
-				<h:inputText id="birthDay" value="#{user.birthDay}"/>
+				
+				<h:outputText value="#{msg.birthDay}"/>
+				<p:calendar value="#{user.birthDay}" id="birthCal" pattern="d/M/yyyy" size="13" />
+				<h:outputText value="#{user.birthDay}" id="birthDay">
+<!-- 					<f:convertDateTime pattern="dd/MM/yyyy"/> -->
+				</h:outputText>
 				<h:message for="birthDay" style="color:red" />
 				<h:outputText value=""/>
-			<h:commandButton value="#{msg.Registrati}" action="logout"></h:commandButton>
+				
+			<h:commandButton value="#{msg.Registrati}" action="registered"></h:commandButton>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>
