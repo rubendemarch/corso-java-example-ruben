@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="add" parameterType="bean.User">
 		INSERT INTO USERS(ID_USER,USER_NAME,NAME,SURNAME,PASSWORD,
 		E_MAIL,PHONE,MOBILE_PHONE,BIRTH_DAY,REGISTER_DAY,ID_ROLE)
-		VALUES(#{idUser},#{userName},#{name},#{surname},#{md5password},#{email},#{phone,jdbcType=VARCHAR},#{mobilePhone,jdbcType=VARCHAR},#{birthDate,jdbcType=DATE},#{registerDate},#{idRole})
+		VALUES(#{idUser},#{userName},#{name},#{surname},#{md5password},#{email},#{phone,jdbcType=VARCHAR},#{mobilePhone,jdbcType=VARCHAR},#{birthDay,jdbcType=DATE},#{registerDay},#{idRole})
 	</insert>
 	<update id="login" parameterType="bean.User">
 		update USERS set LAST_LOGIN=#{lastLogin}
