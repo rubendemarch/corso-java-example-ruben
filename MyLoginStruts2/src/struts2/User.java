@@ -24,6 +24,10 @@ public class User {
 	private Date registerDay;
 	private Date lastLogin;
 	private String idRole;
+	
+	public User(){
+		
+	}
 	/**
 	 * @param idUser
 	 * @param userName
