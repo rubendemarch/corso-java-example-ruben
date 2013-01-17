@@ -3,14 +3,20 @@
  */
 package bean;
 
+import java.awt.event.ActionEvent;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+
+import util.log.MyLogger;
 
 import dao.MySql;
 
@@ -41,6 +47,25 @@ public class User {
 	
 	private String colorPassword;
 	private ResourceBundle bundle = MySql.getBundle();
+	private MyLogger log;
+	/**
+	 * @param userName
+	 * @param password
+	 * @param idUser
+	 * @param name
+	 * @param surname
+	 * @param wrongTriesCount
+	 * @param email
+	 * @param phone
+	 * @param mobilePhone
+	 * @param birthDay
+	 * @param registerDay
+	 * @param lastLogin
+	 * @param idRole
+	 */
+	public User() {
+		log = new MyLogger(getClass());
+	}
 	public String getColorPassword(){
 		return colorPassword;
 	}
@@ -119,12 +144,7 @@ public class User {
 	public void setMySql(MySql mySql) {
 		this.mySql = mySql;
 	}
-	/**
-	 * @return the idUser
-	 */
-	public String getIdUser() {
-		return idUser;
-	}
+
 	/**
 	 * @param idUser the idUser to set
 	 */
@@ -219,7 +239,7 @@ public class User {
 	 * @return the registerDay
 	 */
 	public Date getRegisterDay() {
-		return registerDay;
+		return new Date();
 	}
 	/**
 	 * @param registerDay the registerDay to set
@@ -231,7 +251,7 @@ public class User {
 	 * @return the lastLogin
 	 */
 	public Date getLastLogin() {
-		return lastLogin;
+		return new Date();
 	}
 	/**
 	 * @param lastLogin the lastLogin to set
@@ -240,16 +260,25 @@ public class User {
 		this.lastLogin = lastLogin;
 	}
 	/**
-	 * @return the idRole
-	 */
-	public String getIdRole() {
-		return idRole;
-	}
-	/**
 	 * @param idRole the idRole to set
 	 */
 	public void setIdRole(String idRole) {
 		this.idRole = idRole;
+	}
+	/**
+	 * @return the idRole
+	 */
+	public String getIdRole() {
+		return "idRole";
+	}
+
+	public String getMd5password(){// quando mybatis cercherà 'md5password' gliela darà questo metodo detto 'finto getter'
+		return DigestUtils.md5Hex(password);
+	}
+	
+	public String getIdUser() {
+		long now = Calendar.getInstance().getTimeInMillis();
+		return now + "" + new Random(now).nextInt(1000);
 	}
 	/**
 	 * @return the registered
@@ -266,16 +295,23 @@ public class User {
 		return registered;
 	}
 	
-	public boolean register() {
-		if (userName!=null){
+	public void register() {
+		final String metodo = "register";
 		SqlSessionFactory sqlFactory = MySql.getSqlSessionFactory();
 		SqlSession sql=sqlFactory.openSession();
-		int count = sql.selectOne("Users.count",this);
-		sql.close();
-		setRegistered(count>0);
+		int rowsAffected = 0;
+		try {
+			rowsAffected = sql.insert("Users.add", this);
+			sql.commit();
+		} catch (Exception e) {
+			log.error(metodo, sqlFactory.toString(), e);
+			sql.rollback();
+		} finally{
+			sql.close();
 		}
-		else setRegistered(false);
-		return registered;
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		String redirect = (rowsAffected>0)?"registered":"error";// define the navigation rule that must be used in order to redirect the user to the adequate page...
+		facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, redirect);
 	}
 	/**
 	 * @param isRegistered the isRegistered to set

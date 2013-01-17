@@ -52,13 +52,13 @@
 				
 				<h:outputText value="#{msg.birthDay}"/>
 				<p:calendar value="#{user.birthDay}" id="birthCal" pattern="d/M/yyyy" size="13" />
-				<h:outputText value="#{user.birthDay}" id="birthDay">
-<!-- 					<f:convertDateTime pattern="dd/MM/yyyy"/> -->
-				</h:outputText>
+<!--			<h:outputText value="#{user.birthDay}" id="birthDay">
+<!					<f:convertDateTime pattern="dd/MM/yyyy"/> 
+				</h:outputText>-->
 				<h:message for="birthDay" style="color:red" />
 				<h:outputText value=""/>
 				
-			<h:commandButton value="#{msg.Registrati}" action="registered"></h:commandButton>
+			<h:commandButton value="#{msg.Registrati}" actionListener="#{user.register}"></h:commandButton>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>
