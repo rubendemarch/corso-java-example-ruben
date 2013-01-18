@@ -34,21 +34,21 @@
 	</s:iterator>
 </table> --%>
 
-<display:table export="true" name="table" cellpadding="0" cellspacing="0" pagesize="10" sort="list" >
+<display:table requestURI="list" export="true" name="table" cellpadding="0" cellspacing="0" pagesize="10" sort="list" >
 	<tr>
-		<td><display:column property="idUser"			title="idUser"			sortable="false" /></td>
-		<td><display:column property="userName"			title="userName"		sortable="false" 	/></td>
-		<td><display:column property="name"				title="name"			sortable="false" 	/></td>
-		<td><display:column property="surname"			title="surname"			sortable="false" /></td>
-		<td><display:column property="password"			title="password"		sortable="false" 	/></td>
-		<td><display:column property="wrongTriesCount"	title="wrongTriesCount"	sortable="false" /></td>
-		<td><display:column property="email"			title="email"			sortable="false" autolink="true"/></td>
-		<td><display:column property="phone"			title="phone"			sortable="false" /></td>
-		<td><display:column property="mobilePhone"		title="mobilePhone"		sortable="false" /></td>
-		<td><display:column property="birthDay"			title="birthDay"		sortable="false" 	/></td>
-		<td><display:column property="registerDay"		title="registerDay"		sortable="false" /></td>
-		<td><display:column property="lastLogin"		title="lastLogin"		sortable="false" /></td>
-		<td><display:column property="idRole"			title="idRole"			sortable="false" /></td>
+		<td><display:column property="idUser"			title="idUser"			sortable="true" /></td>
+		<td><display:column property="userName"			title="userName"		sortable="true" 	/></td>
+		<td><display:column property="name"				title="name"			sortable="true" 	/></td>
+		<td><display:column property="surname"			title="surname"			sortable="true" /></td>
+		<td><display:column property="password"			title="password"		sortable="true" 	/></td>
+		<td><display:column property="wrongTriesCount"	title="wrongTriesCount"	sortable="true" /></td>
+		<td><display:column property="email"			title="email"			sortable="true" autolink="true"/></td>
+		<td><display:column property="phone"			title="phone"			sortable="true" /></td>
+		<td><display:column property="mobilePhone"		title="mobilePhone"		sortable="true" /></td>
+		<td><display:column property="birthDay"			title="birthDay"		sortable="true" 	/></td>
+		<td><display:column property="registerDay"		title="registerDay"		sortable="true" /></td>
+		<td><display:column property="lastLogin"		title="lastLogin"		sortable="true" /></td>
+		<td><display:column property="idRole"			title="idRole"			sortable="true" /></td>
 	</tr>
 </display:table>
 
