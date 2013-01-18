@@ -28,6 +28,14 @@ public class ListAction extends ActionSupport {
 	private static final long serialVersionUID = 8251215163029958542L;
 	private MyLogger log;
 	private ArrayList<User> table;
+	private ArrayList<String> tabella;
+
+	
+	public ListAction() {
+	tabella= new ArrayList<String>();
+	tabella.add("alfa");
+	tabella.add("soft");
+	}
 	
 	/**
 	 * @return the table
@@ -69,5 +77,19 @@ public class ListAction extends ActionSupport {
 		sql.close();
 		log.end(metodo);
 		return ret;
+	}
+
+	/**
+	 * @return the tabella
+	 */
+	public ArrayList<String> getTabella() {
+		return tabella;
+	}
+
+	/**
+	 * @param tabella the tabella to set
+	 */
+	public void setTabella(ArrayList<String> tabella) {
+		this.tabella = tabella;
 	}
 }
