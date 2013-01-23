@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<h:panelGrid columns="3">
+				<h:outputText value="#{msg.userName}"></h:outputText>
+				<h:inputText id="name" value="#{user.userName}" required="true">
+					<f:ajax execute="name" render="outputName" onevent="onblur"/>
+		<!-- 			<f:validateRequired /> è inutile, tanto se non c'è sopra required="true" non funziona-->
+				</h:inputText>
+				<h:message for="name" id="outputName" style="color:red" />
+				
+				<h:outputText value="#{msg.password}"></h:outputText>
+				<h:inputSecret value="#{user.password}" id="password" required="true" validatorMessage="La password deve contenere minuscola, maiuscola, numero, ed essere lunga minimo 6">
+<!-- 					<f:validateLength minimum="6"/> -->
+					<f:ajax execute="password" render="outputPassword" onevent="onblur"/>
+					<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,120})" />
+				</h:inputSecret>
+				<h:message for="password" id="outputPassword" style="color:red" />
+				<h:commandButton value="Login" actionListener="#{user.login}"></h:commandButton>
+			
+			</h:panelGrid>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>
