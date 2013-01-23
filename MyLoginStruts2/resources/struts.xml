@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+
+	<package name="default" extends="struts-default" namespace="/">
+		<action name="login" class="struts2.LoginAction">
+			<result name="input">Login.jsp</result>
+			<result name="success">Welcome.jsp</result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="register" class="struts2.RegisterAction">
+			<result name="success">Login.jsp</result>
+			<result name="input">Register.jsp</result>
+			<result name="error">Register.jsp</result>
+		</action>
+		<action name="list" class="struts2.ListAction">
+			<result name="success">List.jsp</result>
+			<result name="error">Login.jsp</result>
+		</action>
+	</package>
+</struts>
