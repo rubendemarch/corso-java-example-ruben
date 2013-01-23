@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13581516510160" configfile="/myJsf/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="WEB-INF/templates/subHeader.xhtml" id="pf13583266809164" referenceLink="//@navigationRule.2/@fromViewId|" path="/WEB-INF/templates/subHeader.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/logout.xhtml" x="168" y="192" id="pf13583266809167" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" path="/pages/logout.xhtml"/>
-</pageflow:Pageflow>
